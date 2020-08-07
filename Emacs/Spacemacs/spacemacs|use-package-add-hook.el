@@ -1,0 +1,1 @@
+(spacemacs|use-package-add-hook org :post-config (require 'ox-twbs))

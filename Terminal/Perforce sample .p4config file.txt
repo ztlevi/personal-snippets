@@ -1,0 +1,8 @@
+https://www.perforce.com/blog/p4ignore-ignorance-bliss
+---
+
+P4CLIENT=<Perforce Client Name ex:ALEX_SYSTEM_SW_DEV_GIT>
+P4USER=<Perforce ID ex:alex.jang>
+P4PORT=<Perfoce IP/Port ex:165.213.202.46:1716>
+P4PASSWD=<Perforce Password>
+P4IGNORE=$home/.p4ignore;.gitignore;.p4ignore;

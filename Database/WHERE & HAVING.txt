@@ -1,0 +1,4 @@
+SELECT *
+FROM <table name>
+[WHERE <filter condition>]
+[HAVING <filter on aggregate column>]

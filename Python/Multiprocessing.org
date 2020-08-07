@@ -1,0 +1,235 @@
+* Multiprocessing
+** Introduction
+#+BEGIN_SRC python :results output
+import time
+import multiprocessing
+
+def calc_square(numbers):
+    for n in numbers:
+        print('square ' + str(n*n))
+
+def calc_cube(numbers):
+    for n in numbers:
+        print('cube ' + str(n*n*n))
+
+if __name__ == "__main__":
+    arr = [2,3,8]
+    p1 = multiprocessing.Process(target=calc_square, args=(arr,))
+    p2 = multiprocessing.Process(target=calc_cube, args=(arr,))
+
+    p1.start()
+    p2.start()
+
+    p1.join()
+    p2.join()
+
+    print("Done!")
+
+#+END_SRC
+
+#+RESULTS:
+: square 4
+: square 9
+: square 64
+: cube 8
+: cube 27
+: cube 512
+: Done!
+
+** Value array
+
+#+BEGIN_SRC python :results output
+import multiprocessing
+
+def calc_square(numbers, result, v):
+    v.value = 5.67
+    for idx, n in enumerate(numbers):
+        result[idx] = n*n
+
+if __name__ == "__main__":
+    numbers = [2,3,5]
+    result = multiprocessing.Array('i',3)
+    v = multiprocessing.Value('d', 0.0)
+    p = multiprocessing.Process(target=calc_square, args=(numbers, result, v))
+
+    p.start()
+    p.join()
+
+    print(v.value)
+#+END_SRC
+
+#+RESULTS:
+: 5.67
+
+
+** Queue pipe
+#+BEGIN_SRC python :results output
+import multiprocessing
+
+def calc_square(numbers, q):
+    for n in numbers:
+        q.put(n*n)
+
+if __name__ == "__main__":
+    numbers = [2,3,5]
+    q = multiprocessing.Queue()
+    p = multiprocessing.Process(target=calc_square, args=(numbers,q))
+
+    p.start()
+    p.join()
+
+    while q.empty() is False:
+        print(q.get())
+#+END_SRC
+
+#+RESULTS:
+: 4
+: 9
+: 25
+
+** Lock
+#+BEGIN_SRC python :results output
+import time
+import multiprocessing
+
+def deposit(balance, lock):
+    for i in range(100):
+        time.sleep(0.01)
+        lock.acquire()
+        balance.value = balance.value + 1
+        lock.release()
+
+def withdraw(balance, lock):
+    for i in range(100):
+        time.sleep(0.01)
+        lock.acquire()
+        balance.value = balance.value - 1
+        lock.release()
+
+if __name__ == '__main__':
+    balance = multiprocessing.Value('i', 200)
+    lock = multiprocessing.Lock()
+    d = multiprocessing.Process(target=deposit, args=(balance,lock))
+    w = multiprocessing.Process(target=withdraw, args=(balance,lock))
+    d.start()
+    w.start()
+    d.join()
+    w.join()
+    print(balance.value)
+#+END_SRC
+
+#+RESULTS:
+: 200
+
+** Pool
+#+BEGIN_SRC python :results output
+from multiprocessing import Pool
+
+
+def f(n):
+    return n*n
+
+if __name__ == "__main__":
+    p = Pool(processes=3)
+    result = p.map(f,[1,2,3,4,5])
+    for n in result:
+        print(n)
+#+END_SRC
+
+#+RESULTS:
+: 1
+: 4
+: 9
+: 16
+: 25
+
+** Producer Consumer
+In the following example, the Consumer and Producer threads runs indefinitely while checking the status of the queue. The Producer thread is responsible for putting items into the queue if it is not full while the Consumer thread consumes items if there are any.
+
+#+BEGIN_SRC python :results output
+import logging
+import queue
+import random
+import threading
+import time
+
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='(%(threadName)-9s) %(message)s',
+)
+
+BUF_SIZE = 10
+q = queue.Queue(BUF_SIZE)
+
+
+class ProducerThread(threading.Thread):
+    def __init__(self,
+                 group=None,
+                 target=None,
+                 name=None,
+                 args=(),
+                 kwargs=None,
+                 verbose=None):
+        super(ProducerThread, self).__init__()
+        self.target = target
+        self.name = name
+
+    def run(self):
+        while True:
+            if not q.full():
+                item = random.randint(1, 10)
+                q.put(item)
+                logging.debug('Putting ' + str(item) + ' : ' + str(q.qsize()) +
+                              ' items in queue')
+                time.sleep(random.random())
+        return
+
+
+class ConsumerThread(threading.Thread):
+    def __init__(self,
+                 group=None,
+                 target=None,
+                 name=None,
+                 args=(),
+                 kwargs=None,
+                 verbose=None):
+        super(ConsumerThread, self).__init__()
+        self.target = target
+        self.name = name
+        return
+
+    def run(self):
+        while True:
+            if not q.empty():
+                item = q.get()
+                logging.debug('Getting ' + str(item) + ' : ' + str(q.qsize()) +
+                              ' items in queue')
+                time.sleep(random.random())
+        return
+
+
+if __name__ == '__main__':
+
+    p = ProducerThread(name='producer')
+    c = ConsumerThread(name='consumer')
+
+    p.start()
+    time.sleep(2)
+    c.start()
+    time.sleep(2)
+#+END_SRC
+
+#+RESULTS:
+: (producer ) Putting 4 : 1 items in queue
+: (producer ) Putting 10 : 2 items in queue
+: (producer ) Putting 6 : 3 items in queue
+: (producer ) Putting 10 : 4 items in queue
+: (producer ) Putting 9 : 5 items in queue
+: (consumer ) Getting 4 : 4 items in queue
+: (producer ) Putting 4 : 5 items in queue
+: (consumer ) Getting 10 : 4 items in queue
+: (producer ) Putting 5 : 5 items in queue
+: (producer ) Putting 1 : 6 items in queue
+: (consumer ) Getting 6 : 5 items in queue
+: (producer ) Putting 9 : 6 items in queue
+

@@ -1,0 +1,11 @@
+https://github.com/hakimel/reveal.js#configuration
+---
+
+---
+title: Foobar
+separator: <!--s-->
+verticalSeparator: <!--v-->
+theme: solarized
+revealOptions:
+    transition: 'slide'
+---

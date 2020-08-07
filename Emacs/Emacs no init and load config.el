@@ -1,0 +1,1 @@
+eemacs --no-init-file --load CONFIG

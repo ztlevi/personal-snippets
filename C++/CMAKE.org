@@ -1,0 +1,196 @@
+* CMAKE
+:PROPERTIES:
+:CUSTOM_ID: cmake
+:END:
+
+** Compilation database
+:PROPERTIES:
+:CUSTOM_ID: compilation-database
+:END:
+
+To make these tools aware of project specific build settings, you need a
+JSON
+[[https://sarcasm.github.io/notes/dev/compilation-database.html#ninja][compilation
+database]] present (i.e. a =compile_commands.json= file).
+
+There are
+[[https://sarcasm.github.io/notes/dev/compilation-database.html][many
+ways to generate one]]. I use [[http://www.cmake.org/][CMake]] and
+[[https://github.com/rizsotto/Bear][bear]]:
+
+#+BEGIN_EXAMPLE
+    # For CMake projects
+    cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON .
+
+    # For non-CMake projects
+    make clean
+    bear make
+#+END_EXAMPLE
+
+#+BEGIN_EXAMPLE
+    Use ~M-x +cc/reload-compile-db~ to reload your compile db in an already-open
+    C/C++/ObjC buffer.
+#+END_EXAMPLE
+
+** Set compiler
+Sometimes you might need to use a different version of a default compiler (like gcc) or a different compiler (like Intel compiler) to build your code. Specifying this is easy in CMake. Add these lines to your CMakeLists.txt:
+
+#+BEGIN_SRC cmake
+SET(CMAKE_C_COMPILER /path/to/c/compiler)
+SET(CMAKE_CXX_COMPILER /path/to/cpp/compiler)
+#+END_SRC
+** set variable
+#+BEGIN_SRC cmake
+set(MY_VARIABLE "I am a variable")
+message(STATUS "The variable value is: ${MY_VARIABLE}")
+#+END_SRC
+
+** Control flow and auto-deferencing
+#+BEGIN_SRC cmake
+set(MY_VARIABLE "I am a variable")
+message(STATUS "The variable value is: ${MY_VARIABLE}")
+
+if ("FALSE")
+  message(STATUS "Condition was met")
+else()
+  message(STATUS "Conditional failed")
+endif()
+
+
+
+set(MY_STRING "This is a string")
+set(MY_OTHER_STRING "This is another string")
+set(my_value 3)
+
+if (NOT (MY_STRING STREQUAL MY_OTHER_STRING) AND ("1" EQUAL my_value))
+  message(STATUS "Condition was met")
+elseif(MY_OTHER_STRING MATCHES "string$")
+  message(STATUS "Variable ends with the word 'string'")
+else()
+  message(STATUS "Conditional failed")
+endif()
+
+
+while(my_value LESS 50)
+  message(STATUS "VALUE is ${my_value}")
+  math(EXPR my_value "${my_value} + 1")
+endwhile()
+
+foreach(item IN ITEMS foo barr baz qux)
+  message(STATUS "Item is: ${item}")
+endforeach()
+
+foreach(idx RANGE 0 100 5)
+  message(STATUS "Index is: ${idx}")
+endforeach()
+#+END_SRC
+** set_property
+#+BEGIN_SRC cmake
+set(my_list 1 2 3)
+# DIRECTORY should use get_property
+set(target DIRECTORY "${PROJECT_SOURCE_DIR}")
+set_property(
+  ${target}
+  PROPERTY FOO
+  "${my_list}"
+  )
+
+get_property(foo_value ${target} PROPERTY FOO)
+message(STATUS "Value of FOO is ${foo_value}")
+
+
+set_property(
+  GLOBAL
+  PROPERTY BOO
+  1
+  2
+  3
+  )
+get_cmake_property(boo_value BOO)
+message(STATUS "Value of BOO is ${boo_value}")
+#+END_SRC
+
+** Functions
+#+BEGIN_SRC cmake
+function (do_cmake_good first_arg)
+  message(STATUS "You called the function with the argument ${first_arg}!")
+endfunction()
+
+do_cmake_good(1)
+do_cmake_good(2)
+do_cmake_good(3)
+
+
+function(do_cmake_good first second third)
+  foreach(arg IN LISTS ARGN) # &rest arugments
+    message(STATUS "Got ARGN argument: ${arg}")
+  endforeach()
+  foreach(arg IN LISTS ARGV) # all arguments
+    message(STATUS "Got ARGV argument: ${arg}")
+  endforeach()
+endfunction()
+
+do_cmake_good(1 2 3 4 5 6 7 8 9)
+#+END_SRC
+** Scope
+#+BEGIN_SRC cmake
+function(do_cmake_good)
+  message(STATUS "Value of global var is: ${MY_GLOBAL_VAR}")
+
+  set(MY_GLOBAL_VAR 12)
+  # set(MY_GLOBAL_VAR 12 PARENT_SCOPE)
+  message(STATUS "Value of scope var is: ${MY_GLOBAL_VAR}")
+endfunction()
+
+set(MY_GLOBAL_VAR Meow)
+
+do_cmake_good()
+
+message(STATUS "Value of global var is: ${MY_GLOBAL_VAR}")
+
+
+function(increment var)
+  math(EXPR new_value "${${var}} + 1")
+  set("${var}" "${new_value}" PARENT_SCOPE)
+endfunction()
+
+set(value 10)
+increment(value)
+message(STATUS "Final value is ${value}")
+
+
+function(sum out a b)
+  math(EXPR ret "${a} + ${b}")
+  set("${out}" "${ret}" PARENT_SCOPE)
+endfunction()
+
+sum(value 3 5)
+message(STATUS "Final value is ${value}")
+#+END_SRC
+
+** add_library types
+:PROPERTIES:
+:CUSTOM_ID: add_library-types
+:END:
+
+=STATIC=, =SHARED=, or =MODULE= may be given to specify the type of
+library to be created. =STATIC= libraries are archives of object files
+for use when linking other targets. =SHARED= libraries are linked
+dynamically and loaded at runtime. =MODULE= libraries are plugins that
+are not linked into other targets but may be loaded dynamically at
+runtime using dlopen-like functionality. If no type is given explicitly
+the type is =STATIC= or =SHARED= based on whether the current value of
+the variable
+[[https://cmake.org/cmake/help/v3.12/variable/BUILD_SHARED_LIBS.html#variable:BUILD_SHARED_LIBS][=BUILD_SHARED_LIBS=]]
+is =ON=. For =SHARED= and =MODULE= libraries the
+[[https://cmake.org/cmake/help/v3.12/prop_tgt/POSITION_INDEPENDENT_CODE.html#prop_tgt:POSITION_INDEPENDENT_CODE][=POSITION_INDEPENDENT_CODE=]]
+target property is set to =ON= automatically. A =SHARED= or =STATIC=
+library may be marked with the
+[[https://cmake.org/cmake/help/v3.12/prop_tgt/FRAMEWORK.html#prop_tgt:FRAMEWORK][=FRAMEWORK=]]
+target property to create an OS X Framework.
+
+If a library does not export any symbols, it must not be declared as a
+=SHARED= library. For example, a Windows resource DLL or a managed
+C++/CLI DLL that exports no unmanaged symbols would need to be a
+=MODULE= library. This is because CMake expects a =SHARED= library to
+always have an associated import library on Windows.

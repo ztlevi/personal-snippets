@@ -1,0 +1,4 @@
+List all enabled services
+```shell
+systemctl list-unit-files | grep enabled
+```

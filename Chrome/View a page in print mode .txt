@@ -1,0 +1,5 @@
+To view a page in print mode:
+
+Open the Command Menu.
+Start typing `Rendering` and select `Show Rendering`.
+For the Emulate CSS Media dropdown, select print.

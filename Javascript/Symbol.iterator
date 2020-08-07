@@ -1,0 +1,30 @@
+The Symbol.iterator well-known symbol specifies the default iterator for an object. Used by for...of.
+
+```
+const arr = [1, 2, 3];
+
+const iterator = arr[Symbol.iterator]();
+console.log(iterator.next()); // {value: 1, done: false}
+```
+
+User-defined iterables
+We can make our own iterables like this:
+
+```js
+var myIterable = {}
+myIterable[Symbol.iterator] = function* () {
+    yield 1;
+    yield 2;
+    yield 3;
+};
+[...myIterable] // [1, 2, 3]
+```
+
+Non-well-formed iterables
+If an iterable's @@iterator method does not return an iterator object, then it is a non-well-formed iterable. Using it as such is likely to result in runtime exceptions or buggy behavior:
+
+```js
+var nonWellFormedIterable = {}
+nonWellFormedIterable[Symbol.iterator] = () => 1
+[...nonWellFormedIterable] // TypeError: [] is not a function
+```

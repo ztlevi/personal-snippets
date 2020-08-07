@@ -1,0 +1,206 @@
+#+TITLE: Org Tutorial
+* Cycling
+
+1. Tab: toggle current headline
+2. S-Tab: globally toggle headlines
+
+* Headline movement
+
+| Key Bindings | Description                                                    |
+|--------------+----------------------------------------------------------------|
+| C-<return>   | Insert heading respect current content below                   |
+| M-<right>/l  | Demote heading, list item at point or move table column right. |
+| M-<left>/h   | Promote heading, list item at point or move table column left. |
+| M-<up>/k     | Move subtree or table row up                                   |
+| M-<down>/j   | Move subtree or table row down                                 |
+
+* E01S01 - Concept: Headlines - Outline mode
+Every headline starts with one or more ~*~
+** Local visibility cycling with ~tab~
+** Global visibility cycling with ~shift tab~
+
+** Increase or decrease level with ~Alt ->~ or ~Alt <-~, Evil normal mode ~> >~ or ~< <~
+
+** Move up/ down within a level with ~Alt ↑~ or ~Alt ↓~
+
+** Move a headline under another top level headline: Cursor on the headline and then ~Ctrl-c Ctrl-w~
+
+* E01S02 - Concept: TODO keywords
+In doom emacs:
+#+BEGIN_SRC emacs-lisp
+(setq-default org-todo-keywords
+              '((sequence "[ ](t)" "[-](p)" "[?](m)" "|" "[X](d)")
+                (sequence "TODO(T)" "|" "DONE(D)")
+                (sequence "NEXT(n)" "WAITING(w)" "LATER(l)" "|" "CANCELLED(c)")))
+#+END_SRC
+
+** Cycling through them with ~shift ->~ or ~shift <-~
+
+** TODO Move keywords can be defined with a line
+#+SET_TODO:
+Items left of | are TODO items (red)
+Items right of | are DONE items (green)
+
+#+SET_TODO: NEXT(n) TODO(t) WAITING(w) SOMEDAY(s) | DONE(d) CANCELLED(c)
+
+Note: Activate config line with ~Ctrl-c Ctrl-c~
+
+** Get a menu of all keywords: ~Ctrl-c Ctrl-t~ or ~SPC m t~
+
+* E01S03 - Concept: Schedule, deadline & agenda view
+At the moment we have a list without schecule
+
+** Scheduling is done with ~Ctrl-c Ctrl-s~
+
+** Deadlines are defined with ~Ctrl-c Ctrl-d~
+
+** Switch to agenda view with ~SPC o a~
+
+** Follow mode with ~shift f~
+
+** Move forward with ~f~ (org-agenda-later) or backward with ~b~ (org-agenda-earlier)
+
+* E01S04 - Concept: Repeating tasks
+Some tasks occur frequently, so we should schedule them frequently.
+
+To schedule a repeating task you need to modify the timestamp. <2016-06-11 Sa repeat>
+
+The term *repeat* can be:
+** ~+1w~ Next occurence in one week. (w=week, d=day, m=month, y=year)
+** ~++1w~ Next occurence on the same day of week, but definitely in the future.
+** ~.+4w~ Next occurence 4 weeks after the task is marked as done.
+
+** TODO [#B] GYM
+SCHEDULED: <2020-01-10 Fri 14:08 .+2d>
+- State "DONE"       from "TODO"       [2020-01-08 Wed 14:08]
+** TODO [#C] Practice Guitar
+SCHEDULED: <2019-09-13 Fri 18:55 .+2d>
+** TODO Code review
+SCHEDULED: <2019-09-12 Thu 14:00 ++1w>
+** TODO Weekly Project Review
+SCHEDULED: <2019-09-16 Mon 14:00 ++1w>
+** TODO ZeroChaos payment timesheet
+SCHEDULED: <2019-09-13 Fri ++1w>
+
+* E01S05 - Concept: Checklists
+Checklists provide a simple "checkoff" list
+
+** Checklists start with
+- [] Text for checkitem
+
+** New checklist lines can be added with ~Alt shift enter~
+
+** You can see the completion of the checklist with [/] or [%] on the headline
+
+** Checkboxes are toggled with ~Ctrl-c Ctrl-c~
+
+Example:
+** Try [1/2]
+- [ ] first thing
+- [X] second thing
+
+* E02S01 - Concept: Tags :NEW:PHONE:
+Tags can be added to headlines and are often used as a way to mark GTD contexts.
+
+Tags can be predefined with a line
+#+TAGS: PHONE(o) COMPUTER(c) ...
+at the beginning of the file
+
+To assign tags to a headline use ~Ctrl-c Ctrl-c~
+
+If you have predefined tags with keys assigned, you see a menu, but you still can enter free tags by
+pressing ~tab~. Finish definition with ~Enter~.
+
+* E02S02 - Function: Agenda mode (advanced)
+
+Agenda selection menu with ~SPC o a~
+
+** ~a~ Agenda for current week or day
+** ~shift l~ timeline for current buffer
+** ~t~ list all TODO entries
+** ~shift t~ entries with a special TODO keyword
+** ~m~ Matching tags / properties / TODO keywords
+** ~shift m~ Like before, but only TODO entries
+** ~s~ Search for keywords
+
+* E02S03 - Function: Customized agenda views
+
+Agenda selection menu with ~SPC o a~
+
+** ~shift c~ Edit custom agenda views
+
+We want to create view that shows the urgent tasks and the phone calls in our file.
+
+[INS] Buttons insert new rules
+[DEL] Buttons delete new rules
+
+At the end press [Apply ans Save]
+
+* E02S04 - Concept: Drawers, Function: Logging, quick notes
+** Drawers start with a line ~:DRAWERNAME:~ and end with the next line that says ~:END:~. Everything between those lines is hidden when the drawer is closed. Open/close it with ~tab~.
+
+:DRAWER1:
+- hello
+:END:
+
+** Reversed drawer names are e.g. ~:LOGBOOK:~ or ~:PROPERTIES:~
+
+** Customize **org-log-into-drawer** to LOGBOOK. (Menu Options/Customize Emacs/Specific option)
+
+** Take quick notes with ~Ctrl-c Ctrl-z~
+*** Time Management [1/2]
+- [X] Day 1: Brain dump, write everything down
+- [ ] Day 2: Split larger tasks into smaller tasks
+:LOGBOOK:
+- Note taken on [2018-12-27 Thu 20:58] \\
+  Brain storming a lot of ML stuff.
+:END:
+
+:PEOPLE:
+- PHB:
+- Dilbert
+- Wally
+:END:
+
+** Finish and store the note with ~Ctrl-c Ctrl-c~
+
+* E02S05 - Function: Archiving
+
+Finished tasks clutter up your org file, so its time to move them out of the way.
+
+Define a global archive file with
+#+ARCHIVE: filename.org::
+
+Archive an entry with ~Ctrl-c Ctrl-x Ctrl-a~
+
+Archive a subtree with ~Ctrl-c Ctrl-x Ctrl-s~
+
+Search all subtrees under a headline and see which one can be archived with this key ~Ctrl-u Ctrl-c
+Ctrl-x Ctrls~
+
+* E03S01 - Function: Automatic logging of status changes
+** Goal: Get a logbook entry whenever a TODO keyword changes
+
+#+SEQ_TODO: TODO(t@/!/)
+    t-hotkey assigned to that TODO keyword
+    @-log a timestamp and a note when this is entered
+    !-log a timestamp when you leave that keyword
+
+** Goal: Log a "CLOSED" timestamp when sonething is done
+Cutomize variable `org-log-done`
+
+** Goal: Log a note with a timestamp every time something is rescheduled
+Customize variable `org-log-reschedule`
+
+* E03S01 - Concept: Splitting your system up into several files
+
+** Goal: Instead of on file for all we want to have one for the private things and one for work
+
+** Procedure:
+- Customize ~org-agenda-files~ so that both files are used to generate the agenda views.
+- Customize refile function (fine tuning)
+  - ~org-refile-targets~
+  - ~org-refile-use-outline-path~
+  - ~org-refile-allow-creating-parent-nodes~
+- Move entries with ~Ctrl-c Ctrl-w~
+- Copy entries with ~Ctrl-c Alt-w~

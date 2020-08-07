@@ -1,0 +1,1 @@
+M-x:global-set=key 按下ctrl-tab键，然后输入你想绑定的命令 然后按下C-x esc esc 你会发现minibuffer 你把你上一条执行的命令给显示出来

@@ -1,0 +1,2 @@
+Vscode: Alt + Mouse left click
+Intellij: Alt + Shift + Mouse left click

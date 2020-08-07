@@ -1,0 +1,171 @@
+#+TITLE: Python_concurrent_&_asyncio
+* Web query
+** Pure python version without anything
+#+BEGIN_SRC python :results output
+import time
+import requests
+
+NUMBERS = range(12)
+URL = 'http://httpbin.org/get?a={}'
+
+# 获取网络请求结果
+def fetch(a):
+    r = requests.get(URL.format(a))
+    return r.json()['args']['a']
+
+# 开始时间
+start = time.time()
+
+for num in NUMBERS:
+    result = fetch(num)
+    print('fetch({}) = {}'.format(num, result))
+# 计算花费的时间
+print('cost time: {}'.format(time.time() - start))
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+fetch(0) = 0
+fetch(1) = 1
+fetch(2) = 2
+fetch(3) = 3
+fetch(4) = 4
+fetch(5) = 5
+fetch(6) = 6
+fetch(7) = 7
+fetch(8) = 8
+fetch(9) = 9
+fetch(10) = 10
+fetch(11) = 11
+cost time: 2.464207887649536
+#+end_example
+
+** Version with MultiThreading
+#+BEGIN_SRC python :results output
+import time
+import requests
+from concurrent.futures import ThreadPoolExecutor
+
+NUMBERS = range(12)
+URL = 'http://httpbin.org/get?a={}'
+
+def fetch(a):
+    r = requests.get(URL.format(a))
+    return r.json()['args']['a']
+
+start = time.time()
+# 使用线程池（使用5个线程）
+with ThreadPoolExecutor(max_workers=5) as executor:
+  # 此处的map操作与原生的map函数功能一样
+    for num, result in zip(NUMBERS, executor.map(fetch, NUMBERS)):
+        print('fetch({}) = {}'.format(num, result))
+print('cost time: {}'.format(time.time() - start))
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+fetch(0) = 0
+fetch(1) = 1
+fetch(2) = 2
+fetch(3) = 3
+fetch(4) = 4
+fetch(5) = 5
+fetch(6) = 6
+fetch(7) = 7
+fetch(8) = 8
+fetch(9) = 9
+fetch(10) = 10
+fetch(11) = 11
+cost time: 0.6791379451751709
+#+end_example
+
+** Asyncio version
+#+BEGIN_SRC python :results output
+import asyncio
+import aiohttp
+import time
+import tqdm
+
+NUMBERS = range(12)
+URL = 'http://httpbin.org/get?a={}'
+# 这里的代码不理解没关系
+# 主要是为了证明协程的强大
+async def fetch_async(a):
+    async with aiohttp.request('GET', URL.format(a)) as r:
+        data = await r.json()
+    return data['args']['a']
+
+async def main_task(tasks):
+    results = [await res for res in tqdm.tqdm(asyncio.as_completed(tasks), total=len(tasks))]
+    return results
+
+start = time.time()
+loop = asyncio.get_event_loop()
+tasks = [fetch_async(num) for num in NUMBERS]
+# results = loop.run_until_complete(asyncio.gather(*tasks))
+
+# Note: You can query labels for specific label_request
+# e.g. `label_records = get_signal_face_labels(label_request="LBLREQ-461")`
+# label_records: List[Mapping[str, Any]] = get_signal_face_labels_async(label_request="LBLREQ-461")
+results = loop.run_until_complete(asyncio.gather(main_task(tasks)))
+results = results[0]
+
+
+for num, results in zip(NUMBERS, results):
+    print('fetch({}) = {}'.format(num, results))
+print('cost time: {}'.format(time.time() - start))
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+fetch(0) = 1
+fetch(1) = 5
+fetch(2) = 3
+fetch(3) = 8
+fetch(4) = 4
+fetch(5) = 9
+fetch(6) = 0
+fetch(7) = 6
+fetch(8) = 11
+fetch(9) = 10
+fetch(10) = 7
+fetch(11) = 2
+cost time: 0.2796604633331299
+#+end_example
+
+
+** Parallelize web query
+You can use ~starmap~ to map tuple type iterator here.
+
+#+BEGIN_SRC python :results output
+from multiprocessing import Pool
+def get_query(params: Mapping[str, int], base: str, session: requests.sessions.Session) -> Mapping[str, Any]:
+    """Request the query to fetch Blinky labels by page."""
+    r = session.get(format_parameters(base, params))
+    try:
+        j = r.json()
+    except json.JSONDecodeError:
+        print("There was an error!")
+        return {}
+    return j
+
+
+def get_labels(**kwargs) -> Sequence[Any]:
+    """Get the label from blinky."""
+    url = blinky_base + "signal_face_labels"
+    query_params = {"page": 0, **kwargs}
+
+    j = get_query(query_params, url, session=session)
+    total_pages = j["total_pages"]
+    queries = [{**query_params, **{"page": page}} for page in range(total_pages)]
+
+    f = partial(get_query, base=url, session=session)
+    output: List[Any] = []
+    with Pool(16) as p:
+        for content in tqdm(p.imap_unordered(f, queries), total=total_pages):
+            output += content["content"]
+    return output
+
+#+END_SRC
+
+#+RESULTS:

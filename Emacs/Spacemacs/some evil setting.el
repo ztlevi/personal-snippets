@@ -1,0 +1,14 @@
+-   ;; If non-nil `Y' is remapped to `y$' in Evil states. (default nil)
+-   dotspacemacs-remap-Y-to-y$ nil
+-
+-   ;; If non-nil, the shift mappings `<' and `>' retain visual state if used
+-   ;; there. (default t)
+-   dotspacemacs-retain-visual-state-on-shift t
+-
+-   ;; If non-nil, `J' and `K' move lines up and down when in visual mode.
+-   ;; (default nil)
+-   dotspacemacs-visual-line-move-text nil
+-
+-   ;; If non-nil, inverse the meaning of `g' in `:substitute' Evil ex-command.
+-   ;; (default nil)
+-   dotspacemacs-ex-substitute-global nil

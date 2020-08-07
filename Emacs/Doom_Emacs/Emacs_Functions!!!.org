@@ -1,0 +1,236 @@
+* M-x to call functions
+** Find functions
+   e.g. Find clean up white space
+   - ~C-h f/SPC h f~: find function
+   - ~C-h v/SPC h v~: find variable
+** Which key
+   - ~SPC f~: file related
+   - ~SPC t~: toggle
+   - ~SPC b~: buffer related
+   - ~SPC s~: search related
+
+* Ranger & Deer
+  - ranger preview
+  - Copy, Cut, Paste
+  - Hide detail with (
+** Treemacs
+   - ~SPC o p~: toggle treemacs
+* Theme
+  - counsel-load-theme
+  - Font
+
+* Navigation
+  - Window Management
+  - Maximum window ~SPC w o~
+  - Avy: jump char, jump line, jump url
+  - +ivy/jump-list: ~SPC / j~
+
+* Editing
+** Evil (Vim)
+   - Visual block
+     Add parentheses
+     Add parentheses
+     Add parentheses
+     Add parentheses
+
+   Moving block
+
+   | Segment 0              | Segment 1                |
+   | ---------------------- | ------------------------ |
+   | Scenario: parkingLot   | Scenario: local_freeFlow |
+   | Start time: 0          | Start time: 51           |
+   | End time: 50           | End time: 81             |
+   | Time period length: 51 | Time period length: 31   |
+   | datalogger length: 510 | datalogger length: 310   |
+   | bioharness length: 510 | bioharness length: 310   |
+   | shimmer length: 510    | shimmer length: 310      |
+   | Segment 0              | Segment 1                |
+
+   Segment 2             |
+   --------------------- |
+   Scenario: ramp        |
+   Start time: 82        |
+   End time: 90          |
+   Time period length: 9 |
+   datalogger length: 90 |
+   bioharness length: 90 |
+   shimmer length: 90    |
+   Segment 2             |
+
+   #+REVEAL: split
+   - Selection: e.g. dw, diw, dit, yw, dib, dab, da(, da[, da{
+   {fdsf ( fsdfds  ) fsdfs}
+   {fsdfds}
+   [fsdf]
+
+   - Search / replace
+   - Surround: visual mode
+   - Macro
+     If the missing part should land at the very end, press ~Qq~, add the missing part and stop recording as usual, by pressing q.
+
+     If you need to fine-tune the whole macro, print it with ~"qp~.
+
+     Edit it with ~kmacro-edit-macro(SPC o m)~. Call macro by ~{count}s-m~, ~s-m~ has mapped to ~call-last-kbd-macro~
+
+   - Jump forward/backward
+   - Generate similar lines: Line selection and invoke with ~:!python3~
+
+for i in range(8):
+    print(f"hello world: this is #{i}")
+
+** Multi Cursor
+   - ~M-d~: mark next like this
+   - select text in visual mode, then type ~R~ to mark all. Toggle it by ~RET~.
+
+* Search & Replace
+** swiper
+** rg, ag, pt, grep
+   - ~C-c C-o~ ivy-occur
+   - ~C-c C-e~ to edit
+* Magit
+  - Stage & unstage, preview
+  - Checkout pull-request
+  - Rebase
+  - ? to show commands
+** Magithub
+   - View CI status
+   - PR, issue section in Magit (slow now)
+   - Submit an issue or PR
+** More about github
+   - ~SPC g h o~: browse at remote
+   - ~SPC g M~: git Messenger, o to open in browser
+   - ~SPC o g~: git time machine
+
+* Toggle
+  - ~SPC t l~: toggle line number
+
+* Coding
+** Eval code:
+   #+BEGIN_SRC python
+     import plotly.figure_factory as ff
+     import plotly.offline as offline
+     import collections
+
+     def test_draw_table():
+         table_data = [['Team', 'Wins', 'Losses', 'Ties'], [
+             'Montréal<br>Canadiens', 18, 4, 0
+         ], ['Dallas Stars', 18, 5,
+             0], ['NY Rangers', 16, 5, 0], ['Boston<br>Bruins', 13, 8,
+                                            0], ['Chicago<br>Blackhawks', 13, 8, 0],
+                       ['LA Kings', 13, 8, 0], ['Ottawa<br>Senators', 12, 5, 0]]
+
+         figure = ff.create_table(table_data)
+         offline.plot(figure)
+
+
+     test_draw_table()
+
+     for i in range(10):
+         print(f'print line {i}')
+
+     dic = collections.defaultdict(list)
+   #+END_SRC
+
+   #+RESULTS:
+
+** Find Definition
+   - ~gd~: find definition
+   - ~SPC f d~: Dash/zeal search at point
+** Flycheck
+   - ~SPC e l~: flycheck list
+** Yasnippet
+   - ~SPC s t~: list snippets of the current major mode
+** Imenu
+   - ~SPC o i~
+
+** Prodigy
+   - ztlevi-misc/post-init-prodigy
+
+* Org & Markdown
+** Org eval
+   - Python Test Script
+     use ~C-c C-c~ to eval the code block
+
+     #+BEGIN_SRC python :results output
+for i in range(10):
+    print(i)
+     #+END_SRC
+
+     #+RESULTS:
+
+     #+BEGIN_SRC python :results output
+import matplotlib.pyplot as plt
+plt.plot([1,2,3,4])
+plt.ylabel('some numbers')
+plt.show()
+     #+END_SRC
+
+** ~C-c '~ to edit block, ~C-c C-e~ to export
+** ~Tab~ to toggle header, ~S-Tab~ to globally toggle
+** Table and lists
+   - ~o~: org open below
+   - ~O~: org open above
+     #+BEGIN_SRC markdown
+       # <2017-10-01 Sun>
+       3. SystemDesign/System.md
+       1. Surrounded Regions
+       2. Phone number combination
+     #+END_SRC
+   - table: auto indent
+     | id | name |
+     |----+------|
+     |    |      |
+** Reveal.js
+** flyit-md
+   - ~SPC a F~
+** GTD: Get things done
+   - ~SPC a o a~: org agenda list
+
+* Dictionary
+  - ~SPC o y~: youdao dict
+  - C-;:flyspell correct
+  - Google dict available
+* Utilities
+** Text Align
+   - ~SPC x a r~
+   - ~SPC x a~:
+     (jabber-activity-face :foreground red :bold bold)
+     (jabber-activity-personal-face :foreground blue :bold bold)
+     (jabber-chat-error :foreground red :bold bold)
+     (jabber-chat-prompt-foreign :foreground red :bold bold)
+     (jabber-chat-prompt-local :foreground blue :bold bold)
+     (jabber-chat-prompt-system :foreground green :bold bold)
+
+** Region Expand
+   - ~SPC v~: v to expand, V to contract
+** Rainbow Mode
+   /Users/ztlevi/Developer/Github/TRI_demo/app/styles/main.css
+** Paste history
+   - ~SPC o k~: kill-ring
+
+* Layout
+  - ~SPC l~
+  - ?: toggle helo
+  - Tab: eyebrowse package
+
+* Buffer
+  - ~SPC TAB~: last buffer
+  - ~SPC b b~: recent buffers
+  - ~SPC b I~: ibuffer
+** Bookmark
+   - ~SPC f b~
+
+* Terminal
+  - ~SPC '~: toggle term
+  - ~! !~: output the shell command results
+
+* Web Services
+** Atomic-chrome
+   atomic-chrome-url-major-mode-alist: define different modes for different domain, e.g. open in python mode when edit on Leetcode.com
+** helm github stars
+** Blog
+** Calculator
+** Calendar
+
+* Media player, Browser
+* Stackoverflow, Stack Exchange, Slack, RSS, Email, Reddit

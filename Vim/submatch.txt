@@ -1,0 +1,23 @@
+" decrement numbers by 3
+:%s/\d\+/\=(submatch(0)-3)/
+
+" increment selected region's number by 2
+:'<,>'s/\d\+/\=submatch(0)+2/g
+
+my_array[1] = 0;
+my_array[2] = 0;
+my_array[3] = 0;
+my_array[4] = 0;
+my_array[5] = 0;
+my_array[6] = 0;
+my_array[7] = 0;
+
+=>
+
+my_array[3] = 2;
+my_array[4] = 2;
+my_array[5] = 2;
+my_array[6] = 2;
+my_array[7] = 2;
+my_array[8] = 2;
+my_array[9] = 2;
