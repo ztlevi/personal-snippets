@@ -29,13 +29,13 @@ def binary_search(arr, target):
             right = mid - 1
     return -1
 
-print(binary_search([1, 2, 3, 10], 1) == 0)
-print(binary_search([1, 2, 3, 10], 2) == 1)
-print(binary_search([1, 2, 3, 10], 3) == 2)
-print(binary_search([1, 2, 3, 10], 10) == 3)
-print(binary_search([1, 2, 3, 10], 9) == -1)
-print(binary_search([1, 2, 3, 10], 4) == -1)
-print(binary_search([1, 2, 3, 10], 0) == -1)
-print(binary_search([1, 2, 3, 10], 11) == -1)
-print(binary_search([5, 7, 8, 10], 3) == -1)
+assert binary_search([1, 2, 3, 10], 1) == 0
+assert binary_search([1, 2, 3, 10], 2) == 1
+assert binary_search([1, 2, 3, 10], 3) == 2
+assert binary_search([1, 2, 3, 10], 10) == 3
+assert binary_search([1, 2, 3, 10], 9) == -1
+assert binary_search([1, 2, 3, 10], 4) == -1
+assert binary_search([1, 2, 3, 10], 0) == -1
+assert binary_search([1, 2, 3, 10], 11) == -1
+assert binary_search([5, 7, 8, 10], 3) == -1
 ```

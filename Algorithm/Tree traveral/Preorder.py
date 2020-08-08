@@ -1,10 +1,11 @@
-# def preorder(self,node):
-#     if node is not None:
-#         print node.info
-#         self.preorder(node.left)
-#         self.preorder(node.right)
+def preorder(self,node):
+    if node is not None:
+        print node.info
+        self.preorder(node.left)
+        self.preorder(node.right)
 
 
+# Preorder non recursive version is easiest to write
 def preorder_traversal(root):
     """
     :type root: TreeNode
