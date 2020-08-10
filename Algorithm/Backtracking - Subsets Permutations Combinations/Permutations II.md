@@ -1,30 +1,40 @@
 # Permutations II (contains duplicates) : https://leetcode.com/problems/permutations-ii/
 
-```java
-public List<List<Integer>> permuteUnique(int[] nums) {
-    List<List<Integer>> list = new ArrayList<>();
-    Arrays.sort(nums);
-    backtrack(list, new ArrayList<>(), nums, new boolean[nums.length]);
-    return list;
-}
+```python
+class Solution(object):
+    def permuteUnique(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
 
-private void backtrack(List<List<Integer>> list, List<Integer> tempList, int [] nums, boolean [] used){
-    if(tempList.size() == nums.length){
-        list.add(new ArrayList<>(tempList));
-    } else{
-        for(int i = 0; i < nums.length; i++){
-            if(used[i] || i > 0 && nums[i] == nums[i-1] && !used[i - 1]) continue;
-            used[i] = true;
-            tempList.add(nums[i]);
-            backtrack(list, tempList, nums, used);
-            used[i] = false;
-            tempList.remove(tempList.size() - 1);
-        }
-    }
-}
+        def helper(nums, cur, used):
+            if len(cur) == len(nums):
+                res.append(list(cur))
+            for i in range(len(nums)):
+                if used[i] or (i > 0 and nums[i] == nums[i-1] and not used[i-1]):
+                    continue
+                cur.append(nums[i])
+                used[i] = True
+                helper(nums, cur, used)
+                cur.pop()
+                used[i] = False
+
+        res = []
+        nums.sort()
+        used = [False] * len(nums)
+        helper(nums, [], used)
+        return res
 ```
 
 ## Use next_permutation
+
+Next permutation:
+
+1. Find the largest index k such that nums[k] < nums[k + 1]. If no such index exists, just reverse nums and done.
+2. Find the largest index l > k such that nums[k] < nums[l].
+3. Swap nums[k] and nums[l].
+4. Reverse the sub-array nums[k + 1:].
 
 ```c++
 class Solution {
