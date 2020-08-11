@@ -1,4 +1,6 @@
 # https: // leetcode.com/problems/course-schedule-ii/description/
+# Time Complexity: O(V+E).
+# The above algorithm is simply DFS with an extra stack. So time complexity is the same as DFS which is.
 
 
 class Solution:
@@ -9,7 +11,8 @@ class Solution:
         :rtype: List[int]
         """
         in_coming_edges = collections.defaultdict(
-            int)  # current course : its prerequsites count
+            int
+        )  # current course : its prerequsites count
         sucs = collections.defaultdict(set)  # prerequsite's successor
 
         for pre in prerequisites:
@@ -19,7 +22,8 @@ class Solution:
             in_coming_edges[cur] += 1
 
         no_incoming_edges = collections.deque(
-            [course for course in range(numCourses) if in_coming_edges[course] == 0])
+            [course for course in range(numCourses) if in_coming_edges[course] == 0]
+        )
         order = []
         while no_incoming_edges:
             c = no_incoming_edges.popleft()

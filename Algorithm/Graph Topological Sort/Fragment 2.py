@@ -1,4 +1,8 @@
 # https://leetcode.com/problems/course-schedule/description/
+# Time Complexity: O(V+E).
+# The above algorithm is simply DFS with an extra stack. So time complexity is the same as DFS which is.
+
+
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         l = numCourses

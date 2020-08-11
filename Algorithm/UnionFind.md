@@ -1,5 +1,9 @@
 # Weighted quick-union with path compression.
 
+Find needs to trace references to the root in time O(h), where h is the height of the tree
+
+Union takes O(1) time.
+
 ```c++
 class UnionFind {
   map<int, int> p;
@@ -21,6 +25,7 @@ class UnionFind {
     }
   }
   int find(int a) {
+    if (p.find(a) == p.end()) p[a] = a;
     if (p[a] != a) {
       p[a] = find(p[a]);
     }
@@ -32,14 +37,14 @@ class UnionFind {
 ```python
 class UnionFind:
     def __init__(self):
-        self.parent = {}
+        self.parent = collections.defaultdict(int)
         self.rank = collections.defaultdict(lambda : 1)
     def find(self, x):
+        if x not in self.parent:
+            self.parent[x] = x
         if self.parent[x] != x:
             self.parent[x] = self.find(self.parent[x])
-            return self.parent[x]
-        else:
-            return x
+        return self.parent[x]
 
     def union(self, a, b):
         pa = self.find(a)
