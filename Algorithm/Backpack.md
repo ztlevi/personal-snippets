@@ -50,7 +50,7 @@ class Solution(object):
     def back_pack(self, m, A, V):
         result = [[0 for _ in range(m+1)] for _ in range(len(A))]
         for i in range(len(A)):
-            for j in range( m+1):
+            for j in range(m+1):
                 if i == 0:
                     if  j >= A[i]:
                         result[i][j] = V[i]

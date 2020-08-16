@@ -8,6 +8,18 @@ bisect.bisect_left(A, x, lo, hi) # all e in a[lo:hi] have e >= x
 bisect.bisect_right(A, x, lo, hi) # all e in a[lo:hi] have e > x
 ```
 
+Consider, when we have lo = 1 and hi = 2.
+
+- If I used, int mi = (lo + hi) // 2; mi = 1
+- If I used, int mi = (lo + hi + 1) // 2; mi = 2
+
+Now since, lo = mi, we will keep falling back to lo = 1 and hi = 2(Hence TLE), if I used first version.
+
+General rule of thumb I use:
+
+- If we are doing lo = mi, and hi = mi-1, use 2nd version.
+- If we are doing hi = mi, lo = mi + 1, use 1st version.
+
 ## bisect_right
 
 ```python

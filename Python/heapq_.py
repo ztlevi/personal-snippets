@@ -1,7 +1,7 @@
 # According to the example from the documentation, you can use tuples, and it will sort by the first element of the tuple:
 
 import heapq
-from heapq import heappush, heappop
+from heapq import heappop, heappush
 
 h = []
 heappush(h, (5, "write code"))
@@ -30,5 +30,5 @@ def __lt__(self, other):
 # Max heap
 arr = [1, 2, 3, 4, 5]
 heapq._heapify_max(arr)
-heapq._heappop_max(arr)
+a = heapq._heappop_max(arr)
 heapq._heapreplace_max(arr, 6)

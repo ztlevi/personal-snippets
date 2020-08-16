@@ -1,6 +1,6 @@
-def preorder(self,node):
+def preorder(self, node):
     if node is not None:
-        print node.info
+        print(node.val)
         self.preorder(node.left)
         self.preorder(node.right)
 
@@ -25,15 +25,17 @@ def preorder_traversal(root):
     return result
 
 
-import re
-import sets
+class Node:
+    left = None
+    right = None
 
-a = {}
-a[1] = 3
-a[4] = 2
-a[3] = 1
-for k, v in a.items():
-    print(k)
-b = sets.set([1, 2, 3])
-for k in b:
-    print(k)
+    def __init__(self, val):
+        self.val = val
+
+
+node = Node(4)
+node.left = Node(2)
+node.left.left = Node(1)
+node.right = Node(5)
+
+print(preorder_traversal(node))
