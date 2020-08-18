@@ -12,6 +12,11 @@ You can not divide any item into small pieces.
 ```python
 class Solution(object):
     def back_pack(self, m, A):
+        """
+        Args:
+            m: backpack size.
+            A: array with item sizes.
+        """
         result = [[0 for _ in range(m+1)] for _ in range(len(A))]
         for i in range(len(A)):
             for j in range( m+1):
@@ -19,7 +24,7 @@ class Solution(object):
                     if  j >= A[i]:
                         result[i][j] = A[i]
                     continue
-                elif j < A[i]:
+                if j < A[i]:
                     result[i][j] = result[i-1][j]
                 else:
                     result[i][j] = max(result[i-1][j - A[i]] + A[i], result[i-1][j])
@@ -55,7 +60,7 @@ class Solution(object):
                     if  j >= A[i]:
                         result[i][j] = V[i]
                     continue
-                elif j < A[i]:
+                if j < A[i]:
                     result[i][j] = result[i-1][j]
                 else:
                     result[i][j] = max(result[i-1][j - A[i]] + V[i], result[i-1][j])
