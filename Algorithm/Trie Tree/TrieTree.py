@@ -21,7 +21,7 @@ class Trie:
     def search(self, word):
         current = self.root
         for letter in word:
-            current = current.children.get(letter)
+            current = current.children.get(letter)  # get default is None
             if current is None:
                 return False
         return current.is_word
