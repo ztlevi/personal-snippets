@@ -83,6 +83,19 @@ Commands:
   wait        Block until one or more containers stop, then print their exit codes
 ```
 
+# Run docker container as non-root user
+
+```
+# run as non-root user
+docker run -v /etc/passwd:/etc/passwd -u $(id -u) -w /home ...
+```
+
+```
+# Switching to a non-root user, please refer to https://aka.ms/vscode-docker-python-user-rights
+RUN useradd appuser && chown -R appuser /app
+USER appuser
+```
+
 # 1、docker start/stop/restart/kill
 
 启动/停止/重启/杀掉容器
@@ -131,9 +144,6 @@ Commands:
 
 [root@docker ~]# docker run --entrypoint "bash" -it  nginx:latest
 # Override entrypoint
-
-# run as non-root user
-docker run -v /etc/passwd:/etc/passwd -u $(id -u) -w /home ... 
 ```
 
 # 3、docker rm
