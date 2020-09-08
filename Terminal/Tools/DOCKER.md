@@ -92,8 +92,16 @@ docker run -v /etc/passwd:/etc/passwd -u $(id -u) -w /home ...
 
 ```
 # Switching to a non-root user, please refer to https://aka.ms/vscode-docker-python-user-rights
-RUN useradd appuser && chown -R appuser /app
-USER appuser
+ENV user appuser
+
+RUN useradd -m -d /home/${user} ${user} && \
+    chown -R ${user} /home/${user} && \
+    adduser ${user} sudo && \
+    echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+USER ${user}
+
+RUN chown -R ${user} /workspace
 ```
 
 # 1、docker start/stop/restart/kill
