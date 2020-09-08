@@ -90,6 +90,8 @@ Commands:
 docker run -v /etc/passwd:/etc/passwd -u $(id -u) -w /home ...
 ```
 
+## Give the user root permission, then you can use sudo with this user
+
 ```
 # Switching to a non-root user, please refer to https://aka.ms/vscode-docker-python-user-rights
 ENV user appuser
@@ -102,6 +104,13 @@ RUN useradd -m -d /home/${user} ${user} && \
 USER ${user}
 
 RUN chown -R ${user} /workspace
+```
+
+## Change to use the user after all the apps are installed (place this at the end of the dockerfile)
+
+```
+RUN useradd appuser && chown -R appuser /app
+USER appuser
 ```
 
 # 1、docker start/stop/restart/kill
