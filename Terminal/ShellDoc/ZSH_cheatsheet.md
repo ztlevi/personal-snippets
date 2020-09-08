@@ -6,6 +6,16 @@ layout: 2017/sheet
 
 https://github.com/rstacruz/cheatsheets/blob/master/zsh.md
 
+# ZSH Parameter Expansion (`man zshexpn`)
+
+`h [ digits ]`: Remove a trailing pathname component, shortening the path by one directory level: this is the `head' of
+the pathname.
+
+```
+
+${0:A:h} # => get the absolute parent path
+```
+
 ### Expressions
 
 | Expression        | Example             | Description                             |

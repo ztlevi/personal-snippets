@@ -131,6 +131,9 @@ Commands:
 
 [root@docker ~]# docker run --entrypoint "bash" -it  nginx:latest
 # Override entrypoint
+
+# run as non-root user
+docker run -v /etc/passwd:/etc/passwd -u $(id -u) -w /home ... 
 ```
 
 # 3、docker rm

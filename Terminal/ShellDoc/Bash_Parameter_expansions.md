@@ -131,12 +131,3 @@ echo ${STR~}   #=> "Hello world!" (reverse 1st letter)
 echo ${STR~~}  #=> "HELLO WORLD!" (all reversed)
 ```
 
-# ZSH Parameter Expansion (`man zshexpn`)
-
-`h [ digits ]`: Remove a trailing pathname component, shortening the path by one directory level: this is the `head' of
-the pathname.
-
-```
-
-${0:A:h} # => get the absolute parent path
-```
