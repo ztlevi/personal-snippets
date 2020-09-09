@@ -42,7 +42,7 @@ call `bar()`. Modify the given program to output "foobar" _n_ times.
 ## Semaphore Solution
 
 Use two Semaphores just as we used two locks. The `foo_gate` semaphore starts with a value of 1 because we want `foo` to
-print first. `Semaphore(int num)` num means the initial permit thread count.
+print first. `Semaphore(int num)` num means the initial permit count.
 
 ```
 Semaphore(value: int=...)
@@ -198,6 +198,34 @@ class FooBar:
         for i in range(self.n):
             with self.condition:
                 self.condition.wait_for(lambda: self.foo_counter > self.bar_counter)
+                printBar()
+                self.bar_counter += 1
+                self.condition.notify(1)
+```
+
+```python
+from threading import Condition
+class FooBar:
+    def __init__(self, n):
+        self.n = n
+        self.foo_counter = 0
+        self.bar_counter = 0
+        self.condition = Condition()
+
+    def foo(self, printFoo):
+        for i in range(self.n):
+            with self.condition:
+                if self.foo_counter > self.bar_counter:
+                    self.condition.wait()
+                printFoo()
+                self.foo_counter += 1
+                self.condition.notify(1)
+
+    def bar(self, printBar):
+        for i in range(self.n):
+            with self.condition:
+                if self.foo_counter == self.bar_counter:
+                    self.condition.wait()
                 printBar()
                 self.bar_counter += 1
                 self.condition.notify(1)
