@@ -100,10 +100,9 @@ RUN useradd -m -d /home/${user} ${user} && \
     chown -R ${user} /home/${user} && \
     adduser ${user} sudo && \
     echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+RUN chown -R ${user} /workspace
 
 USER ${user}
-
-RUN chown -R ${user} /workspace
 ```
 
 ## Change to use the user after all the apps are installed (place this at the end of the dockerfile)
