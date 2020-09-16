@@ -112,6 +112,12 @@ RUN useradd appuser && chown -R appuser /app
 USER appuser
 ```
 
+## Change the root password for docker container
+
+```
+RUN echo 'root:Docker!' | chpasswd
+```
+
 # 1、docker start/stop/restart/kill
 
 启动/停止/重启/杀掉容器
