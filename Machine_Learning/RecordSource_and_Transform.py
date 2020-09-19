@@ -1,8 +1,3 @@
-# AXIS_ORDER.HWC {H:0, W:1, C:2}
-# TensorFormat(AXIS_ORDER, shape, np.dtype)
-# np_array_matches_format: match AXIS_ORDER, shape, and np.ndtype
-# np_warp: HWC to CHW
-
 from typing_extensions import Protocol
 
 

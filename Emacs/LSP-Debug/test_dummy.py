@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
-
-def test_dummy():
-    for i in range(10):
-        print(i)
-
-    print("ff")
+import pytest
 
 
-test_dummy()
+@pytest.mark.parametrize("i", (1, 2, 3))
+def test_dummy(i):
+    print()
+    print(i)
+    a = 2
+

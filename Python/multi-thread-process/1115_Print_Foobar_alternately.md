@@ -203,7 +203,7 @@ class FooBar:
                 self.condition.notify(1)
 ```
 
-```python
+```
 from threading import Condition
 class FooBar:
     def __init__(self, n):
