@@ -12,7 +12,7 @@ class AXISES(dict):
         return str(self.__dict__)
 
 
-class AXIS_ORDER(dict):
+class AXIS_ORDER:
     NHWC = AXISES("NHWC")
     HWC = AXISES("HWC")
 

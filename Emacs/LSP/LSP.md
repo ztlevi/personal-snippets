@@ -1,5 +1,15 @@
 # LSP
 
+## pyright virtual env
+
+Assign `venvPath` in `pyrightconfig.json`
+
+```python
+{
+  "venvPath": "/Users/ztlevi/.local/share/virtualenvs/python_test-pwGUywqS/"
+}
+```
+
 ## create lsp client and run lsp in docker container
 
 ```emacs-lisp
