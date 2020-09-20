@@ -2,7 +2,7 @@
 
 ## pyright virtual env
 
-Assign `venvPath` in `pyrightconfig.json`
+Assign `venvPath` in `pyrightconfig.json`, and activate virtual env with e.g. `pipenv-activate`
 
 ```python
 {
