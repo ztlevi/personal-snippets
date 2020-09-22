@@ -44,10 +44,11 @@ train_utils.export_frozen_graph(
 
 ```python
 import os
-import mock
+from unittest import mock
 
-with mock.patch('os.urandom', return_value='pumpkins') as abc_urandom_function:
-    assert abc_urandom(5) == 'abcpumpkins'
+with mock.patch("os.urandom", return_value="pumpkins") as abc_urandom:
+    assert abc_urandom(5) == "pumpkins"
+
 
 @mock.patch("os.listdir", mock.MagicMock(return_value="test1"))
 def test1():
@@ -61,8 +62,7 @@ def test2(mock_listdir):
 
 
 @mock.patch("os.listdir")
-class Test():
-
+class Test:
     def not_decorated_and_not_tested(self):
         assert False
 
@@ -70,13 +70,14 @@ class Test():
         mock_listdir.return_value = "test3"
         assert "test3" == os.listdir()
 
-@patch.object(SomeClass, 'class_method')
+
+@mock.patch.object(SomeClass, "class_method")
 def test(mock_method):
     SomeClass.class_method(3)
     mock_method.assert_called_with(3)
 
-test()
 
+test()
 import os
 import unittest
 from unittest.mock import patch
