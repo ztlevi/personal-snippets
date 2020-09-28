@@ -2,8 +2,8 @@
 
 https://stackoverflow.com/questions/49516612/visualize-cnn-layer-or-pooling-layer-in-tflearn
 
-you can see the output produced by an intermediate layer by simply defining a new model that has the observed layer as
-output.
+you can see the output produced by an intermediate layer by simply defining a new model that has the
+observed layer as output.
 
 ```python
 class PlottingCallback(tflearn.callbacks.Callback):

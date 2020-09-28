@@ -22,7 +22,7 @@ export default class LoginForm extends Component {
           returnKeyType="go"
           secureTextEntry
           style={styles.input}
-          ref={input => (this.passwordInput = input)}
+          ref={(input) => (this.passwordInput = input)}
         />
 
         <TouchableOpacity style={styles.buttonContainer}>

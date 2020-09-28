@@ -38,8 +38,8 @@ ${FOO/%from/to}   # Replace suffix
 ${FOO/#from/to}   # Replace prefix
 ```
 
-Well, maybe the most common use for it is to **extract parts of a filename**. Just look at the following list with
-examples:
+Well, maybe the most common use for it is to **extract parts of a filename**. Just look at the
+following list with examples:
 
 - **Get name without extension**
   - `${FILENAME%.*}`
@@ -130,4 +130,3 @@ STR="hello world!"
 echo ${STR~}   #=> "Hello world!" (reverse 1st letter)
 echo ${STR~~}  #=> "HELLO WORLD!" (all reversed)
 ```
-

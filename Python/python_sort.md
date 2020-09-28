@@ -1,24 +1,27 @@
-Python lists have a built-in [`list.sort()`](https://docs.python.org/3/library/stdtypes.html#list.sort "list.sort")
-method that modifies the list in-place. There is also a
-[`sorted()`](https://docs.python.org/3/library/functions.html#sorted "sorted") built-in function that builds a new
-sorted list from an iterable.
+Python lists have a built-in
+[`list.sort()`](https://docs.python.org/3/library/stdtypes.html#list.sort "list.sort") method that
+modifies the list in-place. There is also a
+[`sorted()`](https://docs.python.org/3/library/functions.html#sorted "sorted") built-in function
+that builds a new sorted list from an iterable.
 
 In this document, we explore the various techniques for sorting data using Python.
 
 ## Sorting Basics[¶](https://docs.python.org/3/howto/sorting.html#sorting-basics "Permalink to this headline")
 
 A simple ascending sort is very easy: just call the
-[`sorted()`](https://docs.python.org/3/library/functions.html#sorted "sorted") function. It returns a new sorted list:
+[`sorted()`](https://docs.python.org/3/library/functions.html#sorted "sorted") function. It returns
+a new sorted list:
 
 ```python
 >>> sorted([5, 2, 3, 1, 4])
 [1, 2, 3, 4, 5]
 ```
 
-You can also use the [`list.sort()`](https://docs.python.org/3/library/stdtypes.html#list.sort "list.sort") method. It
-modifies the list in-place (and returns `None` to avoid confusion). Usually it’s less convenient than
-[`sorted()`](https://docs.python.org/3/library/functions.html#sorted "sorted") - but if you don’t need the original
-list, it’s slightly more efficient.
+You can also use the
+[`list.sort()`](https://docs.python.org/3/library/stdtypes.html#list.sort "list.sort") method. It
+modifies the list in-place (and returns `None` to avoid confusion). Usually it’s less convenient
+than [`sorted()`](https://docs.python.org/3/library/functions.html#sorted "sorted") - but if you
+don’t need the original list, it’s slightly more efficient.
 
 ```python
 >>> a = [5, 2, 3, 1, 4]
@@ -27,9 +30,11 @@ list, it’s slightly more efficient.
 [1, 2, 3, 4, 5]
 ```
 
-Another difference is that the [`list.sort()`](https://docs.python.org/3/library/stdtypes.html#list.sort "list.sort")
-method is only defined for lists. In contrast, the
-[`sorted()`](https://docs.python.org/3/library/functions.html#sorted "sorted") function accepts any iterable.
+Another difference is that the
+[`list.sort()`](https://docs.python.org/3/library/stdtypes.html#list.sort "list.sort") method is
+only defined for lists. In contrast, the
+[`sorted()`](https://docs.python.org/3/library/functions.html#sorted "sorted") function accepts any
+iterable.
 
 ```python
 >>> sorted({1: 'D', 2: 'B', 3: 'B', 4: 'E', 5: 'A'})
@@ -39,8 +44,8 @@ method is only defined for lists. In contrast, the
 ## Key Functions[¶](https://docs.python.org/3/howto/sorting.html#key-functions "Permalink to this headline")
 
 Both [`list.sort()`](https://docs.python.org/3/library/stdtypes.html#list.sort "list.sort") and
-[`sorted()`](https://docs.python.org/3/library/functions.html#sorted "sorted") have a _key_ parameter to specify a
-function to be called on each list element prior to making comparisons.
+[`sorted()`](https://docs.python.org/3/library/functions.html#sorted "sorted") have a _key_
+parameter to specify a function to be called on each list element prior to making comparisons.
 
 For example, here’s a case-insensitive string comparison:
 
@@ -49,8 +54,9 @@ For example, here’s a case-insensitive string comparison:
 ['a', 'Andrew', 'from', 'is', 'string', 'test', 'This']
 ```
 
-The value of the _key_ parameter should be a function that takes a single argument and returns a key to use for sorting
-purposes. This technique is fast because the key function is called exactly once for each input record.
+The value of the _key_ parameter should be a function that takes a single argument and returns a key
+to use for sorting purposes. This technique is fast because the key function is called exactly once
+for each input record.
 
 A common pattern is to sort complex objects using some of the object’s indices as keys. For example:
 
@@ -87,11 +93,13 @@ The same technique works for objects with named attributes. For example:
 
 ## Operator Module Functions[¶](https://docs.python.org/3/howto/sorting.html#operator-module-functions "Permalink to this headline")
 
-The key-function patterns shown above are very common, so Python provides convenience functions to make accessor
-functions easier and faster. The
+The key-function patterns shown above are very common, so Python provides convenience functions to
+make accessor functions easier and faster. The
 [`operator`](https://docs.python.org/3/library/operator.html#module-operator "operator: Functions corresponding to the standard operators.")
-module has [`itemgetter()`](https://docs.python.org/3/library/operator.html#operator.itemgetter "operator.itemgetter"),
-[`attrgetter()`](https://docs.python.org/3/library/operator.html#operator.attrgetter "operator.attrgetter"), and a
+module has
+[`itemgetter()`](https://docs.python.org/3/library/operator.html#operator.itemgetter "operator.itemgetter"),
+[`attrgetter()`](https://docs.python.org/3/library/operator.html#operator.attrgetter "operator.attrgetter"),
+and a
 [`methodcaller()`](https://docs.python.org/3/library/operator.html#operator.methodcaller "operator.methodcaller")
 function.
 
@@ -111,7 +119,8 @@ Using those functions, the above examples become simpler and faster:
 [('dave', 'B', 10), ('jane', 'B', 12), ('john', 'A', 15)]
 ```
 
-The operator module functions allow multiple levels of sorting. For example, to sort by _grade_ then by _age_:
+The operator module functions allow multiple levels of sorting. For example, to sort by _grade_ then
+by _age_:
 
 ```python
 >>> sorted(student_tuples, key=itemgetter(1,2))
@@ -126,8 +135,9 @@ The operator module functions allow multiple levels of sorting. For example, to 
 ## Ascending and Descending[¶](https://docs.python.org/3/howto/sorting.html#ascending-and-descending "Permalink to this headline")
 
 Both [`list.sort()`](https://docs.python.org/3/library/stdtypes.html#list.sort "list.sort") and
-[`sorted()`](https://docs.python.org/3/library/functions.html#sorted "sorted") accept a _reverse_ parameter with a
-boolean value. This is used to flag descending sorts. For example, to get the student data in reverse _age_ order:
+[`sorted()`](https://docs.python.org/3/library/functions.html#sorted "sorted") accept a _reverse_
+parameter with a boolean value. This is used to flag descending sorts. For example, to get the
+student data in reverse _age_ order:
 
 ```python
 >>> sorted(student_tuples, key=itemgetter(2), reverse=True)
@@ -141,8 +151,8 @@ boolean value. This is used to flag descending sorts. For example, to get the st
 
 ## Sort Stability and Complex Sorts[¶](https://docs.python.org/3/howto/sorting.html#sort-stability-and-complex-sorts "Permalink to this headline")
 
-Sorts are guaranteed to be [stable](https://en.wikipedia.org/wiki/Sorting_algorithm#Stability). That means that when
-multiple records have the same key, their original order is preserved.
+Sorts are guaranteed to be [stable](https://en.wikipedia.org/wiki/Sorting_algorithm#Stability). That
+means that when multiple records have the same key, their original order is preserved.
 
 ```python
 >>> data = [('red', 1), ('blue', 1), ('red', 2), ('blue', 2)]
@@ -150,11 +160,12 @@ multiple records have the same key, their original order is preserved.
 [('blue', 1), ('blue', 2), ('red', 1), ('red', 2)]
 ```
 
-Notice how the two records for _blue_ retain their original order so that `('blue', 1)` is guaranteed to precede
-`('blue', 2)`.
+Notice how the two records for _blue_ retain their original order so that `('blue', 1)` is
+guaranteed to precede `('blue', 2)`.
 
-This wonderful property lets you build complex sorts in a series of sorting steps. For example, to sort the student data
-by descending _grade_ and then ascending _age_, do the _age_ sort first and then sort again using _grade_:
+This wonderful property lets you build complex sorts in a series of sorting steps. For example, to
+sort the student data by descending _grade_ and then ascending _age_, do the _age_ sort first and
+then sort again using _grade_:
 
 ```python
 >>> s = sorted(student_objects, key=attrgetter('age'))     # sort on secondary key
@@ -162,8 +173,8 @@ by descending _grade_ and then ascending _age_, do the _age_ sort first and then
 [('dave', 'B', 10), ('jane', 'B', 12), ('john', 'A', 15)]
 ```
 
-This can be abstracted out into a wrapper function that can take a list and tuples of field and order to sort them on
-multiple passes.
+This can be abstracted out into a wrapper function that can take a list and tuples of field and
+order to sort them on multiple passes.
 
 ```python
 >>> def multisort(xs, specs):
@@ -177,8 +188,8 @@ multiple passes.
 [('dave', 'B', 10), ('jane', 'B', 12), ('john', 'A', 15)]
 ```
 
-The [Timsort](https://en.wikipedia.org/wiki/Timsort) algorithm used in Python does multiple sorts efficiently because it
-can take advantage of any ordering already present in a dataset.
+The [Timsort](https://en.wikipedia.org/wiki/Timsort) algorithm used in Python does multiple sorts
+efficiently because it can take advantage of any ordering already present in a dataset.
 
 ## The Old Way Using Decorate-Sort-Undecorate[¶](https://docs.python.org/3/howto/sorting.html#the-old-way-using-decorate-sort-undecorate "Permalink to this headline")
 
@@ -188,7 +199,8 @@ This idiom is called Decorate-Sort-Undecorate after its three steps:
 
 - Second, the decorated list is sorted.
 
-- Finally, the decorations are removed, creating a list that contains only the initial values in the new order.
+- Finally, the decorations are removed, creating a list that contains only the initial values in the
+  new order.
 
 For example, to sort the student data by _grade_ using the DSU approach:
 
@@ -199,20 +211,22 @@ For example, to sort the student data by _grade_ using the DSU approach:
 [('john', 'A', 15), ('jane', 'B', 12), ('dave', 'B', 10)]
 ```
 
-This idiom works because tuples are compared lexicographically; the first items are compared; if they are the same then
-the second items are compared, and so on.
+This idiom works because tuples are compared lexicographically; the first items are compared; if
+they are the same then the second items are compared, and so on.
 
-It is not strictly necessary in all cases to include the index _i_ in the decorated list, but including it gives two
-benefits:
+It is not strictly necessary in all cases to include the index _i_ in the decorated list, but
+including it gives two benefits:
 
-- The sort is stable – if two items have the same key, their order will be preserved in the sorted list.
+- The sort is stable – if two items have the same key, their order will be preserved in the sorted
+  list.
 
-- The original items do not have to be comparable because the ordering of the decorated tuples will be determined by at
-  most the first two items. So for example the original list could contain complex numbers which cannot be sorted
-  directly.
+- The original items do not have to be comparable because the ordering of the decorated tuples will
+  be determined by at most the first two items. So for example the original list could contain
+  complex numbers which cannot be sorted directly.
 
-Another name for this idiom is [Schwartzian transform](https://en.wikipedia.org/wiki/Schwartzian_transform), after
-Randal L. Schwartz, who popularized it among Perl programmers.
+Another name for this idiom is
+[Schwartzian transform](https://en.wikipedia.org/wiki/Schwartzian_transform), after Randal L.
+Schwartz, who popularized it among Perl programmers.
 
 Now that Python sorting provides key-functions, this technique is not often needed.
 
@@ -220,15 +234,16 @@ Now that Python sorting provides key-functions, this technique is not often need
 
 Many constructs given in this HOWTO assume Python 2.4 or later. Before that, there was no
 [`sorted()`](https://docs.python.org/3/library/functions.html#sorted "sorted") builtin and
-[`list.sort()`](https://docs.python.org/3/library/stdtypes.html#list.sort "list.sort") took no keyword arguments.
-Instead, all of the Py2.x versions supported a _cmp_ parameter to handle user specified comparison functions.
+[`list.sort()`](https://docs.python.org/3/library/stdtypes.html#list.sort "list.sort") took no
+keyword arguments. Instead, all of the Py2.x versions supported a _cmp_ parameter to handle user
+specified comparison functions.
 
-In Py3.0, the _cmp_ parameter was removed entirely (as part of a larger effort to simplify and unify the language,
-eliminating the conflict between rich comparisons and the `__cmp__()` magic method).
+In Py3.0, the _cmp_ parameter was removed entirely (as part of a larger effort to simplify and unify
+the language, eliminating the conflict between rich comparisons and the `__cmp__()` magic method).
 
-In Py2.x, sort allowed an optional function which can be called for doing the comparisons. That function should take two
-arguments to be compared and then return a negative value for less-than, return zero if they are equal, or return a
-positive value for greater-than. For example, we can do:
+In Py2.x, sort allowed an optional function which can be called for doing the comparisons. That
+function should take two arguments to be compared and then return a negative value for less-than,
+return zero if they are equal, or return a positive value for greater-than. For example, we can do:
 
 ```python
 >>> def numeric_compare(x, y):
@@ -246,8 +261,9 @@ Or you can reverse the order of comparison with:
 [5, 4, 3, 2, 1]
 ```
 
-When porting code from Python 2.x to 3.x, the situation can arise when you have the user supplying a comparison function
-and you need to convert that to a key function. The following wrapper makes that easy to do:
+When porting code from Python 2.x to 3.x, the situation can arise when you have the user supplying a
+comparison function and you need to convert that to a key function. The following wrapper makes that
+easy to do:
 
 ```python
 def cmp_to_key(mycmp):'Convert a cmp= function into a key= function'
@@ -285,39 +301,41 @@ module in the standard library.
 ## Odd and Ends[¶](https://docs.python.org/3/howto/sorting.html#odd-and-ends "Permalink to this headline")
 
 - For locale aware sorting, use
-  [`locale.strxfrm()`](https://docs.python.org/3/library/locale.html#locale.strxfrm "locale.strxfrm") for a key function
-  or [`locale.strcoll()`](https://docs.python.org/3/library/locale.html#locale.strcoll "locale.strcoll") for a
-  comparison function.
+  [`locale.strxfrm()`](https://docs.python.org/3/library/locale.html#locale.strxfrm "locale.strxfrm")
+  for a key function or
+  [`locale.strcoll()`](https://docs.python.org/3/library/locale.html#locale.strcoll "locale.strcoll")
+  for a comparison function.
 
-- The _reverse_ parameter still maintains sort stability (so that records with equal keys retain the original order).
-  Interestingly, that effect can be simulated without the parameter by using the builtin
-  [`reversed()`](https://docs.python.org/3/library/functions.html#reversed "reversed") function twice:
+- The _reverse_ parameter still maintains sort stability (so that records with equal keys retain the
+  original order). Interestingly, that effect can be simulated without the parameter by using the
+  builtin [`reversed()`](https://docs.python.org/3/library/functions.html#reversed "reversed")
+  function twice:
 
-
-    ```python
-    >>> data = [('red', 1), ('blue', 1), ('red', 2), ('blue', 2)]
-    >>> standard_way = sorted(data, key=itemgetter(0), reverse=True)
-    >>> double_reversed = list(reversed(sorted(reversed(data), key=itemgetter(0))))
-    >>> assert standard_way == double_reversed
-    >>> standard_way
-    [('red', 1), ('red', 2), ('blue', 1), ('blue', 2)]
-    ```
+  ```python
+  >>> data = [('red', 1), ('blue', 1), ('red', 2), ('blue', 2)]
+  >>> standard_way = sorted(data, key=itemgetter(0), reverse=True)
+  >>> double_reversed = list(reversed(sorted(reversed(data), key=itemgetter(0))))
+  >>> assert standard_way == double_reversed
+  >>> standard_way
+  [('red', 1), ('red', 2), ('blue', 1), ('blue', 2)]
+  ```
 
 - The sort routines are guaranteed to use
-  [`__lt__()`](https://docs.python.org/3/reference/datamodel.html#object.__lt__ "object.__lt__") when making comparisons
-  between two objects. So, it is easy to add a standard sort order to a class by defining an
-  [`__lt__()`](https://docs.python.org/3/reference/datamodel.html#object.__lt__ "object.__lt__") method:
+  [`__lt__()`](https://docs.python.org/3/reference/datamodel.html#object.__lt__ "object.__lt__")
+  when making comparisons between two objects. So, it is easy to add a standard sort order to a
+  class by defining an
+  [`__lt__()`](https://docs.python.org/3/reference/datamodel.html#object.__lt__ "object.__lt__")
+  method:
 
+  ```python
+  >>> Student.__lt__ = lambda self, other: self.age < other.age
+  >>> sorted(student_objects)
+  [('dave', 'B', 10), ('jane', 'B', 12), ('john', 'A', 15)]
+  ```
 
-    ```python
-    >>> Student.__lt__ = lambda self, other: self.age < other.age
-    >>> sorted(student_objects)
-    [('dave', 'B', 10), ('jane', 'B', 12), ('john', 'A', 15)]
-    ```
-
-- Key functions need not depend directly on the objects being sorted. A key function can also access external resources.
-  For instance, if the student grades are stored in a dictionary, they can be used to sort a separate list of student
-  names:
+- Key functions need not depend directly on the objects being sorted. A key function can also access
+  external resources. For instance, if the student grades are stored in a dictionary, they can be
+  used to sort a separate list of student names:
 
 ```python
 >>> students =['dave', 'john', 'jane']

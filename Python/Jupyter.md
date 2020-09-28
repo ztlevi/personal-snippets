@@ -9,7 +9,8 @@ sys.executable
 
 ## Plot
 
-This is a bit of magic to make matplotlib figures appear inline in the notebook rather than in a new window.
+This is a bit of magic to make matplotlib figures appear inline in the notebook rather than in a new
+window.
 
 ```python
 import matplotlib.pyplot as plt
@@ -32,8 +33,8 @@ Image(filename="test.jpg", width=224)
 
 ## Print function
 
-That's the whole point of `from __future__ import print_function;` to bring the print function from Python 3 into Python
-2.6+
+That's the whole point of `from __future__ import print_function;` to bring the print function from
+Python 3 into Python 2.6+
 
 ```python
 from __future__ import print_function

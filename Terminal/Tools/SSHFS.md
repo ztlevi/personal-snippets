@@ -43,7 +43,8 @@ Desktop  Downloads  Music             Public    Templates
 
 ## 3 Generate SSH key
 
-Generate SSH key for accessing from root user on SSH client to root user on SSH server without password authentication.
+Generate SSH key for accessing from root user on SSH client to root user on SSH server without
+password authentication.
 
 Run ssh-keygen on SSH client for generating SSH key.
 
@@ -63,8 +64,8 @@ ssh-rsa AAAAB3Nza<snip> root@ssh-client
 EOF
 ```
 
-You need to access from SSH client to SSH server for adding SSH server fingerprint to known_hosts. This article disables
-checking finngerprint to SSH server.
+You need to access from SSH client to SSH server for adding SSH server fingerprint to known_hosts.
+This article disables checking finngerprint to SSH server.
 
 ```
 $ # Run the following command on SSH client.
@@ -81,8 +82,9 @@ EOF
 
 ## 4 Mount SSH on boot
 
-Add mount entry to `/etc/fstab`. For avoiding mounting NFS before network initialization, you need to `add_netdev`
-option. For making x-systemd.automount to mount NFS, you need to add x-systemd.automount to option.
+Add mount entry to `/etc/fstab`. For avoiding mounting NFS before network initialization, you need
+to `add_netdev` option. For making x-systemd.automount to mount NFS, you need to add
+x-systemd.automount to option.
 
 ```
 $ SSH_SERVER=ssh-server.hiroom2.com
@@ -92,8 +94,9 @@ ${SSH_SERVER}:${SSH_DIR} /mnt fuse.sshfs _netdev,x-systemd.automount 0 0
 EOF
 ```
 
-For access with other user, use `<user>@<server>`. identityfile option changes SSH key. allow_other, uid and gid option
-changes ownership at mount point. But if home directory permission is 755, mount point will be accessed by other user.
+For access with other user, use `<user>@<server>`. identityfile option changes SSH key. allow_other,
+uid and gid option changes ownership at mount point. But if home directory permission is 755, mount
+point will be accessed by other user.
 
 ```
 $ OPT=_netdev,x-systemd.automount,identityfile=/home/hiroom2/.ssh/id_rsa
@@ -104,8 +107,8 @@ hiroom2@${SSH_SERVER}:/home/hiroom2 /home/hiroom2/mnt fuse.sshfs ${OPT} 0 0
 EOF
 ```
 
-For avoiding access by other user, change home directory permision to 700 or create 700 directory between home directory
-and mount point.
+For avoiding access by other user, change home directory permision to 700 or create 700 directory
+between home directory and mount point.
 
 ```
 $ mkdir -p /home/hiroom2/guard/mnt

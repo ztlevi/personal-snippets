@@ -1,7 +1,7 @@
 ## The assert Statement:
 
-When it encounters an assert statement, Python evaluates the accompanying expression, which is hopefully true. If the
-expression is false, Python raises an AssertionError exception.
+When it encounters an assert statement, Python evaluates the accompanying expression, which is
+hopefully true. If the expression is false, Python raises an AssertionError exception.
 
 The syntax for assert is:
 
@@ -9,14 +9,14 @@ The syntax for assert is:
 assert Expression[, Arguments]
 ```
 
-If the assertion fails, Python uses ArgumentExpression as the argument for the AssertionError. AssertionError exceptions
-can be caught and handled like any other exception using the try-except statement, but if not handled, they will
-terminate the program and produce a traceback.
+If the assertion fails, Python uses ArgumentExpression as the argument for the AssertionError.
+AssertionError exceptions can be caught and handled like any other exception using the try-except
+statement, but if not handled, they will terminate the program and produce a traceback.
 
 ## Example:
 
-Here is a function that converts a temperature from degrees Kelvin to degrees Fahrenheit. Since zero degrees Kelvin is
-as cold as it gets, the function bails out if it sees a negative temperature:
+Here is a function that converts a temperature from degrees Kelvin to degrees Fahrenheit. Since zero
+degrees Kelvin is as cold as it gets, the function bails out if it sees a negative temperature:
 
 ```python
 #!/usr/bin/python3

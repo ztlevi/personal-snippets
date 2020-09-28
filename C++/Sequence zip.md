@@ -1,10 +1,11 @@
 # ZIP
 
-Warning: boost::zip_iterator and boost::combine as of Boost 1.63.0 (2016 Dec 26) will cause undefined behavior if the
-length of the input containers are not the same (it may crash or iterate beyond the end).
+Warning: boost::zip_iterator and boost::combine as of Boost 1.63.0 (2016 Dec 26) will cause
+undefined behavior if the length of the input containers are not the same (it may crash or iterate
+beyond the end).
 
-Starting from Boost 1.56.0 (2014 Aug 7) you could use boost::combine (the function exists in earlier versions but
-undocumented):
+Starting from Boost 1.56.0 (2014 Aug 7) you could use boost::combine (the function exists in earlier
+versions but undocumented):
 
 ```c++
 #include <boost/range/combine.hpp>

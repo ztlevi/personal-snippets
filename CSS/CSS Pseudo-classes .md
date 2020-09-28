@@ -2,11 +2,13 @@
 
 # CSS - The :first-child Pseudo-class
 
-The :first-child pseudo-class matches a specified element that is the first child of another element.
+The :first-child pseudo-class matches a specified element that is the first child of another
+element.
 
 ## Match the first <p> element
 
-In the following example, the selector matches any <p> element that is the first child of any element:
+In the following example, the selector matches any <p> element that is the first child of any
+element:
 
 ```css
 p:first-child {
@@ -26,8 +28,8 @@ p i:first-child {
 
 ## Match all <i> elements in all first child <p> elements
 
-In the following example, the selector matches all <i> elements in <p> elements that are the first child of another
-element:
+In the following example, the selector matches all <i> elements in <p> elements that are the first
+child of another element:
 
 ```css
 p:first-child i {

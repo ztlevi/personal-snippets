@@ -19,7 +19,8 @@ To just center the text inside an element, use `text-align: center;`
 
 # Center Vertically - Using padding
 
-There are many ways to center an element vertically in CSS. A simple solution is to use top and bottom padding:
+There are many ways to center an element vertically in CSS. A simple solution is to use top and
+bottom padding:
 
 ```css
 .center {
@@ -50,7 +51,8 @@ Another trick is to use the line-height property with a value that is equal to t
 
 # Center Vertically - Using position & transform
 
-If padding and line-height is not an option, a third solution is to use positioning and the transform property:
+If padding and line-height is not an option, a third solution is to use positioning and the
+transform property:
 
 ```css
 .center {

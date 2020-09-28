@@ -1,10 +1,12 @@
 # Monkeypatching/mocking modules and environments[¶](https://docs.pytest.org/en/latest/monkeypatch.html#monkeypatching-mocking-modules-and-environments "Permalink to this headline")
 
-Sometimes tests need to invoke functionality which depends on global settings or which invokes code which cannot be
-easily tested such as network access. The `monkeypatch` fixture helps you to safely set/delete an attribute, dictionary
-item or environment variable, or to modify `sys.path` for importing.
+Sometimes tests need to invoke functionality which depends on global settings or which invokes code
+which cannot be easily tested such as network access. The `monkeypatch` fixture helps you to safely
+set/delete an attribute, dictionary item or environment variable, or to modify `sys.path` for
+importing.
 
-The `monkeypatch` fixture provides these helper methods for safely patching and mocking functionality in tests:
+The `monkeypatch` fixture provides these helper methods for safely patching and mocking
+functionality in tests:
 
 ```python
 monkeypatch.setattr(obj,name, value, raising=True)
@@ -18,44 +20,47 @@ monkeypatch.syspath_prepend(path)
 monkeypatch.chdir(path)
 ```
 
-All modifications will be undone after the requesting test function or fixture has finished. The `raising` parameter
-determines if a `KeyError` or `AttributeError` will be raised if the target of the set/deletion operation does not
-exist.
+All modifications will be undone after the requesting test function or fixture has finished. The
+`raising` parameter determines if a `KeyError` or `AttributeError` will be raised if the target of
+the set/deletion operation does not exist.
 
 Consider the following scenarios:
 
-1. Modifying the behavior of a function or the property of a class for a test e.g. there is an API call or database
-   connection you will not make for a test but you know what the expected output should be. Use `monkeypatch.setattr()`
-   to patch the function or property with your desired testing behavior. This can include your own functions. Use
-   `monkeypatch.delattr()` to remove the function or property for the test.
+1. Modifying the behavior of a function or the property of a class for a test e.g. there is an API
+   call or database connection you will not make for a test but you know what the expected output
+   should be. Use `monkeypatch.setattr()` to patch the function or property with your desired
+   testing behavior. This can include your own functions. Use `monkeypatch.delattr()` to remove the
+   function or property for the test.
 
-2. Modifying the values of dictionaries e.g. you have a global configuration that you want to modify for certain test
-   cases. Use `monkeypatch.setitem()` to patch the dictionary for the test. `monkeypatch.delitem()` can be used to
-   remove items.
+2. Modifying the values of dictionaries e.g. you have a global configuration that you want to modify
+   for certain test cases. Use `monkeypatch.setitem()` to patch the dictionary for the test.
+   `monkeypatch.delitem()` can be used to remove items.
 
-3. Modifying environment variables for a test e.g. to test program behavior if an environment variable is missing, or to
-   set multiple values to a known variable. `monkeypatch.setenv()` and `monkeypatch.delenv()` can be used for these
-   patches.
+3. Modifying environment variables for a test e.g. to test program behavior if an environment
+   variable is missing, or to set multiple values to a known variable. `monkeypatch.setenv()` and
+   `monkeypatch.delenv()` can be used for these patches.
 
-4. Use `monkeypatch.setenv("PATH", value, prepend=os.pathsep)` to modify `$PATH`, and `monkeypatch.chdir()` to change
-   the context of the current working directory during a test.
+4. Use `monkeypatch.setenv("PATH", value, prepend=os.pathsep)` to modify `$PATH`, and
+   `monkeypatch.chdir()` to change the context of the current working directory during a test.
 
 5. Use `monkeypatch.syspath_prepend()` to modify `sys.path` which will also call
    `pkg_resources.fixup_namespace_packages()` and `importlib.invalidate_caches()`.
 
-See the [monkeypatch blog post](http://tetamap.wordpress.com/2009/03/03/monkeypatching-in-unit-tests-done-right/) for
-some introduction material and a discussion of its motivation.
+See the
+[monkeypatch blog post](http://tetamap.wordpress.com/2009/03/03/monkeypatching-in-unit-tests-done-right/)
+for some introduction material and a discussion of its motivation.
 
 ## Simple example: monkeypatching functions[¶](https://docs.pytest.org/en/latest/monkeypatch.html#simple-example-monkeypatching-functions "Permalink to this headline")
 
-Consider a scenario where you are working with user directories. In the context of testing, you do not want your test to
-depend on the running user. `monkeypatch` can be used to patch functions dependent on the user to always return a
-specific value.
+Consider a scenario where you are working with user directories. In the context of testing, you do
+not want your test to depend on the running user. `monkeypatch` can be used to patch functions
+dependent on the user to always return a specific value.
 
-In this example, `monkeypatch.setattr()` is used to patch `Path.home` so that the known testing path `Path("/abc")` is
-always used when the test is run. This removes any dependency on the running user for testing purposes.
-`monkeypatch.setattr()` must be called before the function which will use the patched function is called. After the test
-function finishes the `Path.home` modification will be undone.
+In this example, `monkeypatch.setattr()` is used to patch `Path.home` so that the known testing path
+`Path("/abc")` is always used when the test is run. This removes any dependency on the running user
+for testing purposes. `monkeypatch.setattr()` must be called before the function which will use the
+patched function is called. After the test function finishes the `Path.home` modification will be
+undone.
 
 ```python
 # contents of test_module.py with source code and the test
@@ -85,8 +90,9 @@ def test_getssh(monkeypatch):
 
 ## Monkeypatching returned objects: building mock classes[¶](https://docs.pytest.org/en/latest/monkeypatch.html#monkeypatching-returned-objects-building-mock-classes "Permalink to this headline")
 
-`monkeypatch.setattr()` can be used in conjunction with classes to mock returned objects from functions instead of
-values. Imagine a simple function to take an API url and return the json response.
+`monkeypatch.setattr()` can be used in conjunction with classes to mock returned objects from
+functions instead of values. Imagine a simple function to take an API url and return the json
+response.
 
 ```python
 # contents of app.py, a simple API retrieval example
@@ -98,8 +104,9 @@ def get_json(url):
     return r.json()
 ```
 
-We need to mock `r`, the returned response object for testing purposes. The mock of `r` needs a `.json()` method which
-returns a dictionary. This can be done in our test file by defining a class to represent `r`.
+We need to mock `r`, the returned response object for testing purposes. The mock of `r` needs a
+`.json()` method which returns a dictionary. This can be done in our test file by defining a class
+to represent `r`.
 
 ```python
 # contents of test_app.py, a simple test for our API retrieval
@@ -133,13 +140,13 @@ def test_get_json(monkeypatch):
     assert result["mock_key"] == "mock_response"
 ```
 
-`monkeypatch` applies the mock for `requests.get` with our `mock_get` function. The `mock_get` function returns an
-instance of the `MockResponse` class, which has a `json()` method defined to return a known testing dictionary and does
-not require any outside API connection.
+`monkeypatch` applies the mock for `requests.get` with our `mock_get` function. The `mock_get`
+function returns an instance of the `MockResponse` class, which has a `json()` method defined to
+return a known testing dictionary and does not require any outside API connection.
 
-You can build the `MockResponse` class with the appropriate degree of complexity for the scenario you are testing. For
-instance, it could include an `ok` property that always returns `True`, or return different values from the `json()`
-mocked method based on input strings.
+You can build the `MockResponse` class with the appropriate degree of complexity for the scenario
+you are testing. For instance, it could include an `ok` property that always returns `True`, or
+return different values from the `json()` mocked method based on input strings.
 
 This mock can be shared across tests using a `fixture`:
 
@@ -173,12 +180,13 @@ def test_get_json(mock_response):
     assert result["mock_key"] == "mock_response"
 ```
 
-Furthermore, if the mock was designed to be applied to all tests, the `fixture` could be moved to a `conftest.py` file
-and use the with `autouse=True` option.
+Furthermore, if the mock was designed to be applied to all tests, the `fixture` could be moved to a
+`conftest.py` file and use the with `autouse=True` option.
 
 ## Global patch example: preventing “requests” from remote operations[¶](https://docs.pytest.org/en/latest/monkeypatch.html#global-patch-example-preventing-requests-from-remote-operations "Permalink to this headline")
 
-If you want to prevent the “requests” library from performing http requests in all your tests, you can do:
+If you want to prevent the “requests” library from performing http requests in all your tests, you
+can do:
 
 ```python
 # contents of conftest.py
@@ -191,18 +199,19 @@ def no_requests(monkeypatch):
 ```
 
 This autouse fixture will be executed for each test function and it will delete the method
-`request.session.Session.request` so that any attempts within tests to create http requests will fail.
+`request.session.Session.request` so that any attempts within tests to create http requests will
+fail.
 
 Note
 
-Be advised that it is not recommended to patch builtin functions such as `open`, `compile`, etc., because it might break
-pytest’s internals. If that’s unavoidable, passing `--tb=native`, `--assert=plain` and `--capture=no` might help
-although there’s no guarantee.
+Be advised that it is not recommended to patch builtin functions such as `open`, `compile`, etc.,
+because it might break pytest’s internals. If that’s unavoidable, passing `--tb=native`,
+`--assert=plain` and `--capture=no` might help although there’s no guarantee.
 
 Note
 
-Mind that patching `stdlib` functions and some third-party libraries used by pytest might break pytest itself, therefore
-in those cases it is recommended to use
+Mind that patching `stdlib` functions and some third-party libraries used by pytest might break
+pytest itself, therefore in those cases it is recommended to use
 [`MonkeyPatch.context()`](https://docs.pytest.org/en/latest/reference.html#_pytest.monkeypatch.MonkeyPatch.context "_pytest.monkeypatch.MonkeyPatch.context")
 to limit the patching to the block you want tested:
 
@@ -219,9 +228,9 @@ See issue [#3290](https://github.com/pytest-dev/pytest/issues/3290) for details.
 
 ## Monkeypatching environment variables[¶](https://docs.pytest.org/en/latest/monkeypatch.html#monkeypatching-environment-variables "Permalink to this headline")
 
-If you are working with environment variables you often need to safely change the values or delete them from the system
-for testing purposes. `monkeypatch` provides a mechanism to do this using the `setenv` and `delenv` method. Our example
-code to test:
+If you are working with environment variables you often need to safely change the values or delete
+them from the system for testing purposes. `monkeypatch` provides a mechanism to do this using the
+`setenv` and `delenv` method. Our example code to test:
 
 ```python
 # contents of our original code file e.g. code.py
@@ -238,8 +247,9 @@ def get_os_user_lower():
     return username.lower()
 ```
 
-There are two potential paths. First, the `USER` environment variable is set to a value. Second, the `USER` environment
-variable does not exist. Using `monkeypatch` both paths can be safely tested without impacting the running environment:
+There are two potential paths. First, the `USER` environment variable is set to a value. Second, the
+`USER` environment variable does not exist. Using `monkeypatch` both paths can be safely tested
+without impacting the running environment:
 
 ```python
 # contents of our test file e.g. test_code.py
@@ -283,8 +293,8 @@ def test_raise_exception(mock_env_missing):
 
 ## Monkeypatching dictionaries[¶](https://docs.pytest.org/en/latest/monkeypatch.html#monkeypatching-dictionaries "Permalink to this headline")
 
-`monkeypatch.setitem()` can be used to safely set the values of dictionaries to specific values during tests. Take this
-simplified connection string example:
+`monkeypatch.setitem()` can be used to safely set the values of dictionaries to specific values
+during tests. Take this simplified connection string example:
 
 ```python
 # contents of app.py to generate a simple connection stringDEFAULT_CONFIG = {"user": "user1", "database": "db1"}
@@ -336,8 +346,8 @@ def test_missing_user(monkeypatch):
         _ = app.create_connection_string()
 ```
 
-The modularity of fixtures gives you the flexibility to define separate fixtures for each potential mock and reference
-them in the needed tests.
+The modularity of fixtures gives you the flexibility to define separate fixtures for each potential
+mock and reference them in the needed tests.
 
 ```python
 # contents of test_app.py

@@ -2,8 +2,8 @@
 
 https://redux-saga.js.org/docs/basics/DeclarativeEffects.html
 
-`call` also supports invoking object methods, you can provide a `this` context to the invoked functions using the
-following form:
+`call` also supports invoking object methods, you can provide a `this` context to the invoked
+functions using the following form:
 
 ```javascript
 yield call([obj, obj.method], arg1, arg2, ...) // as if we did obj.method(arg1, arg2 ...)
@@ -15,9 +15,9 @@ yield call([obj, obj.method], arg1, arg2, ...) // as if we did obj.method(arg1, 
 yield apply(obj, obj.method, [arg1, arg2, ...])
 ```
 
-`call` and `apply` are well suited for functions that return Promise results. Another function `cps` can be used to
-handle Node style functions (e.g. `fn(...args, callback)` where `callback` is of the form `(error, result) => ())`.
-`cps` stands for Continuation Passing Style.
+`call` and `apply` are well suited for functions that return Promise results. Another function `cps`
+can be used to handle Node style functions (e.g. `fn(...args, callback)` where `callback` is of the
+form `(error, result) => ())`. `cps` stands for Continuation Passing Style.
 
 For example:
 
@@ -40,8 +40,8 @@ assert.deepEqual(iterator.next().value, cps(readFile, "/path/to/file"));
 
 ## 2.3 Dispatching actions to the store
 
-We could pass the Store's `dispatch` function to the Generator. Then the Generator could invoke it after receiving the
-fetch response:
+We could pass the Store's `dispatch` function to the Generator. Then the Generator could invoke it
+after receiving the fetch response:
 
 ```javascript
 // ...
@@ -52,13 +52,14 @@ function* fetchProducts(dispatch) {
 }
 ```
 
-However, this solution has the same drawbacks as invoking functions directly from inside the Generator (as discussed in
-the previous section). If we want to test that `fetchProducts` performs the `dispatch` after receiving the AJAX
-response, we'll need again to mock the dispatch function.
+However, this solution has the same drawbacks as invoking functions directly from inside the
+Generator (as discussed in the previous section). If we want to test that `fetchProducts` performs
+the `dispatch` after receiving the AJAX response, we'll need again to mock the dispatch function.
 
-Instead, we need the same declarative solution. Just create an Object to instruct the middleware that we need to
-dispatch some action, and let the middleware perform the real dispatch. This way we can test the Generator's dispatch in
-the same way: by just inspecting the yielded Effect and making sure it contains the correct instructions.
+Instead, we need the same declarative solution. Just create an Object to instruct the middleware
+that we need to dispatch some action, and let the middleware perform the real dispatch. This way we
+can test the Generator's dispatch in the same way: by just inspecting the yielded Effect and making
+sure it contains the correct instructions.
 
 The library provides, for this purpose, another function `put` which creates the dispatch Effect.
 
@@ -101,7 +102,8 @@ assert.deepEqual(
 
 ## 2.4 Error Handling
 
-We want to handle those errors inside our Saga by dispatching a `PRODUCTS_REQUEST_FAILED` action to the Store.
+We want to handle those errors inside our Saga by dispatching a `PRODUCTS_REQUEST_FAILED` action to
+the Store.
 
 We can catch errors inside the Saga using the familiar `try/catch` syntax.
 
@@ -121,9 +123,9 @@ function* fetchProducts() {
 }
 ```
 
-Of course, you're not forced to handle your API errors inside `try/catch` blocks. You can also make your API service
-return a normal value with some error flag on it. For example, you can catch Promise rejections and map them to an
-object with an error field.
+Of course, you're not forced to handle your API errors inside `try/catch` blocks. You can also make
+your API service return a normal value with some error flag on it. For example, you can catch
+Promise rejections and map them to an object with an error field.
 
 ```javascript
 import Api from "./path/to/api";
@@ -131,8 +133,8 @@ import { call, put } from "redux-saga/effects";
 
 function fetchProductsApi() {
   return Api.fetch("/products")
-    .then(response => ({ response }))
-    .catch(error => ({ error }));
+    .then((response) => ({ response }))
+    .catch((error) => ({ error }));
 }
 
 function* fetchProducts() {

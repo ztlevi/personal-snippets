@@ -2,11 +2,12 @@ https://github.com/crazyguitar/pysheeet/tree/master/docs/notes
 
 # Typing[¶](https://www.pythonsheets.com/notes/python-typing.html#typing "Permalink to this headline")
 
-PEP [484](https://www.python.org/dev/peps/pep-0484/), which provides a specification about what a type system should
-look like in Python3, introduced the concept of type hints. Moreover, to better understand the type hints design
-philosophy, it is crucial to read PEP [483](https://www.python.org/dev/peps/pep-0483/) that would be helpful to aid a
-pythoneer to understand reasons why Python introduce a type system. The main goal of this cheat sheet is to show some
-common usage about type hints in Python3.
+PEP [484](https://www.python.org/dev/peps/pep-0484/), which provides a specification about what a
+type system should look like in Python3, introduced the concept of type hints. Moreover, to better
+understand the type hints design philosophy, it is crucial to read PEP
+[483](https://www.python.org/dev/peps/pep-0483/) that would be helpful to aid a pythoneer to
+understand reasons why Python introduce a type system. The main goal of this cheat sheet is to show
+some common usage about type hints in Python3.
 
 Table of Contents
 
@@ -489,8 +490,8 @@ $ mypy --strict foo.py
 
 ## Forward references[¶](https://www.pythonsheets.com/notes/python-typing.html#forward-references "Permalink to this headline")
 
-Based on PEP 484, if we want to reference a type before it has been declared, we have to use **string literal** to imply
-that there is a type of that name later on in the file.
+Based on PEP 484, if we want to reference a type before it has been declared, we have to use
+**string literal** to imply that there is a type of that name later on in the file.
 
 ```python
 from typing import Optional
@@ -508,8 +509,8 @@ class Tree:
 
 Note
 
-There are some issues that mypy does not complain about Forward References. Get further information from
-[Issue#948](https://github.com/python/mypy/issues/948).
+There are some issues that mypy does not complain about Forward References. Get further information
+from [Issue#948](https://github.com/python/mypy/issues/948).
 
 ```python
 class A:
@@ -563,9 +564,9 @@ After Python 3.7 (include 3.7)
 
 Note
 
-Annotation can only be used within the scope which names have already existed. Therefore, **forward reference** does not
-support the case which names are not available in the current scope. **Postponed evaluation of annotations** will become
-the default behavior in Python 4.0.
+Annotation can only be used within the scope which names have already existed. Therefore, **forward
+reference** does not support the case which names are not available in the current scope.
+**Postponed evaluation of annotations** will become the default behavior in Python 4.0.
 
 ## Type alias[¶](https://www.pythonsheets.com/notes/python-typing.html#type-alias "Permalink to this headline")
 
@@ -791,8 +792,8 @@ foo.py:15: error: Incompatible types in assignment (expression has type "int", v
 foo.py:15: error: Argument 1 to "bar" of "Foo" has incompatible type "str"; expected "int"
 ```
 
-- `TypeVar` used in a method but did not match any parameters which declare in `Generic` can be inferred to be different
-  types.
+- `TypeVar` used in a method but did not match any parameters which declare in `Generic` can be
+  inferred to be different types.
 
 ```python
 from typing import TypeVar, Generic
@@ -869,8 +870,8 @@ foo.py:11: error: Value of type variable "T" of "add" cannot be "str"
 
 ## `TypeVar` with an upper bound[¶](https://www.pythonsheets.com/notes/python-typing.html#typevar-with-an-upper-bound "Permalink to this headline")
 
-`T = TypeVar('T', bound=BaseClass)` means we create a **type variable with an upper bound**. The concept is similar to
-**polymorphism** in c++.
+`T = TypeVar('T', bound=BaseClass)` means we create a **type variable with an upper bound**. The
+concept is similar to **polymorphism** in c++.
 
 ```python
 #include<iostream>classShape {
@@ -922,8 +923,8 @@ int main(int argc, char *argv[])
 }
 ```
 
-Like c++, create a base class and `TypeVar` which bounds to the base class. Then, static type checker will take every
-subclass as type of base class.
+Like c++, create a base class and `TypeVar` which bounds to the base class. Then, static type
+checker will take every subclass as type of base class.
 
 ```python
 from typing import TypeVar
@@ -971,9 +972,9 @@ foo.py:40: error: Value of type variable "S" of "area" cannot be "int"
 
 ## @overload[¶](https://www.pythonsheets.com/notes/python-typing.html#overload "Permalink to this headline")
 
-Sometimes, we use `Union` to infer that the return of a function has multiple different types. However, type checker
-cannot distinguish which type do we want. Therefore, following snippet shows that type checker cannot determine which
-type is correct.
+Sometimes, we use `Union` to infer that the return of a function has multiple different types.
+However, type checker cannot distinguish which type do we want. Therefore, following snippet shows
+that type checker cannot determine which type is correct.
 
 ```python
 from typing importList, Union
@@ -1068,9 +1069,9 @@ $ echo $?
 
 Warning
 
-Based on PEP 484, the `@overload` decorator just **for type checker only**, it does not implement the real overloading
-like c++/java. Thus, we have to implement one exactly non-`@overload` function. At the runtime, calling the `@overload`
-function will raise `NotImplementedError`.
+Based on PEP 484, the `@overload` decorator just **for type checker only**, it does not implement
+the real overloading like c++/java. Thus, we have to implement one exactly non-`@overload` function.
+At the runtime, calling the `@overload` function will raise `NotImplementedError`.
 
 ```python
 from typing
@@ -1103,8 +1104,8 @@ NotImplementedError
 
 ## Stub Files[¶](https://www.pythonsheets.com/notes/python-typing.html#stub-files "Permalink to this headline")
 
-Stub files just like header files which we usually use to define our interfaces in c/c++. In python, we can define our
-interfaces in the same module directory or `export MYPYPATH=${stubs}`
+Stub files just like header files which we usually use to define our interfaces in c/c++. In python,
+we can define our interfaces in the same module directory or `export MYPYPATH=${stubs}`
 
 First, we need to create a stub file (interface file) for module.
 

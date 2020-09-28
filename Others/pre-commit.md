@@ -41,20 +41,20 @@ https://pre-commit.com/#repository-local-hooks
 
 Repository-local hooks are useful when:
 
-- The scripts are tightly coupled to the repository and it makes sense to distribute the hook scripts with the
-  repository.
-- Hooks require state that is only present in a built artifact of your repository (such as your app's virtualenv for
-  pylint).
+- The scripts are tightly coupled to the repository and it makes sense to distribute the hook
+  scripts with the repository.
+- Hooks require state that is only present in a built artifact of your repository (such as your
+  app's virtualenv for pylint).
 - The official repository for a linter doesn't have the pre-commit metadata.
 
 You can configure repository-local hooks by specifying the `repo` as the sentinel `local`.
 
-_new in 0.13.0_: local hooks can use any language which supports `additional_dependencies` or `docker_image` / `fail` /
-`pcre` / `pygrep` / `script` / `system`. This enables you to install things which previously would require a trivial
-mirror repository.
+_new in 0.13.0_: local hooks can use any language which supports `additional_dependencies` or
+`docker_image` / `fail` / `pcre` / `pygrep` / `script` / `system`. This enables you to install
+things which previously would require a trivial mirror repository.
 
-A `local` hook must define `id`, `name`, `language`, `entry`, and `files` / `types` as specified under
-[Creating new hooks](https://pre-commit.com/#new-hooks).
+A `local` hook must define `id`, `name`, `language`, `entry`, and `files` / `types` as specified
+under [Creating new hooks](https://pre-commit.com/#new-hooks).
 
 Here's an example configuration with a few `local` hooks:
 

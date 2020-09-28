@@ -25,13 +25,11 @@ $(() => {
     }
 
     // Listen to clicks on hash anchors.
-    $('a[href^="#"]').on("click", e => {
+    $('a[href^="#"]').on("click", (e) => {
       // Stop default scroll. Also stops the automatic URL hash update.
       e.preventDefault();
       // Get the id to scroll to and set the URL hash manually.
-      const id = $(e.currentTarget)
-        .attr("href")
-        .substring(1);
+      const id = $(e.currentTarget).attr("href").substring(1);
       location.hash = id;
       // Use getElementById since the hash may have dots in it.
       const target = $(document.getElementById(id));

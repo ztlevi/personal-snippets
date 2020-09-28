@@ -2,8 +2,8 @@
 
 https://reactjs.org/docs/code-splitting.html#react-loadable
 
-React Loadable wraps dynamic imports in a nice, React-friendly API for introducing code splitting into your app at a
-given component.
+React Loadable wraps dynamic imports in a nice, React-friendly API for introducing code splitting
+into your app at a given component.
 
 - Before
 
@@ -26,5 +26,5 @@ const LoadableOtherComponent = Loadable({
 const MyComponent = () => <LoadableOtherComponent />;
 ```
 
-React Loadable helps you create loading states, error states, timeouts, preloading, and more. It can even help you
-server-side render an app with lots of code-splitting.
+React Loadable helps you create loading states, error states, timeouts, preloading, and more. It can
+even help you server-side render an app with lots of code-splitting.

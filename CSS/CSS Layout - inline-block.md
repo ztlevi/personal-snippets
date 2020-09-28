@@ -16,8 +16,8 @@ CSS Layout - inline-block
 }
 ```
 
-The same effect can be achieved by using the inline-block value of the display property (notice that no clear property
-is needed):
+The same effect can be achieved by using the inline-block value of the display property (notice that
+no clear property is needed):
 
 ```css
 .floating-box {

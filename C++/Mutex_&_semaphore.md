@@ -1,11 +1,12 @@
-Mutex and Semaphore both provide synchronization services but they are not the same. Details about both Mutex and
-Semaphore are given below:
+Mutex and Semaphore both provide synchronization services but they are not the same. Details about
+both Mutex and Semaphore are given below:
 
 ## Mutex
 
-Mutex is a mutual exclusion object that synchronizes access to a resource. It is created with a unique name at the start
-of a program. The Mutex is a locking mechanism that makes sure only one thread can acquire the Mutex at a time and enter
-the critical section. This thread only releases the Mutex when it exits the critical section.
+Mutex is a mutual exclusion object that synchronizes access to a resource. It is created with a
+unique name at the start of a program. The Mutex is a locking mechanism that makes sure only one
+thread can acquire the Mutex at a time and enter the critical section. This thread only releases the
+Mutex when it exits the critical section.
 
 This is shown with the help of the following example:
 
@@ -17,8 +18,8 @@ Critical Section
 signal (mutex);
 ```
 
-A Mutex is different than a semaphore as it is a locking mechanism while a semaphore is a signalling mechanism. A binary
-semaphore can be used as a Mutex but a Mutex can never be used as a semaphore.
+A Mutex is different than a semaphore as it is a locking mechanism while a semaphore is a signalling
+mechanism. A binary semaphore can be used as a Mutex but a Mutex can never be used as a semaphore.
 
 ```cpp
 #include <functional>
@@ -86,13 +87,14 @@ int main() {
 
 ## Semaphore
 
-A semaphore is a signalling mechanism and a thread that is waiting on a semaphore can be signaled by another thread.
-This is different than a mutex as the mutex can be signaled only by the thread that called the wait function.
+A semaphore is a signalling mechanism and a thread that is waiting on a semaphore can be signaled by
+another thread. This is different than a mutex as the mutex can be signaled only by the thread that
+called the wait function.
 
 A semaphore uses two atomic operations, wait and signal for process synchronization.
 
-The wait operation decrements the value of its argument S, if it is positive. If S is negative or zero, then no
-operation is performed.
+The wait operation decrements the value of its argument S, if it is positive. If S is negative or
+zero, then no operation is performed.
 
 ```
 wait(S){
@@ -107,23 +109,26 @@ signal(S){    S++;}
 
 There are mainly two types of semaphores i.e. counting semaphores and binary semaphores.
 
-Counting Semaphores are integer value semaphores and have an unrestricted value domain. These semaphores are used to
-coordinate the resource access, where the semaphore count is the number of available resources.
+Counting Semaphores are integer value semaphores and have an unrestricted value domain. These
+semaphores are used to coordinate the resource access, where the semaphore count is the number of
+available resources.
 
-The binary semaphores are like counting semaphores but their value is restricted to 0 and 1. The wait operation only
-works when the semaphore is 1 and the signal operation succeeds when semaphore is 0.
+The binary semaphores are like counting semaphores but their value is restricted to 0 and 1. The
+wait operation only works when the semaphore is 1 and the signal operation succeeds when semaphore
+is 0.
 
 ## Conditaion Variable
 
-Condition variables are synchronization primitives that enable threads to wait until a particular condition occurs.
-Condition variables are user-mode objects that cannot be shared across processes.
+Condition variables are synchronization primitives that enable threads to wait until a particular
+condition occurs. Condition variables are user-mode objects that cannot be shared across processes.
 
-Condition variables enable threads to atomically release a lock and enter the sleeping state. They can be used with
-critical sections or slim reader/writer (SRW) locks. Condition variables support operations that "wake one" or "wake
-all" waiting threads. After a thread is woken, it re-acquires the lock it released when the thread entered the sleeping
-state.
+Condition variables enable threads to atomically release a lock and enter the sleeping state. They
+can be used with critical sections or slim reader/writer (SRW) locks. Condition variables support
+operations that "wake one" or "wake all" waiting threads. After a thread is woken, it re-acquires
+the lock it released when the thread entered the sleeping state.
 
-Note that the caller must allocate a **CONDITION_VARIABLE** structure and initialize it by either calling
+Note that the caller must allocate a **CONDITION_VARIABLE** structure and initialize it by either
+calling
 [**InitializeConditionVariable**](https://docs.microsoft.com/en-us/windows/win32/api/synchapi/nf-synchapi-initializeconditionvariable)
-(to initialize the structure dynamically) or assign the constant **CONDITION_VARIABLE_INIT** to the structure variable
-(to initialize the structure statically).
+(to initialize the structure dynamically) or assign the constant **CONDITION_VARIABLE_INIT** to the
+structure variable (to initialize the structure statically).

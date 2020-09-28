@@ -14,9 +14,10 @@ readonly PATH_TO_FILES='/some/path'
 declare -xr ORACLE_SID='PROD'
 ```
 
-Some things become constant at their first setting (for example, via getopts). Thus, it’s OK to set a constant in
-getopts or based on a condition, but it should be made readonly immediately afterwards. For the sake of clarity
-`readonly` or `export` is recommended instead of the equivalent `declare` commands.
+Some things become constant at their first setting (for example, via getopts). Thus, it’s OK to set
+a constant in getopts or based on a condition, but it should be made readonly immediately
+afterwards. For the sake of clarity `readonly` or `export` is recommended instead of the equivalent
+`declare` commands.
 
 ```bash
 VERBOSE='false'

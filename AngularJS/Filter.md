@@ -16,8 +16,8 @@
 
 ## The checkmark Filter
 
-Since this filter is generic (i.e. it is not specific to any view or component), we are going to register it in a core
-module, which contains "application-wide" features.
+Since this filter is generic (i.e. it is not specific to any view or component), we are going to
+register it in a core module, which contains "application-wide" features.
 
 app/core/core.module.js:
 
@@ -39,5 +39,6 @@ angular.
 
 As you may have noticed, we (unsurprisingly) gave our file a .filter suffix.
 
-The name of our filter is "checkmark". The input evaluates to either true or false, and we return one of the two unicode
-characters we have chosen to represent true (\\u2713 -> ✓) and false (\\u2718 -> ✘).
+The name of our filter is "checkmark". The input evaluates to either true or false, and we return
+one of the two unicode characters we have chosen to represent true (\\u2713 -> ✓) and false (\\u2718
+-> ✘).

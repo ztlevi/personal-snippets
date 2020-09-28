@@ -1,5 +1,5 @@
-Use the `nargs` option or the `'append'` setting of the `action` option (depending on how you want the user interface to
-behave).
+Use the `nargs` option or the `'append'` setting of the `action` option (depending on how you want
+the user interface to behave).
 
 **nargs**
 
@@ -21,12 +21,13 @@ parser.add_argument('-l','--list', action='append', help='<Required> Set flag', 
 
 With `append` you provide the option multiple times to build up the list.
 
-**Don't use `type=list`!!!** - There is probably no situation where you would want to use `type=list` with `argparse`.
-Ever.
+**Don't use `type=list`!!!** - There is probably no situation where you would want to use
+`type=list` with `argparse`. Ever.
 
 ---
 
-Let's take a look in more detail at some of the different ways one might try to do this, and the end result.
+Let's take a look in more detail at some of the different ways one might try to do this, and the end
+result.
 
 ```python
 import argparse
@@ -101,16 +102,17 @@ _Takeaways_:
 
 - Use `nargs` or `action='append'`
 
-  - `nargs` can be more straightforward from a user perspective, but it can be unintuitive if there are positional
-    arguments because `argparse` can't tell what should be a positional argument and what belongs to the `nargs`; if you
-    have positional arguments then `action='append'` may end up being a better choice.
-  - The above is only true if `nargs` is given `'*'`, `'+'`, or `'?'`. If you provide an integer number (such as `4`)
-    then there will be no problem mixing options with `nargs` and positional arguments because `argparse` will know
-    exactly how many values to expect for the option.
+  - `nargs` can be more straightforward from a user perspective, but it can be unintuitive if there
+    are positional arguments because `argparse` can't tell what should be a positional argument and
+    what belongs to the `nargs`; if you have positional arguments then `action='append'` may end up
+    being a better choice.
+  - The above is only true if `nargs` is given `'*'`, `'+'`, or `'?'`. If you provide an integer
+    number (such as `4`) then there will be no problem mixing options with `nargs` and positional
+    arguments because `argparse` will know exactly how many values to expect for the option.
 
 - Don't use quotes on the command line<sup>1</sup>
 - Don't use `type=list`, as it will return a list of lists
 
-  - This happens because under the hood `argparse` uses the value of `type` to coerce _each individual given argument_
-    you your chosen `type`, not the aggregate of all arguments.
+  - This happens because under the hood `argparse` uses the value of `type` to coerce _each
+    individual given argument_ you your chosen `type`, not the aggregate of all arguments.
   - You can use `type=int` (or whatever) to get a list of ints (or whatever)

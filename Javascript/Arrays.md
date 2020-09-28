@@ -2,7 +2,8 @@
 
 Shifting is equivalent to popping, working on the first element instead of the last.
 
-1. The shift() method removes the first array element and "shifts" all other elements to a lower index.
+1. The shift() method removes the first array element and "shifts" all other elements to a lower
+   index.
 
 ```js
 var fruits = ["Banana", "Orange", "Apple", "Mango"];
@@ -12,7 +13,8 @@ fruits.shift(); // Removes the first element "Banana" from fruits
 
 The shift() method returns the string that was "shifted out":
 
-2. The unshift() method adds a new element to an array (at the beginning), and "unshifts" older elements:
+2. The unshift() method adds a new element to an array (at the beginning), and "unshifts" older
+   elements:
 
 ```js
 var fruits = ["Banana", "Orange", "Apple", "Mango"];
@@ -22,7 +24,8 @@ fruits.unshift("Lemon"); // Adds a new element "Lemon" to fruits
 
 # Deleting Elements
 
-Since JavaScript arrays are objects, elements can be deleted by using the JavaScript operator delete:
+Since JavaScript arrays are objects, elements can be deleted by using the JavaScript operator
+delete:
 
 ```js
 var fruits = ["Banana", "Orange", "Apple", "Mango"];
@@ -72,7 +75,8 @@ var citrus = fruits.slice(3);
 
 The slice() method can take two arguments like slice(1, 3).
 
-The method then selects elements from the start argument, and up to (but not including) the end argument.
+The method then selects elements from the start argument, and up to (but not including) the end
+argument.
 
 ```js
 var fruits = ["Banana", "Orange", "Lemon", "Apple", "Mango"];

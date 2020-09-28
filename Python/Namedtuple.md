@@ -3,21 +3,22 @@
 https://www.geeksforgeeks.org/namedtuple-in-python/
 
 Python supports a type of container like
-[dictionaries](http://quiz.geeksforgeeks.org/python-set-4-dictionary-keywords-python/) called “**namedtuples()**”
-present in module, “**collection**“. Like dictionaries they contain keys that are hashed to a particular value. But on
-contrary, it supports both access from key value and iteration, the functionality that dictionaries lack.
+[dictionaries](http://quiz.geeksforgeeks.org/python-set-4-dictionary-keywords-python/) called
+“**namedtuples()**” present in module, “**collection**“. Like dictionaries they contain keys that
+are hashed to a particular value. But on contrary, it supports both access from key value and
+iteration, the functionality that dictionaries lack.
 
 **Operations on namedtuple() :**
 
 **Access Operations**
 
-**1. Access by index :** The attribute values of namedtuple() are ordered and can be accessed using the index number
-unlike dictionaries which are not accessible by index.
+**1. Access by index :** The attribute values of namedtuple() are ordered and can be accessed using
+the index number unlike dictionaries which are not accessible by index.
 
 **2. Access by keyname :** Access by keyname is also allowed as in dictionaries.
 
-**3. using getattr() :-** This is yet another way to access the value by giving namedtuple and key value as its
-argument.
+**3. using getattr() :-** This is yet another way to access the value by giving namedtuple and key
+value as its argument.
 
 ```
 # Python code to demonstrate namedtuple() and
@@ -55,12 +56,15 @@ The Student DOB using getattr() is : 2541997
 
 **Conversion Operations**
 
-**1. \_make() :-** This function is used to return a **namedtuple() from the iterable** passed as argument.
+**1. \_make() :-** This function is used to return a **namedtuple() from the iterable** passed as
+argument.
 
-**2. \_asdict() :-** This function returns **the [OrdereDict()](https://www.geeksforgeeks.org/ordereddict-in-python/)**
-as constructed from the mapped values of namedtuple().
+**2. \_asdict() :-** This function returns **the
+[OrdereDict()](https://www.geeksforgeeks.org/ordereddict-in-python/)** as constructed from the
+mapped values of namedtuple().
 
-**3. using “**” (double star) operator** :- This function is used to **convert a dictionary into the namedtuple().\*\*
+**3. using “**” (double star) operator** :- This function is used to **convert a dictionary into the
+namedtuple().\*\*
 
 ```
 # Python code to demonstrate namedtuple() and
@@ -148,10 +152,11 @@ Student(name='Manjeet', age='19', DOB='2541997')
 ```
 
 This article is contributed by
-**[Manjeet Singh](https://auth.geeksforgeeks.org/profile.php?user=manjeet_04&list=practice)**. If you like GeeksforGeeks
-and would like to contribute, you can also write an article using
+**[Manjeet Singh](https://auth.geeksforgeeks.org/profile.php?user=manjeet_04&list=practice)**. If
+you like GeeksforGeeks and would like to contribute, you can also write an article using
 [contribute.geeksforgeeks.org](http://www.contribute.geeksforgeeks.org/) or mail your article to
-contribute@geeksforgeeks.org. See your article appearing on the GeeksforGeeks main page and help other Geeks.
+contribute@geeksforgeeks.org. See your article appearing on the GeeksforGeeks main page and help
+other Geeks.
 
-Please write comments if you find anything incorrect, or you want to share more information about the topic discussed
-above.
+Please write comments if you find anything incorrect, or you want to share more information about
+the topic discussed above.

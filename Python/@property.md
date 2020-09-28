@@ -1,6 +1,7 @@
 # The Power of @property
 
-The pythonic way to deal with the above problem is to use property. Here is how we could have achieved it.
+The pythonic way to deal with the above problem is to use property. Here is how we could have
+achieved it.
 
 ```python
 class Celsius:
@@ -36,16 +37,17 @@ temperature = temperature.setter(set_temperature)
 
 ## Dig deeper
 
-In Python, property() is a built-in function that creates and returns a property object. The signature of this function
-is
+In Python, property() is a built-in function that creates and returns a property object. The
+signature of this function is
 
 ```python
 property(fget=None, fset=None, fdel=None, doc=None)
 ```
 
-where, fget is function to get value of the attribute, fset is function to set value of the attribute, fdel is function
-to delete the attribute and doc is a string (like a comment). As seen from the implementation, these function arguments
-are optional. So, a property object can simply be created as follows.
+where, fget is function to get value of the attribute, fset is function to set value of the
+attribute, fdel is function to delete the attribute and doc is a string (like a comment). As seen
+from the implementation, these function arguments are optional. So, a property object can simply be
+created as follows.
 
 ```python
 class Employee(object):
@@ -86,12 +88,13 @@ print(emp_1.fullname)
 
 ## Decorators
 
-Programmers familiar with [decorators in Python](https://www.programiz.com/python-programming/decorator) can recognize
-that the above construct can be implemented as decorators.
+Programmers familiar with
+[decorators in Python](https://www.programiz.com/python-programming/decorator) can recognize that
+the above construct can be implemented as decorators.
 
-We can further go on and not define names `get_temperature` and `set_temperature` as they are unnecessary and pollute
-the class namespace. For this, we reuse the name `temperature` while defining our getter and setter functions. This is
-how it can be done.
+We can further go on and not define names `get_temperature` and `set_temperature` as they are
+unnecessary and pollute the class namespace. For this, we reuse the name `temperature` while
+defining our getter and setter functions. This is how it can be done.
 
 ```python
 class Celsius:

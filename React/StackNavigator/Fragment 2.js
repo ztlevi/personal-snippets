@@ -14,7 +14,7 @@ export default class ReactNav extends Component {
           onPress={() =>
             navigate("NavSec", {
               user: "第一界面传真到第二显示",
-              callBack: backData => {
+              callBack: (backData) => {
                 alert(backData);
               },
             })

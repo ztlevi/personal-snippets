@@ -2,8 +2,8 @@
 
 ## Step 1: ssh keys
 
-Create any keypairs you'll need. In this example I've named me default/original 'id_rsa' (which is the default) and my
-new one 'id_rsa-work':
+Create any keypairs you'll need. In this example I've named me default/original 'id_rsa' (which is
+the default) and my new one 'id_rsa-work':
 
 ```
 ssh-keygen -t rsa -C "stefano@work.com"
@@ -11,7 +11,8 @@ ssh-keygen -t rsa -C "stefano@work.com"
 
 ## Step 2: ssh config
 
-Set up multiple ssh profiles by creating/modifying ~/.ssh/config. Note the slightly differing 'Host' values:
+Set up multiple ssh profiles by creating/modifying ~/.ssh/config. Note the slightly differing 'Host'
+values:
 
 ```
 # Default GitHub
@@ -57,6 +58,6 @@ Hi stefano! You've successfully authenticated, but GitHub does not provide shell
 $ ssh -T git@work.github.com
 ```
 
-Hi stefano! You've successfully authenticated, but GitHub does not provide shell access. Note that you'll have to change
-the hostname (github / work.github) depending on what key/identity you'd like to use. But now you should be good to go!
-:)
+Hi stefano! You've successfully authenticated, but GitHub does not provide shell access. Note that
+you'll have to change the hostname (github / work.github) depending on what key/identity you'd like
+to use. But now you should be good to go! :)

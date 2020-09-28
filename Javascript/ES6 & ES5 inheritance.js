@@ -20,7 +20,7 @@ function C() {
   this.c = 100;
 }
 
-C.prototype.print = function() {
+C.prototype.print = function () {
   console.log(this.c, this.d);
 };
 

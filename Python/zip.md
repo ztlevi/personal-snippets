@@ -1,7 +1,8 @@
 # Zip
 
-zip() should only be used with unequal length inputs when you don’t care about trailing, unmatched values from the
-longer iterables. If those values are important, use itertools.zip_longest() instead.
+zip() should only be used with unequal length inputs when you don’t care about trailing, unmatched
+values from the longer iterables. If those values are important, use itertools.zip_longest()
+instead.
 
 zip 将 axis=0 和 axis=1 对换，其余不变
 

@@ -10,7 +10,8 @@ new Date().constructor            // Returns function Date()    {[native code]}
 function () {}.constructor        // Returns function Function(){[native code]}
 ```
 
-You can check the constructor property to find out if an object is an Array (contains the word "Array"):
+You can check the constructor property to find out if an object is an Array (contains the word
+"Array"):
 
 ```js
 function isArray(myArray) {

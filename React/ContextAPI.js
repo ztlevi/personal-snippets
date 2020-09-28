@@ -27,7 +27,7 @@ class MyProvider extends Component {
   }
 }
 
-const Family = props => {
+const Family = (props) => {
   return (
     <div className="family">
       <Person />
@@ -40,7 +40,7 @@ class Person extends Component {
     return (
       <div className="person">
         <MyContext.Consumer>
-          {context => {
+          {(context) => {
             return (
               <React.Fragment>
                 <p>Age: I'm inside the {context.state.age}</p>

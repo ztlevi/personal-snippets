@@ -6,7 +6,7 @@ const co = require("co");
 //   .then(post => post.title)
 //   .then(x => console.log('Title:', x))
 
-run(function*() {
+run(function* () {
   const uri = "http://jsonplaceholder.typicode.com/posts/1";
   const response = yield fetch(uri);
   const post = yield response.json();
@@ -23,11 +23,11 @@ function run(generator) {
   const iteration = iterator.next();
   const promise = iteration.value;
 
-  promise.then(response => {
+  promise.then((response) => {
     // pass the response to this `yield response.json()`
     const anotherIterator = iterator.next(response);
     const anotherPromose = anotherIterator.value;
-    anotherPromose.then(y => iterator.next(y));
+    anotherPromose.then((y) => iterator.next(y));
 
     console.log("anotherPromose", anotherPromose);
   });

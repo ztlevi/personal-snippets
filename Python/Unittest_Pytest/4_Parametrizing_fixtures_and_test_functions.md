@@ -2,19 +2,21 @@
 
 pytest enables test parametrization at several levels:
 
-- [`pytest.fixture()`](https://docs.pytest.org/en/latest/reference.html#pytest.fixture "pytest.fixture") allows one to
+- [`pytest.fixture()`](https://docs.pytest.org/en/latest/reference.html#pytest.fixture "pytest.fixture")
+  allows one to
   [parametrize fixture functions](https://docs.pytest.org/en/latest/fixture.html#fixture-parametrize).
 
-- [@pytest.mark.parametrize](https://docs.pytest.org/en/latest/parametrize.html#pytest-mark-parametrize) allows one to
-  define multiple sets of arguments and fixtures at the test function or class.
-- [pytest_generate_tests](https://docs.pytest.org/en/latest/parametrize.html#pytest-generate-tests) allows one to define
-  custom parametrization schemes or extensions.
+- [@pytest.mark.parametrize](https://docs.pytest.org/en/latest/parametrize.html#pytest-mark-parametrize)
+  allows one to define multiple sets of arguments and fixtures at the test function or class.
+- [pytest_generate_tests](https://docs.pytest.org/en/latest/parametrize.html#pytest-generate-tests)
+  allows one to define custom parametrization schemes or extensions.
 
 ## `@pytest.mark.parametrize`: parametrizing test functions[¶](https://docs.pytest.org/en/latest/parametrize.html#pytest-mark-parametrize-parametrizing-test-functions "Permalink to this headline")
 
-The builtin [pytest.mark.parametrize](https://docs.pytest.org/en/latest/reference.html#pytest-mark-parametrize-ref)
-decorator enables parametrization of arguments for a test function. Here is a typical example of a test function that
-implements checking that a certain input leads to an expected output:
+The builtin
+[pytest.mark.parametrize](https://docs.pytest.org/en/latest/reference.html#pytest-mark-parametrize-ref)
+decorator enables parametrization of arguments for a test function. Here is a typical example of a
+test function that implements checking that a certain input leads to an expected output:
 
 ```
 # content of test_expectation.py
@@ -25,8 +27,8 @@ def test_eval(test_input, expected):
     assert eval(test_input) == expected
 ```
 
-Here, the `@parametrize` decorator defines three different `(test_input,expected)` tuples so that the `test_eval`
-function will run three times using them in turn:
+Here, the `@parametrize` decorator defines three different `(test_input,expected)` tuples so that
+the `test_eval` function will run three times using them in turn:
 
 ```
 $ pytest
@@ -55,26 +57,29 @@ test_expectation.py:6: AssertionError
 
 > Note
 >
-> pytest by default escapes any non-ascii characters used in unicode strings for the parametrization because it has
-> several downsides. If however you would like to use unicode strings in parametrization and see them in the terminal as
-> is (non-escaped), use this option in your `pytest.ini`:
+> pytest by default escapes any non-ascii characters used in unicode strings for the parametrization
+> because it has several downsides. If however you would like to use unicode strings in
+> parametrization and see them in the terminal as is (non-escaped), use this option in your
+> `pytest.ini`:
 >
 > ```
 > [pytest]
 > disable_test_id_escaping_and_forfeit_all_rights_to_community_support = True
 > ```
 >
-> Keep in mind however that this might cause unwanted side effects and even bugs depending on the OS used and plugins
-> currently installed, so use it at your own risk.
+> Keep in mind however that this might cause unwanted side effects and even bugs depending on the OS
+> used and plugins currently installed, so use it at your own risk.
 
-As designed in this example, only one pair of input/output values fails the simple test function. And as usual with test
-function arguments, you can see the `input` and `output` values in the traceback.
+As designed in this example, only one pair of input/output values fails the simple test function.
+And as usual with test function arguments, you can see the `input` and `output` values in the
+traceback.
 
 Note that you could also use the parametrize marker on a class or a module (see
-[Marking test functions with attributes](https://docs.pytest.org/en/latest/mark.html#mark)) which would invoke several
-functions with the argument sets.
+[Marking test functions with attributes](https://docs.pytest.org/en/latest/mark.html#mark)) which
+would invoke several functions with the argument sets.
 
-It is also possible to mark individual test instances within parametrize, for example with the builtin `mark.xfail`:
+It is also possible to mark individual test instances within parametrize, for example with the
+builtin `mark.xfail`:
 
 ```
 # content of test_expectation.py
@@ -103,11 +108,13 @@ test_expectation.py ..x                                              [100%]
 ======================= 2 passed, 1 xfailed in 0.12s =======================
 ```
 
-The one parameter set which caused a failure previously now shows up as an “xfailed (expected to fail)” test.
+The one parameter set which caused a failure previously now shows up as an “xfailed (expected to
+fail)” test.
 
-In case the values provided to `parametrize` result in an empty list - for example, if they’re dynamically generated by
-some function - the behaviour of pytest is defined by the
-[`empty_parameter_set_mark`](https://docs.pytest.org/en/latest/reference.html#confval-empty_parameter_set_mark) option.
+In case the values provided to `parametrize` result in an empty list - for example, if they’re
+dynamically generated by some function - the behaviour of pytest is defined by the
+[`empty_parameter_set_mark`](https://docs.pytest.org/en/latest/reference.html#confval-empty_parameter_set_mark)
+option.
 
 To get all combinations of multiple parametrized arguments you can stack `parametrize` decorators:
 
@@ -120,18 +127,20 @@ def test_foo(x, y):
     pass
 ```
 
-This will run the test with the arguments set to `x=0/y=2`, `x=1/y=2`, `x=0/y=3`, and `x=1/y=3` exhausting parameters in
-the order of the decorators.
+This will run the test with the arguments set to `x=0/y=2`, `x=1/y=2`, `x=0/y=3`, and `x=1/y=3`
+exhausting parameters in the order of the decorators.
 
 ## Basic `pytest_generate_tests` example[¶](https://docs.pytest.org/en/latest/parametrize.html#basic-pytest-generate-tests-example "Permalink to this headline")
 
-Sometimes you may want to implement your own parametrization scheme or implement some dynamism for determining the
-parameters or scope of a fixture. For this, you can use the `pytest_generate_tests` hook which is called when collecting
-a test function. Through the passed in `metafunc` object you can inspect the requesting test context and, most
-importantly, you can call `metafunc.parametrize()` to cause parametrization.
+Sometimes you may want to implement your own parametrization scheme or implement some dynamism for
+determining the parameters or scope of a fixture. For this, you can use the `pytest_generate_tests`
+hook which is called when collecting a test function. Through the passed in `metafunc` object you
+can inspect the requesting test context and, most importantly, you can call `metafunc.parametrize()`
+to cause parametrization.
 
-For example, let’s say we want to run a test taking string inputs which we want to set via a new `pytest` command line
-option. Let’s first write a simple test accepting a `stringinput` fixture function argument:
+For example, let’s say we want to run a test taking string inputs which we want to set via a new
+`pytest` command line option. Let’s first write a simple test accepting a `stringinput` fixture
+function argument:
 
 ```
 # content of test_strings.py
@@ -140,8 +149,8 @@ def test_valid_string(stringinput):
     assert stringinput.isalpha()
 ```
 
-Now we add a `conftest.py` file containing the addition of a command line option and the parametrization of our test
-function:
+Now we add a `conftest.py` file containing the addition of a command line option and the
+parametrization of our test function:
 
 ```
 # content of conftest.py
@@ -189,8 +198,8 @@ test_strings.py:4: AssertionError
 
 As expected our test function fails.
 
-If you don’t specify a stringinput it will be skipped because `metafunc.parametrize()` will be called with an empty
-parameter list:
+If you don’t specify a stringinput it will be skipped because `metafunc.parametrize()` will be
+called with an empty parameter list:
 
 ```
 $ pytest -q -rs test_strings.py
@@ -200,8 +209,8 @@ SKIPPED [1] test_strings.py: got empty parameter set ['stringinput'], function t
 1 skipped in 0.00s
 ```
 
-Note that when calling `metafunc.parametrize` multiple times with different parameter sets, all parameter names across
-those sets cannot be duplicated, otherwise an error will be raised.
+Note that when calling `metafunc.parametrize` multiple times with different parameter sets, all
+parameter names across those sets cannot be duplicated, otherwise an error will be raised.
 
 ## More examples[¶](https://docs.pytest.org/en/latest/parametrize.html#more-examples "Permalink to this headline")
 

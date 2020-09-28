@@ -16,10 +16,11 @@
   [1.3 Polymorphism](#13-polymorphism) - [1.4 Templates](#14-templates) -
   [1.5 Constructor/Destructor/Copy Constructor](#15-constructordestructorcopy-constructor) -
   [1.5.1 Use of `explicit` in Constructors](#151-use-of-explicit-in-constructors) -
-  [1.6 Initialization Lists](#16-initialization-lists) - [1.7 Operator Overloading](#17-operator-overloading) -
+  [1.6 Initialization Lists](#16-initialization-lists) -
+  [1.7 Operator Overloading](#17-operator-overloading) -
   [2.0 General C++ Syntax](#20-general-c-syntax) - [2.1 Namespaces](#21-namespaces) -
-  [2.2 References/Pointers](#22-referencespointers) - [2.3 Keywords](#23-keywords) - [2.3.1 `const`](#231-const) -
-  [2.3.2 `volatile`](#232-volatile) - [2.3.3 `inline`](#233-inline) -
+  [2.2 References/Pointers](#22-referencespointers) - [2.3 Keywords](#23-keywords) -
+  [2.3.1 `const`](#231-const) - [2.3.2 `volatile`](#232-volatile) - [2.3.3 `inline`](#233-inline) -
   [2.4 Strings (find, erase, etc)](#24-strings-find-erase-etc) - [2.5 Iterators](#25-iterators) -
   [2.6 Exceptions](#26-exceptions)
 
@@ -33,8 +34,9 @@
 
 Here's a simple class representing a polygon, a shape with any number of sides.
 
-The class _declaration_ typically goes in the `.h` file. The _declaration_ gives the class name, any classes it may
-extend, declares the members and methods, and declares which members/methods are public, private, or protected.
+The class _declaration_ typically goes in the `.h` file. The _declaration_ gives the class name, any
+classes it may extend, declares the members and methods, and declares which members/methods are
+public, private, or protected.
 
 ```c++
 class Polygon {
@@ -114,7 +116,8 @@ int main(int argc, char *argv[]) {
 
 #### 1.1.4 Getters and Setters
 
-A shortcut often used for Getters/Setters is to define them in the class declaration (`.h`) file as follows:
+A shortcut often used for Getters/Setters is to define them in the class declaration (`.h`) file as
+follows:
 
 ```c++
 class Car {
@@ -130,19 +133,21 @@ public:
 };
 ```
 
-Another important consideration: If you have getters and setters for all of your members, you may want to reconsider the
-design of your class. It is more often than not that having getters and setters for every member is indicative of poor
-planning of the class design and interface. Getters are very common, but setters should be used more carefully. Should
-you have set the variable in the constructor? Is it set somewhere else in another method, perhaps even indirectly?
+Another important consideration: If you have getters and setters for all of your members, you may
+want to reconsider the design of your class. It is more often than not that having getters and
+setters for every member is indicative of poor planning of the class design and interface. Getters
+are very common, but setters should be used more carefully. Should you have set the variable in the
+constructor? Is it set somewhere else in another method, perhaps even indirectly?
 
 ### 1.2 Inheritance
 
-A class can extend another class, meaning that the new class inherits all of the data from the other class, and can also
-override its methods, add new members, etc. Inheritance is the key feature required for polymorphism.
+A class can extend another class, meaning that the new class inherits all of the data from the other
+class, and can also override its methods, add new members, etc. Inheritance is the key feature
+required for polymorphism.
 
-**Example:** the class `Rectangle` can inherit the class `Polygon`. You would then say that `Rectangle` extends
-`Polygon`, or that class `Rectangle` is a sub-class of `Polygon`. In plain English, this means that a `Rectangle` is a
-more specialized version of a `Polygon`.
+**Example:** the class `Rectangle` can inherit the class `Polygon`. You would then say that
+`Rectangle` extends `Polygon`, or that class `Rectangle` is a sub-class of `Polygon`. In plain
+English, this means that a `Rectangle` is a more specialized version of a `Polygon`.
 
 #### 1.2.1 `Rectangle` Declaration (`.h` file)
 
@@ -213,8 +218,8 @@ int main(int argc, char *argv[]) {
 
 #### 1.4.1 Use of `explicit` in Constructors
 
-The keyword `explicit` should be used in single-argument constructors to avoid the following situation. Consider the
-class `Array`:
+The keyword `explicit` should be used in single-argument constructors to avoid the following
+situation. Consider the class `Array`:
 
 ```c++
 class Array {
@@ -247,7 +252,8 @@ That's fine, one would suppose, but what about the following:
 array.Print(12345);
 ```
 
-Uh-oh. That's now legal, compilable code, but what does it mean? It is extremely unclear to the user.
+Uh-oh. That's now legal, compilable code, but what does it mean? It is extremely unclear to the
+user.
 
 To fix this, declare the single-argument `Array` constructor as `explicit`:
 
@@ -288,14 +294,16 @@ array.Print(Array(12345));
 
 #### 2.3.1 General Keywords
 
-[`asm`](http://en.cppreference.com/w/cpp/language/asm) [`auto`](http://en.cppreference.com/w/cpp/language/auto)
+[`asm`](http://en.cppreference.com/w/cpp/language/asm)
+[`auto`](http://en.cppreference.com/w/cpp/language/auto)
 [`cont`](http://en.cppreference.com/w/cpp/language/cv)
 [`constexpr` (_since C++11_)](http://en.cppreference.com/w/cpp/language/constexpr)
 [`explicit`](http://en.cppreference.com/w/cpp/language/explicit)
 [`export` (_until C++11_)](http://en.cppreference.com/w/cpp/keyword/export)
 [`extern` (_language linkage_)](http://en.cppreference.com/w/cpp/language/language_linkage)
 [`friend`](http://en.cppreference.com/w/cpp/language/friend)
-[`inline`](http://en.cppreference.com/w/cpp/language/inline) [`mutable`](http://en.cppreference.com/w/cpp/language/cv)
+[`inline`](http://en.cppreference.com/w/cpp/language/inline)
+[`mutable`](http://en.cppreference.com/w/cpp/language/cv)
 [`noexcept` (_operator_)](http://en.cppreference.com/w/cpp/language/noexcept)
 [`noexcept` (_function specifier_)](http://en.cppreference.com/w/cpp/language/noexcept_spec)
 [`nullptr`](http://en.cppreference.com/w/cpp/language/nullptr)
@@ -331,8 +339,8 @@ array.Print(Array(12345));
 - `defined()`: Returns true if the macro is defined
 - `#ifdef`: Same as `#if defined(...)`
 - `#ifndef`: Same as `#if !defined(...)`
-- `#define`: Defines a text macro. See [here](http://en.cppreference.com/w/cpp/preprocessor/replace) for full
-  explanation, including macro functions and predefined macros.
+- `#define`: Defines a text macro. See [here](http://en.cppreference.com/w/cpp/preprocessor/replace)
+  for full explanation, including macro functions and predefined macros.
 - `#undef`: Un-defines a text macro
 - `#include`: Includes a source file
 - `#line`: Changes the current file name and line number in the preprocessor

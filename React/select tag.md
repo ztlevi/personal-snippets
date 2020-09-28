@@ -1,4 +1,5 @@
-In HTML, `<select>` creates a drop-down list. For example, this HTML creates a drop-down list of flavors:
+In HTML, `<select>` creates a drop-down list. For example, this HTML creates a drop-down list of
+flavors:
 
 ```js
 <select>
@@ -11,9 +12,10 @@ In HTML, `<select>` creates a drop-down list. For example, this HTML creates a d
 </select>
 ```
 
-Note that the Coconut option is initially selected, because of the selected attribute. React, instead of using this
-selected attribute, uses a value attribute on the root select tag. This is more convenient in a controlled component
-because you only need to update it in one place. For example:
+Note that the Coconut option is initially selected, because of the selected attribute. React,
+instead of using this selected attribute, uses a value attribute on the root select tag. This is
+more convenient in a controlled component because you only need to update it in one place. For
+example:
 
 ```js
 class FlavorForm extends React.Component {
@@ -53,7 +55,8 @@ class FlavorForm extends React.Component {
 }
 ```
 
-> Note: You can pass an array into the value attribute, allowing you to select multiple options in a select tag:
+> Note: You can pass an array into the value attribute, allowing you to select multiple options in a
+> select tag:
 
     ```
     <select multiple={true} value={['B', 'C']}>

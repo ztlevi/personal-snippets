@@ -18,7 +18,8 @@ autorandr --force --save default && autorandr --default default
 
 ## Step3: Activate the layout
 
-By default, it activates the default layout. You can put this in `.xprofile` in order to activate on boot.
+By default, it activates the default layout. You can put this in `.xprofile` in order to activate on
+boot.
 
 ```bash
 autorandr --change || echo "No autorandr profile found!"

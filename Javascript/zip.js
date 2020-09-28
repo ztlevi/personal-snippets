@@ -1,3 +1,3 @@
-let zip = a.map(function(e, i) {
+let zip = a.map(function (e, i) {
   return [e, b[i]];
 });

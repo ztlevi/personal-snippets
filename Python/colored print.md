@@ -24,7 +24,8 @@ cprint("Attention!", 'red', attrs=['bold'], file=sys.stderr)
 
 ## ‘colorama’ module
 
-Cross-platform printing of colored text can then be done using Colorama’s constant shorthand for ANSI escape sequences:
+Cross-platform printing of colored text can then be done using Colorama’s constant shorthand for
+ANSI escape sequences:
 
 ```
 # Python program to print

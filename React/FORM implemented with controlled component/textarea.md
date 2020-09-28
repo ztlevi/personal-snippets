@@ -4,8 +4,8 @@
 </textarea>
 ```
 
-In React, a `<textarea>` uses a value attribute instead. This way, a form using a `<textarea>` can be written very
-similarly to a form that uses a single-line input:
+In React, a `<textarea>` uses a value attribute instead. This way, a form using a `<textarea>` can
+be written very similarly to a form that uses a single-line input:
 
 ```js
 class EssayForm extends React.Component {

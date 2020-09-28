@@ -1,1 +1,1 @@
-const i = this.props.posts.findIndex(post => post.code === postId);
+const i = this.props.posts.findIndex((post) => post.code === postId);

@@ -1,6 +1,7 @@
 ## https://www.codeproject.com/Articles/1246574/A-Note-on-Linux-Directory-Structure-Users-Permissi
 
-This structure is the so called "Filesystem Hierarchy Standard". It is maintained by the Linux Foundation.
+This structure is the so called "Filesystem Hierarchy Standard". It is maintained by the Linux
+Foundation.
 
 | Path            | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -48,5 +49,5 @@ This structure is the so called "Filesystem Hierarchy Standard". It is maintaine
 | /var/spool/mail | Deprecated location for users' mailboxes.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | /var/tmp        | Temporary files to be preserved between reboots.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 
-Among these directories, the "/root" directory is the home directory of the user "root". The home directories of the
-regular users are in the "/home" directory by default.
+Among these directories, the "/root" directory is the home directory of the user "root". The home
+directories of the regular users are in the "/home" directory by default.

@@ -1,8 +1,8 @@
 ## @overload[¶](https://www.pythonsheets.com/notes/python-typing.html#overload "Permalink to this headline")
 
-Sometimes, we use `Union` to infer that the return of a function has multiple different types. However, type checker
-cannot distinguish which type do we want. Therefore, following snippet shows that type checker cannot determine which
-type is correct.
+Sometimes, we use `Union` to infer that the return of a function has multiple different types.
+However, type checker cannot distinguish which type do we want. Therefore, following snippet shows
+that type checker cannot determine which type is correct.
 
 ```python
 from typing import List, Union
@@ -96,9 +96,9 @@ $ echo $?
 
 > Warning:
 
-> Based on PEP 484, the `@overload` decorator just **for type checker only**, it does not implement the real overloading
-> like c++/java. Thus, we have to implement one exactly non-`@overload` function. At the runtime, calling the
-> `@overload` function will raise `NotImplementedError`.
+> Based on PEP 484, the `@overload` decorator just **for type checker only**, it does not implement
+> the real overloading like c++/java. Thus, we have to implement one exactly non-`@overload`
+> function. At the runtime, calling the `@overload` function will raise `NotImplementedError`.
 
 ```python
 from typing import List,Union,overload

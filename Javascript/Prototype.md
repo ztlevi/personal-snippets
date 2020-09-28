@@ -1,6 +1,7 @@
 ![](https://ws4.sinaimg.cn/large/006tNc79gy1foujdng6otj31km0pamzv.jpg)
 
-prototype will not be duplicated when creating new objects, but function's variables or functions will.
+prototype will not be duplicated when creating new objects, but function's variables or functions
+will.
 
 ```js
 function foo() {}

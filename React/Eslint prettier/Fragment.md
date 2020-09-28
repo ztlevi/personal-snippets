@@ -19,8 +19,8 @@ npm i -D eslint-config-prettier eslint-plugin-babel eslint-plugin-prettier eslin
   ],
 ```
 
-CLI helper tool eslint-config-prettier also ships with a little CLI tool to help you check if your configuration
-contains any rules that are unnecessary or conflict with Prettier.
+CLI helper tool eslint-config-prettier also ships with a little CLI tool to help you check if your
+configuration contains any rules that are unnecessary or conflict with Prettier.
 
 First, add a script for it to package.json:
 

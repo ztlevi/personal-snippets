@@ -36,13 +36,13 @@ line breaks.
 
 Bootstrap also has some contextual classes that can be used to provide "meaning through colors".
 
-The classes for text colors are:`.text-muted`, `.text-primary`, `.text-success`, `.text-info`, `.text-warning`, and
-`.text-danger`:
+The classes for text colors are:`.text-muted`, `.text-primary`, `.text-success`, `.text-info`,
+`.text-warning`, and `.text-danger`:
 
 ![](https://ws3.sinaimg.cn/large/006tKfTcly1ft8x1o48znj30d307ygm3.jpg)
 
-The classes for background colors are:`.bg-primary`, `.bg-success`, `.bg-info`, `.bg-warning`, and `.bg-danger`:
-![](https://ws3.sinaimg.cn/large/006tKfTcly1ft8x2l4i79j30f306faag.jpg)
+The classes for background colors are:`.bg-primary`, `.bg-success`, `.bg-info`, `.bg-warning`, and
+`.bg-danger`: ![](https://ws3.sinaimg.cn/large/006tKfTcly1ft8x2l4i79j30f306faag.jpg)
 
 ## More Typography Classes
 

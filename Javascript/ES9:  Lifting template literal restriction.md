@@ -1,5 +1,6 @@
-And one for the next year in ES9 — Lifting template literal restriction With the tagged template literal (ES6) we can do
-stuff like declaring a template parsing function and returning a value according to our logic:
+And one for the next year in ES9 — Lifting template literal restriction With the tagged template
+literal (ES6) we can do stuff like declaring a template parsing function and returning a value
+according to our logic:
 
 ```
 const esth = 8;
@@ -19,4 +20,5 @@ function helper(strs, ...keys) {
 }
 ```
 
-The returned value will be → ES 8 is awesome. And for esth of 7 the returned value will be → ES 7 is good.
+The returned value will be → ES 8 is awesome. And for esth of 7 the returned value will be → ES 7 is
+good.

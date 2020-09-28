@@ -38,54 +38,55 @@ Authored, revised and maintained by many Googlers.
 
 Bash is the only shell scripting language permitted for executables.
 
-Executables must start with `#!/bin/bash` and a minimum number of flags. Use `set` to set shell options so that calling
-your script as `bash script_name` does not break its functionality.
+Executables must start with `#!/bin/bash` and a minimum number of flags. Use `set` to set shell
+options so that calling your script as `bash script_name` does not break its functionality.
 
-Restricting all executable shell scripts to _bash_ gives us a consistent shell language that’s installed on all our
-machines.
+Restricting all executable shell scripts to _bash_ gives us a consistent shell language that’s
+installed on all our machines.
 
-The only exception to this is where you’re forced to by whatever you’re coding for. One example of this is Solaris SVR4
-packages which require plain Bourne shell for any scripts.
+The only exception to this is where you’re forced to by whatever you’re coding for. One example of
+this is Solaris SVR4 packages which require plain Bourne shell for any scripts.
 
 ### When to use Shell[](https://google.github.io/styleguide/shellguide.html#when-to-use-shell)
 
 Shell should only be used for small utilities or simple wrapper scripts.
 
-While shell scripting isn’t a development language, it is used for writing various utility scripts throughout Google.
-This style guide is more a recognition of its use rather than a suggestion that it be used for widespread deployment.
+While shell scripting isn’t a development language, it is used for writing various utility scripts
+throughout Google. This style guide is more a recognition of its use rather than a suggestion that
+it be used for widespread deployment.
 
 Some guidelines:
 
-- If you’re mostly calling other utilities and are doing relatively little data manipulation, shell is an acceptable
-  choice for the task.
+- If you’re mostly calling other utilities and are doing relatively little data manipulation, shell
+  is an acceptable choice for the task.
 - If performance matters, use something other than shell.
-- If you are writing a script that is more than 100 lines long, or that uses non-straightforward control flow logic, you
-  should rewrite it in a more structured language _now_. Bear in mind that scripts grow. Rewrite your script early to
-  avoid a more time-consuming rewrite at a later date.
-- When assessing the complexity of your code (e.g. to decide whether to switch languages) consider whether the code is
-  easily maintainable by people other than its author.
+- If you are writing a script that is more than 100 lines long, or that uses non-straightforward
+  control flow logic, you should rewrite it in a more structured language _now_. Bear in mind that
+  scripts grow. Rewrite your script early to avoid a more time-consuming rewrite at a later date.
+- When assessing the complexity of your code (e.g. to decide whether to switch languages) consider
+  whether the code is easily maintainable by people other than its author.
 
 ## Shell Files and Interpreter Invocation[](https://google.github.io/styleguide/shellguide.html#shell-files-and-interpreter-invocation)
 
 ### File Extensions[](https://google.github.io/styleguide/shellguide.html#file-extensions)
 
-Executables should have no extension (strongly preferred) or a `.sh` extension. Libraries must have a `.sh` extension
-and should not be executable.
+Executables should have no extension (strongly preferred) or a `.sh` extension. Libraries must have
+a `.sh` extension and should not be executable.
 
-It is not necessary to know what language a program is written in when executing it and shell doesn’t require an
-extension so we prefer not to use one for executables.
+It is not necessary to know what language a program is written in when executing it and shell
+doesn’t require an extension so we prefer not to use one for executables.
 
-However, for libraries it’s important to know what language it is and sometimes there’s a need to have similar libraries
-in different languages. This allows library files with identical purposes but different languages to be identically
-named except for the language-specific suffix.
+However, for libraries it’s important to know what language it is and sometimes there’s a need to
+have similar libraries in different languages. This allows library files with identical purposes but
+different languages to be identically named except for the language-specific suffix.
 
 ### SUID/SGID[](https://google.github.io/styleguide/shellguide.html#suidsgid)
 
 SUID and SGID are _forbidden_ on shell scripts.
 
-There are too many security issues with shell that make it nearly impossible to secure sufficiently to allow SUID/SGID.
-While bash does make it difficult to run SUID, it’s still possible on some platforms which is why we’re being explicit
-about banning it.
+There are too many security issues with shell that make it nearly impossible to secure sufficiently
+to allow SUID/SGID. While bash does make it difficult to run SUID, it’s still possible on some
+platforms which is why we’re being explicit about banning it.
 
 Use `sudo` to provide elevated access if you need it.
 
@@ -116,8 +117,8 @@ fi
 
 Start each file with a description of its contents.
 
-Every file must have a top-level comment including a brief overview of its contents. A copyright notice and author
-information are optional.
+Every file must have a top-level comment including a brief overview of its contents. A copyright
+notice and author information are optional.
 
 Example:
 
@@ -129,11 +130,11 @@ Example:
 
 ### Function Comments[](https://google.github.io/styleguide/shellguide.html#function-comments)
 
-Any function that is not both obvious and short must be commented. Any function in a library must be commented
-regardless of length or complexity.
+Any function that is not both obvious and short must be commented. Any function in a library must be
+commented regardless of length or complexity.
 
-It should be possible for someone else to learn how to use your program or to use a function in your library by reading
-the comments (and self-help, if provided) without reading the code.
+It should be possible for someone else to learn how to use your program or to use a function in your
+library by reading the comments (and self-help, if provided) without reading the code.
 
 All function comments should describe the intended API behaviour using:
 
@@ -187,19 +188,21 @@ function del_thing() {
 
 Comment tricky, non-obvious, interesting or important parts of your code.
 
-This follows general Google coding comment practice. Don’t comment everything. If there’s a complex algorithm or you’re
-doing something out of the ordinary, put a short comment in.
+This follows general Google coding comment practice. Don’t comment everything. If there’s a complex
+algorithm or you’re doing something out of the ordinary, put a short comment in.
 
 ### TODO Comments[](https://google.github.io/styleguide/shellguide.html#todo-comments)
 
 Use TODO comments for code that is temporary, a short-term solution, or good-enough but not perfect.
 
-This matches the convention in the [C++ Guide](https://google.github.io/styleguide/cppguide.html#TODO_Comments).
+This matches the convention in the
+[C++ Guide](https://google.github.io/styleguide/cppguide.html#TODO_Comments).
 
-`TODO`s should include the string `TODO` in all caps, followed by the name, e-mail address, or other identifier of the
-person with the best context about the problem referenced by the `TODO`. The main purpose is to have a consistent `TODO`
-that can be searched to find out how to get more details upon request. A `TODO` is not a commitment that the person
-referenced will fix the problem. Thus when you create a `TODO` , it is almost always your name that is given.
+`TODO`s should include the string `TODO` in all caps, followed by the name, e-mail address, or other
+identifier of the person with the best context about the problem referenced by the `TODO`. The main
+purpose is to have a consistent `TODO` that can be searched to find out how to get more details upon
+request. A `TODO` is not a commitment that the person referenced will fix the problem. Thus when you
+create a `TODO` , it is almost always your name that is given.
 
 Examples:
 
@@ -209,23 +212,23 @@ Examples:
 
 ## Formatting[](https://google.github.io/styleguide/shellguide.html#formatting)
 
-While you should follow the style that’s already there for files that you’re modifying, the following are required for
-any new code.
+While you should follow the style that’s already there for files that you’re modifying, the
+following are required for any new code.
 
 ### Indentation[](https://google.github.io/styleguide/shellguide.html#indentation)
 
 Indent 2 spaces. No tabs.
 
-Use blank lines between blocks to improve readability. Indentation is two spaces. Whatever you do, don’t use tabs. For
-existing files, stay faithful to the existing indentation.
+Use blank lines between blocks to improve readability. Indentation is two spaces. Whatever you do,
+don’t use tabs. For existing files, stay faithful to the existing indentation.
 
 ### Line Length and Long Strings[](https://google.github.io/styleguide/shellguide.html#line-length-and-long-strings)
 
 Maximum line length is 80 characters.
 
-If you have to write strings that are longer than 80 characters, this should be done with a here document or an embedded
-newline if possible. Literal strings that have to be longer than 80 chars and can’t sensibly be split are ok, but it’s
-strongly preferred to find a way to make it shorter.
+If you have to write strings that are longer than 80 characters, this should be done with a here
+document or an embedded newline if possible. Literal strings that have to be longer than 80 chars
+and can’t sensibly be split are ok, but it’s strongly preferred to find a way to make it shorter.
 
 ```sh
 # DO use 'here document's
@@ -245,9 +248,9 @@ Pipelines should be split one per line if they don’t all fit on one line.
 
 If a pipeline all fits on one line, it should be on one line.
 
-If not, it should be split at one pipe segment per line with the pipe on the newline and a 2 space indent for the next
-section of the pipe. This applies to a chain of commands combined using `|` as well as to logical compounds using `||`
-and `&&`.
+If not, it should be split at one pipe segment per line with the pipe on the newline and a 2 space
+indent for the next section of the pipe. This applies to a chain of commands combined using `|` as
+well as to logical compounds using `||` and `&&`.
 
 ```sh
 # All fits on one line
@@ -264,9 +267,10 @@ command1 \
 
 Put `; do` and `; then` on the same line as the `while`, `for` or `if`.
 
-Loops in shell are a bit different, but we follow the same principles as with braces when declaring functions. That is:
-`; then` and `; do` should be on the same line as the if/for/while. `else` should be on its own line and closing
-statements should be on their own line vertically aligned with the opening statement.
+Loops in shell are a bit different, but we follow the same principles as with braces when declaring
+functions. That is: `; then` and `; do` should be on the same line as the if/for/while. `else`
+should be on its own line and closing statements should be on their own line vertically aligned with
+the opening statement.
 
 Example:
 
@@ -293,13 +297,14 @@ done
 ### Case statement[](https://google.github.io/styleguide/shellguide.html#case-statement)
 
 - Indent alternatives by 2 spaces.
-- A one-line alternative needs a space after the close parenthesis of the pattern and before the `;;`.
-- Long or multi-command alternatives should be split over multiple lines with the pattern, actions, and `;;` on separate
-  lines.
+- A one-line alternative needs a space after the close parenthesis of the pattern and before the
+  `;;`.
+- Long or multi-command alternatives should be split over multiple lines with the pattern, actions,
+  and `;;` on separate lines.
 
-The matching expressions are indented one level from the `case` and `esac`. Multiline actions are indented another
-level. In general, there is no need to quote match expressions. Pattern expressions should not be preceded by an open
-parenthesis. Avoid the `;&` and `;;&` notations.
+The matching expressions are indented one level from the `case` and `esac`. Multiline actions are
+indented another level. In general, there is no need to quote match expressions. Pattern expressions
+should not be preceded by an open parenthesis. Avoid the `;&` and `;;&` notations.
 
 ```sh
 case "${expression}" in
@@ -317,10 +322,11 @@ case "${expression}" in
 esac
 ```
 
-Simple commands may be put on the same line as the pattern _and_ `;;` as long as the expression remains readable. This
-is often appropriate for single-letter option processing. When the actions don’t fit on a single line, put the pattern
-on a line on its own, then the actions, then `;;` also on a line of its own. When on the same line as the actions, use a
-space after the close parenthesis of the pattern and another before the `;;`.
+Simple commands may be put on the same line as the pattern _and_ `;;` as long as the expression
+remains readable. This is often appropriate for single-letter option processing. When the actions
+don’t fit on a single line, put the pattern on a line on its own, then the actions, then `;;` also
+on a line of its own. When on the same line as the actions, use a space after the close parenthesis
+of the pattern and another before the `;;`.
 
 ```sh
 verbose='false'
@@ -340,17 +346,19 @@ done
 
 ### Variable expansion[](https://google.github.io/styleguide/shellguide.html#variable-expansion)
 
-In order of precedence: Stay consistent with what you find; quote your variables; prefer `"${var}"` over `"$var"`.
+In order of precedence: Stay consistent with what you find; quote your variables; prefer `"${var}"`
+over `"$var"`.
 
-These are strongly recommended guidelines but not mandatory regulation. Nonetheless, the fact that it’s a recommendation
-and not mandatory doesn’t mean it should be taken lightly or downplayed.
+These are strongly recommended guidelines but not mandatory regulation. Nonetheless, the fact that
+it’s a recommendation and not mandatory doesn’t mean it should be taken lightly or downplayed.
 
 They are listed in order of precedence.
 
 - Stay consistent with what you find for existing code.
-- Quote variables, see [Quoting section below](https://google.github.io/styleguide/shellguide.html#quoting).
-- Don’t brace-delimit single character shell specials / positional parameters, unless strictly necessary or avoiding
-  deep confusion.
+- Quote variables, see
+  [Quoting section below](https://google.github.io/styleguide/shellguide.html#quoting).
+- Don’t brace-delimit single character shell specials / positional parameters, unless strictly
+  necessary or avoiding deep confusion.
 
   Prefer brace-delimiting all other variables.
 
@@ -393,18 +401,20 @@ NOTE: Using braces in `${var}` is _not_ a form of quoting. “Double quotes” m
 
 ### Quoting[](https://google.github.io/styleguide/shellguide.html#quoting)
 
-- Always quote strings containing variables, command substitutions, spaces or shell meta characters, unless careful
-  unquoted expansion is required or it’s a shell-internal integer (see next point).
+- Always quote strings containing variables, command substitutions, spaces or shell meta characters,
+  unless careful unquoted expansion is required or it’s a shell-internal integer (see next point).
 - Use arrays for safe quoting of lists of elements, especially command-line flags. See
   [Arrays](https://google.github.io/styleguide/shellguide.html#arrays) below.
-- Optionally quote shell-internal, readonly special variables that are defined to be integers: `$?`, `$#`, `$$`, `$!`
-  (man bash). Prefer quoting of “named” internal integer variables, e.g. PPID etc for consistency.
+- Optionally quote shell-internal, readonly special variables that are defined to be integers: `$?`,
+  `$#`, `$$`, `$!` (man bash). Prefer quoting of “named” internal integer variables, e.g. PPID etc
+  for consistency.
 - Prefer quoting strings that are “words” (as opposed to command options or path names).
 - Never quote _literal_ integers.
 - Be aware of the quoting rules for pattern matches in `[[ … ]]`. See the
-  [Test, `[ … ]`, and `[[ … ]]`](https://google.github.io/styleguide/shellguide.html#tests) section below.
-- Use `"$@"` unless you have a specific reason to use `$*`, such as simply appending the arguments to a string in a
-  message or log.
+  [Test, `[ … ]`, and `[[ … ]]`](https://google.github.io/styleguide/shellguide.html#tests) section
+  below.
+- Use `"$@"` unless you have a specific reason to use `$*`, such as simply appending the arguments
+  to a string in a message or log.
 
 ```sh
 # 'Single' quotes indicate that no substitution is desired.
@@ -478,15 +488,15 @@ grep -cP '([Ss]pecial|\|?characters*)$' ${1:+"$1"}
 
 ### ShellCheck[](https://google.github.io/styleguide/shellguide.html#shellcheck)
 
-The [ShellCheck project](https://www.shellcheck.net/) identifies common bugs and warnings for your shell scripts. It is
-recommended for all scripts, large or small.
+The [ShellCheck project](https://www.shellcheck.net/) identifies common bugs and warnings for your
+shell scripts. It is recommended for all scripts, large or small.
 
 ### Command Substitution[](https://google.github.io/styleguide/shellguide.html#command-substitution)
 
 Use `$(command)` instead of backticks.
 
-Nested backticks require escaping the inner ones with `\`. The `$(command)` format doesn’t change when nested and is
-easier to read.
+Nested backticks require escaping the inner ones with `\`. The `$(command)` format doesn’t change
+when nested and is easier to read.
 
 Example:
 
@@ -504,8 +514,8 @@ var="`command \`command1\``"
 
 `[[ … ]]` is preferred over `[ … ]`, `test` and `/usr/bin/[`.
 
-`[[ … ]]` reduces errors as no pathname expansion or word splitting takes place between `[[` and `]]`. In addition,
-`[[ … ]]` allows for regular expression matching, while `[ … ]` does not.
+`[[ … ]]` reduces errors as no pathname expansion or word splitting takes place between `[[` and
+`]]`. In addition, `[[ … ]]` allows for regular expression matching, while `[ … ]` does not.
 
 ```sh
 # This ensures the string on the left is made up of characters in
@@ -535,8 +545,8 @@ For the gory details, see E14 at http://tiswww.case.edu/php/chet/bash/FAQ
 
 Use quotes rather than filler characters where possible.
 
-Bash is smart enough to deal with an empty string in a test. So, given that the code is much easier to read, use tests
-for empty/non-empty strings or empty strings rather than filler characters.
+Bash is smart enough to deal with an empty string in a test. So, given that the code is much easier
+to read, use tests for empty/non-empty strings or empty strings rather than filler characters.
 
 ```sh
 # Do this:
@@ -579,9 +589,10 @@ if [[ "${my_var}" ]]; then
 fi
 ```
 
-For clarity, use `==` for equality rather than `=` even though both work. The former encourages the use of `[[` and the
-latter can be confused with an assignment. However, be careful when using `<` and `>` in `[[ … ]]` which performs a
-lexicographical comparison. Use `(( … ))` or `-lt` and `-gt` for numerical comparison.
+For clarity, use `==` for equality rather than `=` even though both work. The former encourages the
+use of `[[` and the latter can be confused with an assignment. However, be careful when using `<`
+and `>` in `[[ … ]]` which performs a lexicographical comparison. Use `(( … ))` or `-lt` and `-gt`
+for numerical comparison.
 
 ```sh
 # Use this
@@ -640,8 +651,8 @@ removed `./somefile'
 
 `eval` should be avoided.
 
-Eval munges the input when used for assignment to variables and can set variables without making it possible to check
-what those variables were.
+Eval munges the input when used for assignment to variables and can set variables without making it
+possible to check what those variables were.
 
 ```sh
 # What does this set?
@@ -654,16 +665,17 @@ variable="$(eval some_function)"
 
 ### Arrays[](https://google.github.io/styleguide/shellguide.html#arrays)
 
-Bash arrays should be used to store lists of elements, to avoid quoting complications. This particularly applies to
-argument lists. Arrays should not be used to facilitate more complex data structures (see
+Bash arrays should be used to store lists of elements, to avoid quoting complications. This
+particularly applies to argument lists. Arrays should not be used to facilitate more complex data
+structures (see
 [When to use Shell](https://google.github.io/styleguide/shellguide.html#when-to-use-shell) above).
 
-Arrays store an ordered collection of strings, and can be safely expanded into individual elements for a command or
-loop.
+Arrays store an ordered collection of strings, and can be safely expanded into individual elements
+for a command or loop.
 
-Using a single string for multiple command arguments should be avoided, as it inevitably leads to authors using `eval`
-or trying to nest quotes inside the string, which does not give reliable or readable results and leads to needless
-complexity.
+Using a single string for multiple command arguments should be avoided, as it inevitably leads to
+authors using `eval` or trying to nest quotes inside the string, which does not give reliable or
+readable results and leads to needless complexity.
 
 ```sh
 # An array is assigned using parentheses, and can be appended to
@@ -692,9 +704,10 @@ mybinary $(get_arguments)
 
 #### Arrays Pros[](https://google.github.io/styleguide/shellguide.html#arrays-pros)
 
-- Using Arrays allows lists of things without confusing quoting semantics. Conversely, not using arrays leads to
-  misguided attempts to nest quoting inside a string.
-- Arrays make it possible to safely store sequences/lists of arbitrary strings, including strings containing whitespace.
+- Using Arrays allows lists of things without confusing quoting semantics. Conversely, not using
+  arrays leads to misguided attempts to nest quoting inside a string.
+- Arrays make it possible to safely store sequences/lists of arbitrary strings, including strings
+  containing whitespace.
 
 #### Arrays Cons[](https://google.github.io/styleguide/shellguide.html#arrays-cons)
 
@@ -702,15 +715,17 @@ Using arrays can risk a script’s complexity growing.
 
 #### Arrays Decision[](https://google.github.io/styleguide/shellguide.html#arrays-decision)
 
-Arrays should be used to safely create and pass around lists. In particular, when building a set of command arguments,
-use arrays to avoid confusing quoting issues. Use quoted expansion – `"${array[@]}"` – to access arrays. However, if
-more advanced data manipulation is required, shell scripting should be avoided altogether; see
+Arrays should be used to safely create and pass around lists. In particular, when building a set of
+command arguments, use arrays to avoid confusing quoting issues. Use quoted expansion –
+`"${array[@]}"` – to access arrays. However, if more advanced data manipulation is required, shell
+scripting should be avoided altogether; see
 [above](https://google.github.io/styleguide/shellguide.html#when-to-use-shell).
 
 ### Pipes to While[](https://google.github.io/styleguide/shellguide.html#pipes-to-while)
 
-Use process substitution or the `readarray` builtin (bash4+) in preference to piping to `while`. Pipes create a
-subshell, so any variables modified within a pipeline do not propagate to the parent shell.
+Use process substitution or the `readarray` builtin (bash4+) in preference to piping to `while`.
+Pipes create a subshell, so any variables modified within a pipeline do not propagate to the parent
+shell.
 
 The implicit subshell in a pipe to `while` can introduce subtle bugs that are hard to track down.
 
@@ -726,8 +741,8 @@ done
 echo "${last_line}"
 ```
 
-Using process substitution also creates a subshell. However, it allows redirecting from a subshell to a `while` without
-putting the `while` (or any other command) in a subshell.
+Using process substitution also creates a subshell. However, it allows redirecting from a subshell
+to a `while` without putting the `while` (or any other command) in a subshell.
 
 ```sh
 last_line='NULL'
@@ -741,9 +756,10 @@ done < <(your_command)
 echo "${last_line}"
 ```
 
-Alternatively, use the `readarray` builtin to read the file into an array, then loop over the array’s contents. Notice
-that (for the same reason as above) you need to use a process substitution with `readarray` rather than a pipe, but with
-the advantage that the input generation for the loop is located before it, rather than after.
+Alternatively, use the `readarray` builtin to read the file into an array, then loop over the
+array’s contents. Notice that (for the same reason as above) you need to use a process substitution
+with `readarray` rather than a pipe, but with the advantage that the input generation for the loop
+is located before it, rather than after.
 
 ```sh
 last_line='NULL'
@@ -756,10 +772,11 @@ done
 echo "${last_line}"
 ```
 
-> Note: Be cautious using a for-loop to iterate over output, as in `for var in $(...)`, as the output is split by
-> whitespace, not by line. Sometimes you will know this is safe because the output can’t contain any unexpected
-> whitespace, but where this isn’t obvious or doesn’t improve readability (such as a long command inside `$(...)`), a
-> `while read` loop or `readarray` is often safer and clearer.
+> Note: Be cautious using a for-loop to iterate over output, as in `for var in $(...)`, as the
+> output is split by whitespace, not by line. Sometimes you will know this is safe because the
+> output can’t contain any unexpected whitespace, but where this isn’t obvious or doesn’t improve
+> readability (such as a long command inside `$(...)`), a `while read` loop or `readarray` is often
+> safer and clearer.
 
 ### Arithmetic[](https://google.github.io/styleguide/shellguide.html#arithmetic)
 
@@ -767,14 +784,16 @@ Always use `(( … ))` or `$(( … ))` rather than `let` or `$[ … ]` or `expr`
 
 Never use the `$[ … ]` syntax, the `expr` command, or the `let` built-in.
 
-`<` and `>` don’t perform numerical comparison inside `[[ … ]]` expressions (they perform lexicographical comparisons
-instead; see [Testing Strings](https://google.github.io/styleguide/shellguide.html#testing-strings)). For preference,
-don’t use `[[ … ]]` _at all_ for numeric comparisons, use `(( … ))` instead.
+`<` and `>` don’t perform numerical comparison inside `[[ … ]]` expressions (they perform
+lexicographical comparisons instead; see
+[Testing Strings](https://google.github.io/styleguide/shellguide.html#testing-strings)). For
+preference, don’t use `[[ … ]]` _at all_ for numeric comparisons, use `(( … ))` instead.
 
-It is recommended to avoid using `(( … ))` as a standalone statement, and otherwise be wary of its expression evaluating
-to zero
+It is recommended to avoid using `(( … ))` as a standalone statement, and otherwise be wary of its
+expression evaluating to zero
 
-- particularly with `set -e` enabled. For example, `set -e; i=0; (( i++ ))` will cause the shell to exit.
+- particularly with `set -e` enabled. For example, `set -e; i=0; (( i++ ))` will cause the shell to
+  exit.
 
 ```sh
 # Simple calculation used as text - note the use of $(( … )) within
@@ -808,9 +827,9 @@ i=$( expr 4 '*' 4 )
 
 Stylistic considerations aside, the shell’s built-in arithmetic is many times faster than `expr`.
 
-When using variables, the `${var}` (and `$var`) forms are not required within `$(( … ))`. The shell knows to look up
-`var` for you, and omitting the `${…}` leads to cleaner code. This is slightly contrary to the previous rule about
-always using braces, so this is a recommendation only.
+When using variables, the `${var}` (and `$var`) forms are not required within `$(( … ))`. The shell
+knows to look up `var` for you, and omitting the `${…}` leads to cleaner code. This is slightly
+contrary to the previous rule about always using braces, so this is a recommendation only.
 
 ```sh
 # N.B.: Remember to declare your variables as integers when
@@ -839,12 +858,13 @@ echo $(( hr * 3600 + min * 60 + sec )) # prints 7530 as expected
 
 ### Function Names[](https://google.github.io/styleguide/shellguide.html#function-names)
 
-Lower-case, with underscores to separate words. Separate libraries with `::`. Parentheses are required after the
-function name. The keyword `function` is optional, but must be used consistently throughout a project.
+Lower-case, with underscores to separate words. Separate libraries with `::`. Parentheses are
+required after the function name. The keyword `function` is optional, but must be used consistently
+throughout a project.
 
-If you’re writing single functions, use lowercase and separate words with underscore. If you’re writing a package,
-separate package names with `::`. Braces must be on the same line as the function name (as with other languages at
-Google) and no space between the function name and the parenthesis.
+If you’re writing single functions, use lowercase and separate words with underscore. If you’re
+writing a package, separate package names with `::`. Braces must be on the same line as the function
+name (as with other languages at Google) and no space between the function name and the parenthesis.
 
 ```sh
 # Single function
@@ -858,8 +878,8 @@ mypackage::my_func() {
 }
 ```
 
-The `function` keyword is extraneous when “()” is present after the function name, but enhances quick identification of
-functions.
+The `function` keyword is extraneous when “()” is present after the function name, but enhances
+quick identification of functions.
 
 ### Variable Names[](https://google.github.io/styleguide/shellguide.html#variable-names)
 
@@ -887,9 +907,10 @@ readonly PATH_TO_FILES='/some/path'
 declare -xr ORACLE_SID='PROD'
 ```
 
-Some things become constant at their first setting (for example, via getopts). Thus, it’s OK to set a constant in
-getopts or based on a condition, but it should be made readonly immediately afterwards. For the sake of clarity
-`readonly` or `export` is recommended instead of the equivalent `declare` commands.
+Some things become constant at their first setting (for example, via getopts). Thus, it’s OK to set
+a constant in getopts or based on a condition, but it should be made readonly immediately
+afterwards. For the sake of clarity `readonly` or `export` is recommended instead of the equivalent
+`declare` commands.
 
 ```sh
 VERBOSE='false'
@@ -905,14 +926,15 @@ readonly VERBOSE
 
 Lowercase, with underscores to separate words if desired.
 
-This is for consistency with other code styles in Google: `maketemplate` or `make_template` but not `make-template`.
+This is for consistency with other code styles in Google: `maketemplate` or `make_template` but not
+`make-template`.
 
 ### Read-only Variables[](https://google.github.io/styleguide/shellguide.html#read-only-variables)
 
 Use `readonly` or `declare -r` to ensure they’re read only.
 
-As globals are widely used in shell, it’s important to catch errors when working with them. When you declare a variable
-that is meant to be read-only, make this explicit.
+As globals are widely used in shell, it’s important to catch errors when working with them. When you
+declare a variable that is meant to be read-only, make this explicit.
 
 ```sh
 zip_version="$(dpkg --status zip | grep Version: | cut -d ' ' -f 2)"
@@ -925,14 +947,16 @@ fi
 
 ### Use Local Variables[](https://google.github.io/styleguide/shellguide.html#use-local-variables)
 
-Declare function-specific variables with `local`. Declaration and assignment should be on different lines.
+Declare function-specific variables with `local`. Declaration and assignment should be on different
+lines.
 
-Ensure that local variables are only seen inside a function and its children by using `local` when declaring them. This
-avoids polluting the global name space and inadvertently setting variables that may have significance outside the
-function.
+Ensure that local variables are only seen inside a function and its children by using `local` when
+declaring them. This avoids polluting the global name space and inadvertently setting variables that
+may have significance outside the function.
 
-Declaration and assignment must be separate statements when the assignment value is provided by a command substitution;
-as the `local` builtin does not propagate the exit code from the command substitution.
+Declaration and assignment must be separate statements when the assignment value is provided by a
+command substitution; as the `local` builtin does not propagate the exit code from the command
+substitution.
 
 ```sh
 my_func2() {
@@ -960,26 +984,28 @@ my_func2() {
 
 ### Function Location[](https://google.github.io/styleguide/shellguide.html#function-location)
 
-Put all functions together in the file just below constants. Don’t hide executable code between functions. Doing so
-makes the code difficult to follow and results in nasty surprises when debugging.
+Put all functions together in the file just below constants. Don’t hide executable code between
+functions. Doing so makes the code difficult to follow and results in nasty surprises when
+debugging.
 
-If you’ve got functions, put them all together near the top of the file. Only includes, `set` statements and setting
-constants may be done before declaring functions.
+If you’ve got functions, put them all together near the top of the file. Only includes, `set`
+statements and setting constants may be done before declaring functions.
 
 ### main[](https://google.github.io/styleguide/shellguide.html#main)
 
 A function called `main` is required for scripts long enough to contain at least one other function.
 
-In order to easily find the start of the program, put the main program in a function called `main` as the bottom most
-function. This provides consistency with the rest of the code base as well as allowing you to define more variables as
-`local` (which can’t be done if the main code is not a function). The last non-comment line in the file should be a call
-to `main`:
+In order to easily find the start of the program, put the main program in a function called `main`
+as the bottom most function. This provides consistency with the rest of the code base as well as
+allowing you to define more variables as `local` (which can’t be done if the main code is not a
+function). The last non-comment line in the file should be a call to `main`:
 
 ```sh
 main "$@"
 ```
 
-Obviously, for short scripts where it’s just a linear flow, `main` is overkill and so is not required.
+Obviously, for short scripts where it’s just a linear flow, `main` is overkill and so is not
+required.
 
 ## Calling Commands[](https://google.github.io/styleguide/shellguide.html#calling-commands)
 
@@ -1005,8 +1031,9 @@ if (( $? != 0 )); then
 fi
 ```
 
-Bash also has the `PIPESTATUS` variable that allows checking of the return code from all parts of a pipe. If it’s only
-necessary to check success or failure of the whole pipe, then the following is acceptable:
+Bash also has the `PIPESTATUS` variable that allows checking of the return code from all parts of a
+pipe. If it’s only necessary to check success or failure of the whole pipe, then the following is
+acceptable:
 
 ```sh
 tar -cf - ./* | ( cd "${dir}" && tar -xf - )
@@ -1015,9 +1042,10 @@ if (( PIPESTATUS[0] != 0 || PIPESTATUS[1] != 0 )); then
 fi
 ```
 
-However, as `PIPESTATUS` will be overwritten as soon as you do any other command, if you need to act differently on
-errors based on where it happened in the pipe, you’ll need to assign `PIPESTATUS` to another variable immediately after
-running the command (don’t forget that `[` is a command and will wipe out `PIPESTATUS`).
+However, as `PIPESTATUS` will be overwritten as soon as you do any other command, if you need to act
+differently on errors based on where it happened in the pipe, you’ll need to assign `PIPESTATUS` to
+another variable immediately after running the command (don’t forget that `[` is a command and will
+wipe out `PIPESTATUS`).
 
 ```sh
 tar -cf - ./* | ( cd "${DIR}" && tar -xf - )
@@ -1032,10 +1060,11 @@ fi
 
 ### Builtin Commands vs. External Commands[](https://google.github.io/styleguide/shellguide.html#builtin-commands-vs-external-commands)
 
-Given the choice between invoking a shell builtin and invoking a separate process, choose the builtin.
+Given the choice between invoking a shell builtin and invoking a separate process, choose the
+builtin.
 
-We prefer the use of builtins such as the _Parameter Expansion_ functions in `bash(1)` as it’s more robust and portable
-(especially when compared to things like `sed`).
+We prefer the use of builtins such as the _Parameter Expansion_ functions in `bash(1)` as it’s more
+robust and portable (especially when compared to things like `sed`).
 
 Example:
 

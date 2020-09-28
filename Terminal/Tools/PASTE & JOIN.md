@@ -1,7 +1,7 @@
 # PASTE
 
-Paste is a niche command with an interesting function. If you have two files that you need merged, and they are already
-sorted, paste has you covered.
+Paste is a niche command with an interesting function. If you have two files that you need merged,
+and they are already sorted, paste has you covered.
 
 ```
 # names.txt
@@ -32,9 +32,9 @@ For a more SQL\_-esque variant, see below.
 
 # JOIN
 
-Join is a simplistic, quasi-tangential, SQL. The largest differences being that join will return all columns and matches
-can only be on one field. By default, join will try and use the first column as the match key. For a different result,
-the following syntax is necessary:
+Join is a simplistic, quasi-tangential, SQL. The largest differences being that join will return all
+columns and matches can only be on one field. By default, join will try and use the first column as
+the match key. For a different result, the following syntax is necessary:
 
 ```
 # Join the first file (-1) by the second column
@@ -43,8 +43,9 @@ the following syntax is necessary:
 join -t"," -1 2 -2 1 first_file.txt second_file.txt
 ```
 
-The standard join is an inner join. However, an outer join is also viable through the -a flag. Another noteworthy quirk
-is the -e flag, which can be used to substitute a value if a missing field is found.
+The standard join is an inner join. However, an outer join is also viable through the -a flag.
+Another noteworthy quirk is the -e flag, which can be used to substitute a value if a missing field
+is found.
 
 ```
 # Outer join, replace blanks with NULL in columns 1 and 2

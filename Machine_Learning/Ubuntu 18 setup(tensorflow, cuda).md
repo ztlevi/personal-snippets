@@ -69,7 +69,8 @@ sudo chmod a+r /usr/include/cudnn.h /usr/lib64/libcudnn*
 
   Install tensorflow 12 and protobuf 3.6.0, https://github.com/cjweeks/tensorflow-cmake
 
-  Do not run `sudo find /usr/local/include/google/tensorflow/tensorflow -type f ! -name "*.h" -delete`
+  Do not run
+  `sudo find /usr/local/include/google/tensorflow/tensorflow -type f ! -name "*.h" -delete`
 
 * Tensorflow_cc (Other way, not integrated with DSM)
 

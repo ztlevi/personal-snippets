@@ -1,36 +1,37 @@
 # Bash operators `[[` vs `[` vs `(` vs `((`
 
-The `then` clause is executed if the exit code of `commands1` is zero. If the exit code is nonzero, then the `else`
-clause is executed. `commands1` can be simple or complex. It can, for example, be a sequence of one or more pipelines
-separated by one of the operators `;`, `&`, `&&`, or `||`. The `if` conditions shown below are just special cases of
-`commands1`:
+The `then` clause is executed if the exit code of `commands1` is zero. If the exit code is nonzero,
+then the `else` clause is executed. `commands1` can be simple or complex. It can, for example, be a
+sequence of one or more pipelines separated by one of the operators `;`, `&`, `&&`, or `||`. The
+`if` conditions shown below are just special cases of `commands1`:
 
 1.  `if [ condition ]`
 
-    This is the traditional shell `test` command. It is available on all POSIX shells. The test command sets an exit
-    code and the `if` statement acts accordingly. Typical tests are whether a file exists or one number is equal to
-    another.
+    This is the traditional shell `test` command. It is available on all POSIX shells. The test
+    command sets an exit code and the `if` statement acts accordingly. Typical tests are whether a
+    file exists or one number is equal to another.
 
 2.  `if [[ condition ]]`
 
-    This is a new upgraded variation on `test` from _ksh_ that _bash_ and _zsh_ also support. This `test` command also
-    sets an exit code and the `if` statement acts accordingly. Among its extended features, it can test whether a string
-    matches a regular expression.
+    This is a new upgraded variation on `test` from _ksh_ that _bash_ and _zsh_ also support. This
+    `test` command also sets an exit code and the `if` statement acts accordingly. Among its
+    extended features, it can test whether a string matches a regular expression.
 
 3.  `if ((condition))`
 
-    Another _ksh_ extension that _bash_ and _zsh_ also support. This performs arithmetic. As the result of the
-    arithmetic, an exit code is set and the `if` statement acts accordingly. It returns an exit code of zero (true) if
-    the result of the arithmetic calculation is nonzero. Like `[[...]]`, this form is not POSIX and therefore not
-    portable.
+    Another _ksh_ extension that _bash_ and _zsh_ also support. This performs arithmetic. As the
+    result of the arithmetic, an exit code is set and the `if` statement acts accordingly. It
+    returns an exit code of zero (true) if the result of the arithmetic calculation is nonzero. Like
+    `[[...]]`, this form is not POSIX and therefore not portable.
 
 4.  `if (command)`
 
-    This runs command in a subshell. When command completes, it sets an exit code and the `if` statement acts
-    accordingly.
+    This runs command in a subshell. When command completes, it sets an exit code and the `if`
+    statement acts accordingly.
 
-    A typical reason for using a subshell like this is to limit side-effects of `command` if `command` required variable
-    assignments or other changes to the shell's environment. Such changes do not remain after the subshell completes.
+    A typical reason for using a subshell like this is to limit side-effects of `command` if
+    `command` required variable assignments or other changes to the shell's environment. Such
+    changes do not remain after the subshell completes.
 
 5.  `if command`
 
@@ -40,8 +41,8 @@ separated by one of the operators `;`, `&`, `&&`, or `||`. The `if` conditions s
 
 https://www.tldp.org/LDP/abs/html/comparison-ops.html
 
-A _binary_ comparison operator compares two variables or quantities. _Note that integer and string comparison use a
-different set of operators._
+A _binary_ comparison operator compares two variables or quantities. _Note that integer and string
+comparison use a different set of operators._
 
 ## **integer comparison**
 
@@ -66,7 +67,8 @@ different set of operators._
 
    This is a synonym for `=`.
 
-   The `==` comparison operator behaves differently within a double-brackets test than within single brackets.
+   The `==` comparison operator behaves differently within a double-brackets test than within single
+   brackets.
 
    ```sh
    [[ $a == z* ]]   # True if $a starts with an "z" (pattern matching).
@@ -76,14 +78,15 @@ different set of operators._
    [ "$a" == "z*" ] # True if $a is equal to z* (literal matching).
    ```
 
-3. `!`= is not equal to `if [ "$a" != "$b" ]` This operator uses pattern matching within a `[[ ... ]]` construct.
-4. `<` is less than, in ASCII alphabetical order `if [[ "$a" < "$b" ]]` `if [ "$a" \< "$b" ]` Note that the "<" needs to
-   be escaped within a [ ] construct.
+3. `!`= is not equal to `if [ "$a" != "$b" ]` This operator uses pattern matching within a
+   `[[ ... ]]` construct.
+4. `<` is less than, in ASCII alphabetical order `if [[ "$a" < "$b" ]]` `if [ "$a" \< "$b" ]` Note
+   that the "<" needs to be escaped within a [ ] construct.
 5. `>` is greater than, in ASCII alphabetical order `if [[ "$a" > "$b" ]]` `if [ "$a" \> "$b" ]`
 
    Note that the ">" needs to be escaped within a [ ] construct. See
-   [ Example 27-11 ](https://www.tldp.org/LDP/abs/html/arrays.html#BUBBLE) for an application of this comparison
-   operator.
+   [ Example 27-11 ](https://www.tldp.org/LDP/abs/html/arrays.html#BUBBLE) for an application of
+   this comparison operator.
 
 6. `-z` string is null, that is, has zero length
 
@@ -100,9 +103,9 @@ different set of operators._
 
 7. `-n` string is not null.
 
-   > The `-n` test requires that the string be quoted within the test brackets. Using an unquoted string with `! -z`, or
-   > even just the unquoted string alone within test brackets (see Example 7-6) normally works, however, this is an
-   > unsafe practice. Always quote a tested string. [1]
+   > The `-n` test requires that the string be quoted within the test brackets. Using an unquoted
+   > string with `! -z`, or even just the unquoted string alone within test brackets (see Example
+   > 7-6) normally works, however, this is an unsafe practice. Always quote a tested string. [1]
 
 ## Compound comparison
 
@@ -111,8 +114,8 @@ different set of operators._
 2. `-o` logical or `exp1 -o exp2` returns true if either exp1 or exp2 is true.
 
    These are similar to the Bash comparison operators `&&` and `||`, used within double brackets.
-   `[[ condition1 && condition2 ]]` The `-o` and `-a` operators work with the test command or occur within single test
-   brackets.
+   `[[ condition1 && condition2 ]]` The `-o` and `-a` operators work with the test command or occur
+   within single test brackets.
 
    ```sh
    if [ "$expr1" -a "$expr2" ]

@@ -1,6 +1,6 @@
-User-defined annotations can be used to annotate program elements, i.e. variables, constructors, methods, etc. These
-annotations can be applied just before declaration of an element (constructor, method, classes, etc). Syntax of
-Declaration:-
+User-defined annotations can be used to annotate program elements, i.e. variables, constructors,
+methods, etc. These annotations can be applied just before declaration of an element (constructor,
+method, classes, etc). Syntax of Declaration:-
 
 ```
 [Access Specifier] @interface<AnnotationName>
@@ -10,12 +10,12 @@ Declaration:-
 ```
 
 - AnnotationName is an identifier.
-- Parameter should not be associated with method declarations and throws clause should not be used with method
-  declaration.
+- Parameter should not be associated with method declarations and throws clause should not be used
+  with method declaration.
 - Parameters will not have a null value but can have a default value.
 - default value is optional.
-- Return type of method should be either primitive, enum, string, class name or array of primitive, enum, string or
-  class name type.
+- Return type of method should be either primitive, enum, string, class name or array of primitive,
+  enum, string or class name type.
 
 ```java
 package source;

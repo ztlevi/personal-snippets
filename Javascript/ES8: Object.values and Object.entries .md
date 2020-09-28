@@ -1,5 +1,5 @@
-The obj parameter is the source object for the operation. It can be an object or an array (that is an object with
-indexes like [10, 20, 30] -> { 0: 10, 1: 20, 2: 30 }).
+The obj parameter is the source object for the operation. It can be an object or an array (that is
+an object with indexes like [10, 20, 30] -> { 0: 10, 1: 20, 2: 30 }).
 
 ```
 const obj = { x: 'xxx', y: 1 };
@@ -15,8 +15,8 @@ Object.values(obj); // ['yyy', 'zzz', 'xxx']
 Object.values('es8'); // ['e', 's', '8']
 ```
 
-The Object.entries method returns an array of a given object's own enumerable property [key, value] pairs, in the same
-order as Object.values. The declaration of the function is trivial:
+The Object.entries method returns an array of a given object's own enumerable property [key, value]
+pairs, in the same order as Object.values. The declaration of the function is trivial:
 
 ```
 const obj = { x: 'xxx’, y: 1 };

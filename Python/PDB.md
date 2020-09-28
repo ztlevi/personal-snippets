@@ -4,8 +4,8 @@ https://www.codementor.io/stevek/advanced-python-debugging-with-pdb-g56gvmpfa
 
 ## Debugger commands
 
-There are over 30 commands you can give to the interactive debugger, a list that can be seen by using the `help` command
-when at the `(Pdb)` prompt:
+There are over 30 commands you can give to the interactive debugger, a list that can be seen by
+using the `help` command when at the `(Pdb)` prompt:
 
 ```hljs
 (Pdb) help
@@ -23,42 +23,46 @@ bt     continue   exit     l         pp        run      unalias  where
 
 You can use `help <topic>` for more information on a given command.
 
-Instead of walking through each command, I'll list out the ones I've found most useful and what arguments they take.
+Instead of walking through each command, I'll list out the ones I've found most useful and what
+arguments they take.
 
 **Setting breakpoints**:
 
-- `l(ist)`: displays the source code of the currently running program, with line numbers, for the 10 lines around the
-  current statement.
-- `l 1,999`: displays the source code of lines 1-999. I regularly use this to see the source for the entire program. If
-  your program only has 20 lines, it'll just show all 20 lines.
+- `l(ist)`: displays the source code of the currently running program, with line numbers, for the 10
+  lines around the current statement.
+- `l 1,999`: displays the source code of lines 1-999. I regularly use this to see the source for the
+  entire program. If your program only has 20 lines, it'll just show all 20 lines.
 - `b(reakpoint)`: displays a list of current breakpoints.
 - `b 10`: set a breakpoint at line 10. Breakpoints are referred to by a numeric ID, starting at 1.
-- `b main`: set a breakpoint at the function named `main`. The function name must be in the current scope. You can also
-  set breakpoints on functions in other modules in the current scope, e.g. `b random.randint`.
-- `b script.py:10`: sets a breakpoint at line 10 in `script.py`. This gives you another way to set breakpoints in
-  another module.
+- `b main`: set a breakpoint at the function named `main`. The function name must be in the current
+  scope. You can also set breakpoints on functions in other modules in the current scope, e.g.
+  `b random.randint`.
+- `b script.py:10`: sets a breakpoint at line 10 in `script.py`. This gives you another way to set
+  breakpoints in another module.
 - `clear`: clears all breakpoints.
 - `clear 1`: clear breakpoint 1.
 
 **Stepping through execution**:
 
 - `c(ontinue)`: execute until the program finishes, an exception is thrown, or a breakpoint is hit.
-- `s(tep)`: execute the next line, _whatever it is_ (your code, stdlib, third party code, etc.). Use this when you want
-  to step down into function calls you're interested in.
-- `n(ext)`: execute the next line _in the current function_ (will not step into downstream function calls). Use this
-  when you're only interested in the current function.
-- `r(eturn)`: execute the remaining lines in the current function until it returns. Use this to skip over the rest of
-  the function and go up a level. For example, if you've stepped down into a function by mistake.
-- `unt(il) [lineno]`: execute until the current line exceeds the current line number. This is useful when you've stepped
-  into a loop but want to let the loop continue executing without having to manually step through every iteration.
-  Without any argument, this command behaves like `next` (with the loop skipping behavior, once you've stepped through
-  the loop body once).
+- `s(tep)`: execute the next line, _whatever it is_ (your code, stdlib, third party code, etc.). Use
+  this when you want to step down into function calls you're interested in.
+- `n(ext)`: execute the next line _in the current function_ (will not step into downstream function
+  calls). Use this when you're only interested in the current function.
+- `r(eturn)`: execute the remaining lines in the current function until it returns. Use this to skip
+  over the rest of the function and go up a level. For example, if you've stepped down into a
+  function by mistake.
+- `unt(il) [lineno]`: execute until the current line exceeds the current line number. This is useful
+  when you've stepped into a loop but want to let the loop continue executing without having to
+  manually step through every iteration. Without any argument, this command behaves like `next`
+  (with the loop skipping behavior, once you've stepped through the loop body once).
 
 **Moving up and down the stack**:
 
 - `w(here)`: shows an annotated view of the stack trace, with your current frame marked by `>`.
-- `u(p)`: move up one frame in the current stack trace. For example, when post-mortem debugging, you'll start off on the
-  lowest level of the stack and typically want to move `up` a few times to help figure out what went wrong.
+- `u(p)`: move up one frame in the current stack trace. For example, when post-mortem debugging,
+  you'll start off on the lowest level of the stack and typically want to move `up` a few times to
+  help figure out what went wrong.
 - `d(own)`: move down one frame in the current stack trace.
 
 **Additional commands and tips**:
@@ -83,17 +87,17 @@ Instead of walking through each command, I'll list out the ones I've found most 
  (11, 'strings')]
 ```
 
-- `!<python code>`: sometimes the Python code you run in the debugger will be confused for a command. For example
-  `c = 1` will trigger the `continue` command. To force the debugger to execute Python code, prefix the line with `!`,
-  e.g. `!c = 1`.
+- `!<python code>`: sometimes the Python code you run in the debugger will be confused for a
+  command. For example `c = 1` will trigger the `continue` command. To force the debugger to execute
+  Python code, prefix the line with `!`, e.g. `!c = 1`.
 
-- Pressing the Enter key at the `(Pdb)` prompt will execute the previous command again. This is most useful after the
-  `s`/`n`/`r`/`unt` commands to quickly step through execution line-by-line.
+- Pressing the Enter key at the `(Pdb)` prompt will execute the previous command again. This is most
+  useful after the `s`/`n`/`r`/`unt` commands to quickly step through execution line-by-line.
 
 - You can run multiple commands on one line by separating them with `;;`, e.g. `b 8 ;; c`.
 
-- The `pdb` module can take multiple `-c` arguments on the command line to execute commands as soon as the debugger
-  starts.
+- The `pdb` module can take multiple `-c` arguments on the command line to execute commands as soon
+  as the debugger starts.
 
 Example:
 
@@ -104,10 +108,10 @@ python3 -mpdb -c "b 8" -cc script.py # sets a breakpoint on line 8 and runs the 
 
 ## Post-mortem debugging
 
-The first workflow I used after moving away from `print` debugging was `pdb`'s "post-mortem debugging" mode. This is
-where you run your program as usual, but whenever an unhandled exception is thrown, you drop down into the debugger to
-poke around in the program state. After that, you attempt to make a fix and repeat the process until the problem is
-resolved.
+The first workflow I used after moving away from `print` debugging was `pdb`'s "post-mortem
+debugging" mode. This is where you run your program as usual, but whenever an unhandled exception is
+thrown, you drop down into the debugger to poke around in the program state. After that, you attempt
+to make a fix and repeat the process until the problem is resolved.
 
 You can run an existing script with the post-mortem debugger by using Python's `-mpdb` option:
 
@@ -115,13 +119,14 @@ You can run an existing script with the post-mortem debugger by using Python's `
 python3 -mpdb path/to/script.py
 ```
 
-From here, you are dropped into a `(Pdb)` prompt. To start execution, you use the `continue` or `c` command. If the
-program executes successfully, you will be taken back to the `(Pdb)` prompt where you can restart the execution again.
-At this point, you can use `quit` / `q` or Ctrl+D to exit the debugger.
+From here, you are dropped into a `(Pdb)` prompt. To start execution, you use the `continue` or `c`
+command. If the program executes successfully, you will be taken back to the `(Pdb)` prompt where
+you can restart the execution again. At this point, you can use `quit` / `q` or Ctrl+D to exit the
+debugger.
 
-If the program throws an unhandled exception, you'll also see a `(Pdb)` prompt, but with the program execution _stopped
-at the line that threw the exception_. From here, you can run Python code and debugger commands at the prompt to inspect
-the current program state.
+If the program throws an unhandled exception, you'll also see a `(Pdb)` prompt, but with the program
+execution _stopped at the line that threw the exception_. From here, you can run Python code and
+debugger commands at the prompt to inspect the current program state.
 
 ## Testing our basic workflow
 
@@ -148,8 +153,8 @@ if __name__ == "__main__":
         main()
 ```
 
-We're expecting the program to do some basic math operations on random numbers in a loop and print the result. Try
-running it normally and you will see one of the bugs:
+We're expecting the program to do some basic math operations on random numbers in a loop and print
+the result. Try running it normally and you will see one of the bugs:
 
 ```hljs
 $ python3 script.py
@@ -206,17 +211,17 @@ Running 'cont' or 'step' will restart the program
 1
 ```
 
-Once the post-mortem debugger kicks in, we can inspect all of the variables in the current frame and even run new code
-to help us figure out what's wrong and attempt to make a fix.
+Once the post-mortem debugger kicks in, we can inspect all of the variables in the current frame and
+even run new code to help us figure out what's wrong and attempt to make a fix.
 
 ## Dropping into the debugger from Python code using `pdb.set_trace`
 
-Another technique that I used early on, after starting to use `pdb`, was forcing the debugger to run at a certain line
-of code before an error occurred. This is a common next step after learning post-mortem debugging because it feels
-similar to debugging with `print` statements.
+Another technique that I used early on, after starting to use `pdb`, was forcing the debugger to run
+at a certain line of code before an error occurred. This is a common next step after learning
+post-mortem debugging because it feels similar to debugging with `print` statements.
 
-For example, in the above code, if we want to stop execution before the division operation, we could add a
-`pdb.set_trace` call to our program here:
+For example, in the above code, if we want to stop execution before the division operation, we could
+add a `pdb.set_trace` call to our program here:
 
 ```hljs
 import pdb; pdb.set_trace()
@@ -235,30 +240,34 @@ $ python3 script.py
 19
 ```
 
-The problem with this method is that you have to constantly drop these statements into your source code, remember to
-remove them afterwards, and switch between running your code with `python` vs. `python -mpdb`.
+The problem with this method is that you have to constantly drop these statements into your source
+code, remember to remove them afterwards, and switch between running your code with `python` vs.
+`python -mpdb`.
 
-Using `pdb.set_trace` gets the job done, but **breakpoints** are an even more flexible way to stop the debugger at any
-line (even third party or standard library code), without needing to modify any source code. Let's learn about
-breakpoints and a few other useful commands.
+Using `pdb.set_trace` gets the job done, but **breakpoints** are an even more flexible way to stop
+the debugger at any line (even third party or standard library code), without needing to modify any
+source code. Let's learn about breakpoints and a few other useful commands.
 
 ## Restart behavior
 
-Another thing that can shave time off debugging is understanding how `pdb`'s restart behavior works. You may have
-noticed that after execution stops, `pdb` will give a message like, "The program finished and will be restarted," or
-"The script will be restarted." When I first started using `pdb`, I would always quit and re-run `python -mpdb ...` to
-make sure that my code changes were getting picked up, which was unnecessary in most cases.
+Another thing that can shave time off debugging is understanding how `pdb`'s restart behavior works.
+You may have noticed that after execution stops, `pdb` will give a message like, "The program
+finished and will be restarted," or "The script will be restarted." When I first started using
+`pdb`, I would always quit and re-run `python -mpdb ...` to make sure that my code changes were
+getting picked up, which was unnecessary in most cases.
 
-When `pdb` says it will restart the program, or when you use the `restart` command, code changes to the script you're
-debugging _will_ be reloaded automatically. Breakpoints will still be set after reloading, but may need to be cleared
-and re-set due to line numbers shifting. Code changes to _other_ imported modules _will not_ be reloaded — you will need
-to `quit` and re-run the `-mpdb` command to pick those up.
+When `pdb` says it will restart the program, or when you use the `restart` command, code changes to
+the script you're debugging _will_ be reloaded automatically. Breakpoints will still be set after
+reloading, but may need to be cleared and re-set due to line numbers shifting. Code changes to
+_other_ imported modules _will not_ be reloaded — you will need to `quit` and re-run the `-mpdb`
+command to pick those up.
 
 ## Watches
 
-One feature you may miss from other interactive debuggers is the ability to "watch" a variable change throughout the
-program's execution. `pdb` does not include a watch command by default, but you can get something similar by using
-`commands`, which lets you run arbitrary Python code whenever a breakpoint is hit.
+One feature you may miss from other interactive debuggers is the ability to "watch" a variable
+change throughout the program's execution. `pdb` does not include a watch command by default, but
+you can get something similar by using `commands`, which lets you run arbitrary Python code whenever
+a breakpoint is hit.
 
 To watch what happens to the `denom` variable in our example program:
 
@@ -283,23 +292,26 @@ DENOM: 20
 ...
 ```
 
-We first set a breakpoint (which is assigned ID 1), then use `commands` to start entering a block of commands. These
-commands function as if you had typed them at the `(Pdb)` prompt. They can be either Python code or additional `pdb`
-commands.
+We first set a breakpoint (which is assigned ID 1), then use `commands` to start entering a block of
+commands. These commands function as if you had typed them at the `(Pdb)` prompt. They can be either
+Python code or additional `pdb` commands.
 
-Once we start the `commands` block, the prompt changes to `(com)`. The `silent` command means the following commands
-will not be echoed back to the screen every time they're executed, which makes reading the output a little easier.
+Once we start the `commands` block, the prompt changes to `(com)`. The `silent` command means the
+following commands will not be echoed back to the screen every time they're executed, which makes
+reading the output a little easier.
 
-After that, we run a `print` statement to inspect the variable, similar to what we might do when `print` debugging.
-Finally, we end with a `c` to continue execution, which ends the command block. Typing `c` again at the `(Pdb)` prompt
-starts execution and we see our new `print` statement running.
+After that, we run a `print` statement to inspect the variable, similar to what we might do when
+`print` debugging. Finally, we end with a `c` to continue execution, which ends the command block.
+Typing `c` again at the `(Pdb)` prompt starts execution and we see our new `print` statement
+running.
 
-If you'd rather stop execution instead of continuing, you can use `end` instead of `c` in the command block.
+If you'd rather stop execution instead of continuing, you can use `end` instead of `c` in the
+command block.
 
 ## Running pdb from the interpreter
 
-Another way to run `pdb` is via the interpreter, which is useful when you're experimenting interactively and would like
-to drop into `pdb` without running a standalone script.
+Another way to run `pdb` is via the interpreter, which is useful when you're experimenting
+interactively and would like to drop into `pdb` without running a standalone script.
 
 For post-mortem debugging, all you need is a call to `pdb.pm()` after an exception has occurred:
 
@@ -356,15 +368,18 @@ Breakpoint 1 at ./src/script.py:6
 -> for i in range(num_loops):
 ```
 
-This one is a little trickier than `-mpdb` because you don't have the ability to step through an entire program.
-Instead, you'll need to manually set a breakpoint, e.g. on the first statement of the function you're trying to execute.
+This one is a little trickier than `-mpdb` because you don't have the ability to step through an
+entire program. Instead, you'll need to manually set a breakpoint, e.g. on the first statement of
+the function you're trying to execute.
 
 ## Conclusion
 
-Hopefully these tips have given you a few new ideas on how to use `pdb` more effectively. After getting a handle on
-these, you should be able to pick up the [other commands](https://docs.python.org/3/library/pdb.html#debugger-commands)
-and start customizing `pdb` via a `.pdbrc` file ([example](https://nedbatchelder.com/blog/200704/my_pdbrc.html)).
+Hopefully these tips have given you a few new ideas on how to use `pdb` more effectively. After
+getting a handle on these, you should be able to pick up the
+[other commands](https://docs.python.org/3/library/pdb.html#debugger-commands) and start customizing
+`pdb` via a `.pdbrc` file ([example](https://nedbatchelder.com/blog/200704/my_pdbrc.html)).
 
-You can also look into other front-ends for debugging, like [pdbpp](https://pypi.python.org/pypi/pdbpp/),
-[pudb](https://pypi.python.org/pypi/pudb/), and [ipdb](https://pypi.python.org/pypi/ipdb), or GUI debuggers like the one
-included in PyCharm. Happy debugging!
+You can also look into other front-ends for debugging, like
+[pdbpp](https://pypi.python.org/pypi/pdbpp/), [pudb](https://pypi.python.org/pypi/pudb/), and
+[ipdb](https://pypi.python.org/pypi/ipdb), or GUI debuggers like the one included in PyCharm. Happy
+debugging!

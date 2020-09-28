@@ -1,8 +1,9 @@
 # GREP
 
-Global search for a regular expression and print, or grep; likely, the most well known command, and with good reason.
-Grep has a lot of power, especially for finding your way around large codebases. Within the realm of data science, it
-acts as a refining mechanism for other commands. Although its standard usage is valuable as well.
+Global search for a regular expression and print, or grep; likely, the most well known command, and
+with good reason. Grep has a lot of power, especially for finding your way around large codebases.
+Within the realm of data science, it acts as a refining mechanism for other commands. Although its
+standard usage is valuable as well.
 
 ```
 # Recursively search and list all files in directory containing 'word'

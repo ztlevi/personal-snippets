@@ -1,6 +1,7 @@
-It is a marker annotation that can be used only on methods. A method annotated with @Override must override a method
-from a superclass. If it doesn’t, a compile-time error will result (see this for example). It is used to ensure that a
-superclass method is actually overridden, and not simply overloaded.
+It is a marker annotation that can be used only on methods. A method annotated with @Override must
+override a method from a superclass. If it doesn’t, a compile-time error will result (see this for
+example). It is used to ensure that a superclass method is actually overridden, and not simply
+overloaded.
 
 Example:-
 

@@ -2,8 +2,8 @@
 Object.getOwnPropertyDescriptors(obj)
 ```
 
-The obj is the source object. The possible keys for the returned descriptor objects result are configurable, enumerable,
-writable, get, set and value.
+The obj is the source object. The possible keys for the returned descriptor objects result are
+configurable, enumerable, writable, get, set and value.
 
 ```
 const obj = {

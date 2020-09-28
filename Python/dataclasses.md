@@ -97,15 +97,18 @@ class C:
 
 The other place where
 [`dataclass()`](https://docs.python.org/3/library/dataclasses.html#dataclasses.dataclass "dataclasses.dataclass")
-inspects a type annotation is to determine if a field is an init-only variable. It does this by seeing if the type of a
-field is of type `dataclasses.InitVar`. If a field is an `InitVar`, it is considered a pseudo-field called an init-only
-field. As it is not a true field, it is not returned by the module-level
-[`fields()`](https://docs.python.org/3/library/dataclasses.html#dataclasses.fields "dataclasses.fields") function.
-Init-only fields are added as parameters to the generated
-[`__init__()`](https://docs.python.org/3/reference/datamodel.html#object.__init__ "object.__init__") method, and are
-passed to the optional `__post_init__()` method. They are not otherwise used by dataclasses.
+inspects a type annotation is to determine if a field is an init-only variable. It does this by
+seeing if the type of a field is of type `dataclasses.InitVar`. If a field is an `InitVar`, it is
+considered a pseudo-field called an init-only field. As it is not a true field, it is not returned
+by the module-level
+[`fields()`](https://docs.python.org/3/library/dataclasses.html#dataclasses.fields "dataclasses.fields")
+function. Init-only fields are added as parameters to the generated
+[`__init__()`](https://docs.python.org/3/reference/datamodel.html#object.__init__ "object.__init__")
+method, and are passed to the optional `__post_init__()` method. They are not otherwise used by
+dataclasses.
 
-For example, suppose a field will be initialized from a database, if a value is not provided when creating the class:
+For example, suppose a field will be initialized from a database, if a value is not provided when
+creating the class:
 
 ```python
 @dataclassclass C:
@@ -120,24 +123,28 @@ For example, suppose a field will be initialized from a database, if a value is 
 c = C(10, database=my_database)
 ```
 
-In this case, [`fields()`](https://docs.python.org/3/library/dataclasses.html#dataclasses.fields "dataclasses.fields")
-will return [`Field`](https://docs.python.org/3/library/dataclasses.html#dataclasses.Field "dataclasses.Field") objects
-for `i` and `j`, but not for `database`.
+In this case,
+[`fields()`](https://docs.python.org/3/library/dataclasses.html#dataclasses.fields "dataclasses.fields")
+will return
+[`Field`](https://docs.python.org/3/library/dataclasses.html#dataclasses.Field "dataclasses.Field")
+objects for `i` and `j`, but not for `database`.
 
 ## Frozen instances[¶](https://docs.python.org/3/library/dataclasses.html#frozen-instances "Permalink to this headline")
 
-It is not possible to create truly immutable Python objects. However, by passing `frozen=True` to the
+It is not possible to create truly immutable Python objects. However, by passing `frozen=True` to
+the
 [`dataclass()`](https://docs.python.org/3/library/dataclasses.html#dataclasses.dataclass "dataclasses.dataclass")
 decorator you can emulate immutability. In that case, dataclasses will add
-[`__setattr__()`](https://docs.python.org/3/reference/datamodel.html#object.__setattr__ "object.__setattr__") and
-[`__delattr__()`](https://docs.python.org/3/reference/datamodel.html#object.__delattr__ "object.__delattr__") methods to
-the class. These methods will raise a
+[`__setattr__()`](https://docs.python.org/3/reference/datamodel.html#object.__setattr__ "object.__setattr__")
+and
+[`__delattr__()`](https://docs.python.org/3/reference/datamodel.html#object.__delattr__ "object.__delattr__")
+methods to the class. These methods will raise a
 [`FrozenInstanceError`](https://docs.python.org/3/library/dataclasses.html#dataclasses.FrozenInstanceError "dataclasses.FrozenInstanceError")
 when invoked.
 
 There is a tiny performance penalty when using `frozen=True`:
-[`__init__()`](https://docs.python.org/3/reference/datamodel.html#object.__init__ "object.__init__") cannot use simple
-assignment to initialize fields, and must use
+[`__init__()`](https://docs.python.org/3/reference/datamodel.html#object.__init__ "object.__init__")
+cannot use simple assignment to initialize fields, and must use
 [`object.__setattr__()`](https://docs.python.org/3/reference/datamodel.html#object.__setattr__ "object.__setattr__").
 
 ## Default factory functions
@@ -164,14 +171,16 @@ assert o1.x is o2.x
 
 Note that the two instances of class `C` share the same class variable `x`, as expected.
 
-This has the same issue as the original example using class `C`. That is, two instances of class `D` that do not specify
-a value for `x` when creating a class instance will share the same copy of `x`. Because dataclasses just use normal
-Python class creation they also share this behavior. There is no general way for Data Classes to detect this condition.
-Instead, dataclasses will raise a [`TypeError`](https://docs.python.org/3/library/exceptions.html#TypeError "TypeError")
-if it detects a default parameter of type `list`, `dict`, or `set`. This is a partial solution, but it does protect
-against many common errors.
+This has the same issue as the original example using class `C`. That is, two instances of class `D`
+that do not specify a value for `x` when creating a class instance will share the same copy of `x`.
+Because dataclasses just use normal Python class creation they also share this behavior. There is no
+general way for Data Classes to detect this condition. Instead, dataclasses will raise a
+[`TypeError`](https://docs.python.org/3/library/exceptions.html#TypeError "TypeError") if it detects
+a default parameter of type `list`, `dict`, or `set`. This is a partial solution, but it does
+protect against many common errors.
 
-Using default factory functions is a way to create new instances of mutable types as default values for fields:
+Using default factory functions is a way to create new instances of mutable types as default values
+for fields:
 
 ```python
 @dataclass

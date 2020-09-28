@@ -52,8 +52,8 @@ The more idiomatic way to do this with pandas is to use the `.sample` method of 
 df.sample(frac=1)
 ```
 
-The `frac` keyword argument specifies the fraction of rows to return in the random sample, so `frac=1` means return all
-rows (in random order).
+The `frac` keyword argument specifies the fraction of rows to return in the random sample, so
+`frac=1` means return all rows (in random order).
 
 > Note: If you wish to shuffle your dataframe in-place and reset the index, you could do e.g.
 
@@ -61,4 +61,5 @@ rows (in random order).
 df = df.sample(frac=1).reset_index(drop=True)
 ```
 
-Here, specifying `drop=True` prevents `.reset_index` from creating a column containing the old index entries.
+Here, specifying `drop=True` prevents `.reset_index` from creating a column containing the old index
+entries.

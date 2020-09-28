@@ -16,7 +16,8 @@ You can use the following node properties to navigate between nodes with JavaScr
     <p id="id02">Hello!</p>
 
     <script>
-      document.getElementById("id02").innerHTML = document.getElementById("id01").childNodes[0].nodeValue;
+      document.getElementById("id02").innerHTML =
+      document.getElementById("id01").childNodes[0].nodeValue;
     </script>
   </body>
 </html>

@@ -13,8 +13,8 @@ The result in n will be: 6
 
 # Using String search() With String
 
-The search method will also accept a string as search argument. The string argument will be converted to a regular
-expression:
+The search method will also accept a string as search argument. The string argument will be
+converted to a regular expression:
 
 ```js
 var str = "Visit W3Schools!";

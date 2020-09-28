@@ -1,7 +1,7 @@
 # Bash yes or no
 
-In response to your edit, here's how you'd create and use a `confirm` command based on the first version in my answer
-(it would work similarly with the other two):
+In response to your edit, here's how you'd create and use a `confirm` command based on the first
+version in my answer (it would work similarly with the other two):
 
 ```
 confirm() {

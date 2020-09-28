@@ -6,7 +6,7 @@ The reviver parameter is a function that checks each property, before returning 
 
 ```js
 var text = '{ "name":"John", "birth":"1986-12-14", "city":"New York"}';
-var obj = JSON.parse(text, function(key, value) {
+var obj = JSON.parse(text, function (key, value) {
   if (key == "birth") {
     return new Date(value);
   } else {

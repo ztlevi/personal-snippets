@@ -1,5 +1,5 @@
-It is a marker annotation. It indicates that a declaration is obsolete and has been replaced by a newer form. The
-Javadoc @deprecated tag should be used when an element has been deprecated.
+It is a marker annotation. It indicates that a declaration is obsolete and has been replaced by a
+newer form. The Javadoc @deprecated tag should be used when an element has been deprecated.
 
 @deprecated tag is for documentation and @Deprecated annotation is for runtime reflection.
 

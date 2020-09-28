@@ -42,5 +42,6 @@ The contextual classes that can be used are:
 
 ## Responsive Tables
 
-The `.table-responsive` class creates a responsive table. The table will then scroll horizontally on small devices
-(under 768px). When viewing on anything larger than 768px wide, there is no difference:
+The `.table-responsive` class creates a responsive table. The table will then scroll horizontally on
+small devices (under 768px). When viewing on anything larger than 768px wide, there is no
+difference:

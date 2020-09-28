@@ -51,7 +51,7 @@ var stopwords = [
 /**
  * Porter Stemmer
  */
-var Stemmer = function() {
+var Stemmer = function () {
   var step2list = {
     ational: "ate",
     tional: "tion",
@@ -96,7 +96,7 @@ var Stemmer = function() {
   var mgr1 = "^(" + C + ")?" + V + C + V + C; // [C]VCVC... is m>1
   var s_v = "^(" + C + ")?" + v; // vowel in stem
 
-  this.stemWord = function(w) {
+  this.stemWord = function (w) {
     var stem;
     var suffix;
     var firstch;
@@ -213,7 +213,7 @@ var Stemmer = function() {
   };
 };
 
-var splitChars = (function() {
+var splitChars = (function () {
   var result = {};
   var singles = [
     96,

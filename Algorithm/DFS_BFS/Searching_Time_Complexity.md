@@ -51,9 +51,10 @@ void dfs(Vertex *v) {
 
 A search of a graph in which fringe vertices are visited in FIFO order (first-in, first-out):
 
-- Strategy: Remove vertices from the front of a queue and add their adjacent vertices to the back of the queue. This
-  strategy ensures that while level l vertices are being processed, level l+1 vertices are being added to the back of
-  the queue. The level l+1 vertices will not be visited until all level l vertices have been exhausted.
+- Strategy: Remove vertices from the front of a queue and add their adjacent vertices to the back of
+  the queue. This strategy ensures that while level l vertices are being processed, level l+1
+  vertices are being added to the back of the queue. The level l+1 vertices will not be visited
+  until all level l vertices have been exhausted.
 
 - Pseudo-Code
 
@@ -91,8 +92,8 @@ bfs(Vertex *v) {
 
 ### Priority-first search (Dijkstra)
 
-A search of a graph in which fringe vertices are assigned a priority and then visited in order of highest priority
-(e.g., priority might be the number of miles from a starting vertex).
+A search of a graph in which fringe vertices are assigned a priority and then visited in order of
+highest priority (e.g., priority might be the number of miles from a starting vertex).
 
 - Strategy:
 
@@ -100,8 +101,8 @@ A search of a graph in which fringe vertices are assigned a priority and then vi
 
   2.  Use deletemin/deletemax to remove vertices from the queue.
 
-  3.  If a vertex's priority gets updated before it is removed from the fringe then move it to a new position in the
-      queue
+  3.  If a vertex's priority gets updated before it is removed from the fringe then move it to a new
+      position in the queue
 
 - Pseudo-Code
 
@@ -127,13 +128,14 @@ pfs(Vertex *v) {
 
 - Time Complexity
 
-  1.  Every vertex must be inserted into and deleted from the priority queue. Each insertion and deletion takes O(log V)
-      time, where V is the number of vertices. Therefore the total number of insertions and deletions is O(V log V).
+  1.  Every vertex must be inserted into and deleted from the priority queue. Each insertion and
+      deletion takes O(log V) time, where V is the number of vertices. Therefore the total number of
+      insertions and deletions is O(V log V).
 
-  2.  Every edge may update a vertice's priority and this update may require O(log V) time. Hence the total number of
-      updates may require O(E log V) time.
+  2.  Every edge may update a vertice's priority and this update may require O(log V) time. Hence
+      the total number of updates may require O(E log V) time.
 
-  3.  The total running time is therfore O((E + V)log V). We have to include both V and E because we do not know which
-      one will be greater. In general every vertex will have an edge, so normally E > V. However, in very sparse graphs
-      where some vertices have no edges, E < V. Hence we have to include both the E and V terms in the final Big-O
-      total.
+  3.  The total running time is therfore O((E + V)log V). We have to include both V and E because we
+      do not know which one will be greater. In general every vertex will have an edge, so normally
+      E > V. However, in very sparse graphs where some vertices have no edges, E < V. Hence we have
+      to include both the E and V terms in the final Big-O total.

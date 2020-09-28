@@ -26,8 +26,9 @@ python3 -m pip install opencv-python
     cv2.waitKey(0)
     cv2.destroyAllWindows()
     ```
-  - Here, window shows image for 1000 ms, or 1 second. After that, the window would disappear itself. But in some cases,
-    it won't. So you can forcefully destroy it using cv2.destroyAllWindows()
+  - Here, window shows image for 1000 ms, or 1 second. After that, the window would disappear
+    itself. But in some cases, it won't. So you can forcefully destroy it using
+    cv2.destroyAllWindows()
     ```python
     cv2.waitKey(1000)
     cv2.destroyAllWindows()

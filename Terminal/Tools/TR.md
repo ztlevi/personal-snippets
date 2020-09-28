@@ -1,7 +1,7 @@
 # TR
 
-Tr is analogous to translate. This powerful utility is a workhorse for basic file cleaning. An ideal use case is for
-swapping out the delimiters within a file.
+Tr is analogous to translate. This powerful utility is a workhorse for basic file cleaning. An ideal
+use case is for swapping out the delimiters within a file.
 
 # Converting a tab delimited file into commas
 
@@ -26,8 +26,8 @@ Another feature of tr is all the built in [:class:] variables at your disposal. 
 [:xdigit:] all hexadecimal digits
 ```
 
-You can chain a variety of these together to compose powerful programs. The following is a basic word count program you
-could use to check your READMEs for overuse.
+You can chain a variety of these together to compose powerful programs. The following is a basic
+word count program you could use to check your READMEs for overuse.
 
 ```
 cat README.md | tr "[:punct:][:space:]" "\n" | tr "[:upper:]" "[:lower:]" | grep . | sort | uniq -c | sort -nr

@@ -1,10 +1,10 @@
 function makeRequest(method, url, done) {
   var xhr = new XMLHttpRequest();
   xhr.open(method, url);
-  xhr.onload = function() {
+  xhr.onload = function () {
     done(null, xhr.response);
   };
-  xhr.onerror = function() {
+  xhr.onerror = function () {
     done(xhr.response);
   };
   xhr.send();
@@ -12,7 +12,7 @@ function makeRequest(method, url, done) {
 
 // And we'd call it as such:
 
-makeRequest("GET", "http://example.com", function(err, datums) {
+makeRequest("GET", "http://example.com", function (err, datums) {
   if (err) {
     throw err;
   }

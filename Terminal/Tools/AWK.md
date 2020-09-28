@@ -1,34 +1,34 @@
 # AWK
 
-The best for last. Awk is much more than a simple command: it is a full-blown language. Of everything covered in this
-article, awk is by far the coolest. If you find yourself impressed there are loads of great resources - see here, here
-and here.
+The best for last. Awk is much more than a simple command: it is a full-blown language. Of
+everything covered in this article, awk is by far the coolest. If you find yourself impressed there
+are loads of great resources - see here, here and here.
 
 Common use cases for awk include:
 
-Text processing Formatted text reports Performing arithmetic operations Performing string operations Awk can parallel
-grep in its most nascent form.
+Text processing Formatted text reports Performing arithmetic operations Performing string operations
+Awk can parallel grep in its most nascent form.
 
 ```
 awk '/word/' filename.csv
 ```
 
-Or with a little more magic the combination of grep and cut. Here, awk prints the third and fourth column, tab
-separated, for all lines with our word. -F, merely changes our delimiter to a comma.
+Or with a little more magic the combination of grep and cut. Here, awk prints the third and fourth
+column, tab separated, for all lines with our word. -F, merely changes our delimiter to a comma.
 
 ```
 awk -F, '/word/ { print $3 "\t" $4 }' filename.csv
 ```
 
-Awk comes with a lot of nifty variables built-in. For instance, NF - number of fields - and NR - number of records. To
-get the fifty-third record in a file:
+Awk comes with a lot of nifty variables built-in. For instance, NF - number of fields - and NR -
+number of records. To get the fifty-third record in a file:
 
 ```
 awk -F, 'NR == 53' filename.csv
 ```
 
-An added wrinkle is the ability to filter based off of one or more values. The first example, below, will print the line
-number and columns for records where the first column equals string.
+An added wrinkle is the ability to filter based off of one or more values. The first example, below,
+will print the line number and columns for records where the first column equals string.
 
 ```
 awk -F, ' $1 == "string" { print NR, $0 } ' filename.csv
@@ -100,8 +100,9 @@ This awk command will combine multiple CSV files, ignoring the header and then a
 awk 'FNR==1 && NR!=1{next;}{print}' *.csv > final_file.csv
 ```
 
-Need to downsize a massive file? Welp, awk can handle that with help from sed. Specifically, this command breaks one big
-file into multiple smaller ones based on a line count. This one-liner will also add an extension.
+Need to downsize a massive file? Welp, awk can handle that with help from sed. Specifically, this
+command breaks one big file into multiple smaller ones based on a line count. This one-liner will
+also add an extension.
 
 ```
 sed '1d;$d' filename.csv | awk 'NR%NUMBER_OF_LINES==1{x="filename-"++i".csv";}{print > x}'

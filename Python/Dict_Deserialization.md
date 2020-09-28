@@ -96,23 +96,26 @@ Dacite supports following features:
 
 ## Motivation
 
-Passing plain dictionaries as a data container between your functions or methods isn't a good practice. Of course you
-can always create your custom class instead, but this solution is an overkill if you only want to merge a few fields
-within a single object.
+Passing plain dictionaries as a data container between your functions or methods isn't a good
+practice. Of course you can always create your custom class instead, but this solution is an
+overkill if you only want to merge a few fields within a single object.
 
-Fortunately Python has a good solution to this problem - data classes. Thanks to `@dataclass` decorator you can easily
-create a new custom type with a list of given fields in a declarative manner. Data classes support type hints by design.
+Fortunately Python has a good solution to this problem - data classes. Thanks to `@dataclass`
+decorator you can easily create a new custom type with a list of given fields in a declarative
+manner. Data classes support type hints by design.
 
-However, even if you are using data classes, you have to create their instances somehow. In many such cases, your input
-is a dictionary - it can be a payload from a HTTP request or a raw data from a database. If you want to convert those
-dictionaries into data classes, `dacite` is your best friend.
+However, even if you are using data classes, you have to create their instances somehow. In many
+such cases, your input is a dictionary - it can be a payload from a HTTP request or a raw data from
+a database. If you want to convert those dictionaries into data classes, `dacite` is your best
+friend.
 
-This library was originally created to simplify creation of type hinted data transfer objects (DTO) which can cross the
-boundaries in the application architecture.
+This library was originally created to simplify creation of type hinted data transfer objects (DTO)
+which can cross the boundaries in the application architecture.
 
-It's important to mention that `dacite` is not a data validation library. There are dozens of awesome data validation
-projects and it doesn't make sense to duplicate this functionality within `dacite`. If you want to validate your data
-first, you should combine `dacite` with one of data validation library.
+It's important to mention that `dacite` is not a data validation library. There are dozens of
+awesome data validation projects and it doesn't make sense to duplicate this functionality within
+`dacite`. If you want to validate your data first, you should combine `dacite` with one of data
+validation library.
 
 Please check [Use Case](#use-case) section for a real-life example.
 
@@ -164,8 +167,8 @@ assert result == B(a=A(x='test', y=1))
 
 ### Optional fields
 
-Whenever your data class has a `Optional` field and you will not provide input data for this field, it will take the
-`None` value.
+Whenever your data class has a `Optional` field and you will not provide input data for this field,
+it will take the `None` value.
 
 ```python
 from typing import Optional
@@ -187,8 +190,8 @@ assert result == A(x='test', y=None)
 
 ### Unions
 
-If your field can accept multiple types, you should use `Union`. Dacite will try to match data with provided types one
-by one. If none will match, it will raise `UnionMatchError` exception.
+If your field can accept multiple types, you should use `Union`. Dacite will try to match data with
+provided types one by one. If none will match, it will raise `UnionMatchError` exception.
 
 ```python
 from typing import Union
@@ -253,9 +256,9 @@ assert result == B(a_list=[A(x='test1', y=1), A(x='test2', y=2)])
 
 ### Type hooks
 
-You can use `Config.type_hooks` argument if you want to transform the input data of a data class field with given type
-into the new value. You have to pass a following mapping: `{Type: callable}`, where `callable` is a
-`Callable[[Any], Any]`.
+You can use `Config.type_hooks` argument if you want to transform the input data of a data class
+field with given type into the new value. You have to pass a following mapping: `{Type: callable}`,
+where `callable` is a `Callable[[Any], Any]`.
 
 ```python
 @dataclass
@@ -272,16 +275,16 @@ result = from_dict(data_class=A, data=data, config=Config(type_hooks={str: str.l
 assert result == A(x='test')
 ```
 
-If a data class field type is a `Optional[T]` you can pass both - `Optional[T]` or just `T` - as a key in `type_hooks`.
-The same with generic collections, e.g. when a field has type `List[T]` you can use `List[T]` to transform whole
-collection or `T` to transform each item.
+If a data class field type is a `Optional[T]` you can pass both - `Optional[T]` or just `T` - as a
+key in `type_hooks`. The same with generic collections, e.g. when a field has type `List[T]` you can
+use `List[T]` to transform whole collection or `T` to transform each item.
 
 ### Casting
 
-It's a very common case that you want to create an instance of a field type from the input data with just calling your
-type with the input value. Of course you can use `type_hooks={T: T}` to achieve this goal but `cast=[T]` is an easier
-and more expressive way. It also works with base classes - if `T` is a base class of type `S`, all fields of type `S`
-will be also "casted".
+It's a very common case that you want to create an instance of a field type from the input data with
+just calling your type with the input value. Of course you can use `type_hooks={T: T}` to achieve
+this goal but `cast=[T]` is an easier and more expressive way. It also works with base classes - if
+`T` is a base class of type `S`, all fields of type `S` will be also "casted".
 
 ```python
 from enum import Enum
@@ -311,8 +314,9 @@ assert result == A(e=E.X)
 
 ### Forward References
 
-Definition of forward references can be passed as a `{'name': Type}` mapping to `Config.forward_references`. This dict
-is passed to `typing.get_type_hints()` as the `globalns` param when evaluating each field's type.
+Definition of forward references can be passed as a `{'name': Type}` mapping to
+`Config.forward_references`. This dict is passed to `typing.get_type_hints()` as the `globalns`
+param when evaluating each field's type.
 
 ```python
 @dataclass
@@ -329,9 +333,10 @@ assert data == X(Y("text"))
 
 ### Types checking
 
-There are rare cases when `dacite` built-in type checker can not validate your types (e.g. custom generic class) or you
-have such functionality covered by other library and you don't want to validate your types twice. In such case you can
-disable type checking with `Config(check_types=False)`. By default types checking is enabled.
+There are rare cases when `dacite` built-in type checker can not validate your types (e.g. custom
+generic class) or you have such functionality covered by other library and you don't want to
+validate your types twice. In such case you can disable type checking with
+`Config(check_types=False)`. By default types checking is enabled.
 
 ```python
 T = TypeVar('T')
@@ -353,29 +358,33 @@ assert from_dict(A, {'x': x}, config=Config(check_types=False)) == A(x=x)
 
 ### Strict mode
 
-By default `from_dict` ignores additional keys (not matching data class field) in the input data. If you want change
-this behaviour set `Config.strict` to `True`. In case of unexpected key `from_dict` will raise `UnexpectedDataError`
-exception.
+By default `from_dict` ignores additional keys (not matching data class field) in the input data. If
+you want change this behaviour set `Config.strict` to `True`. In case of unexpected key `from_dict`
+will raise `UnexpectedDataError` exception.
 
 ## Exceptions
 
 Whenever something goes wrong, `from_dict` will raise adequate exception. There are a few of them:
 
-- `WrongTypeError` - raised when a type of a input value does not match with a type of a data class field
+- `WrongTypeError` - raised when a type of a input value does not match with a type of a data class
+  field
 - `MissingValueError` - raised when you don't provide a value for a required field
 - `UnionMatchError` - raised when provided data does not match any type of `Union`
 - `ForwardReferenceError` - raised when undefined forward reference encountered in dataclass
-- `UnexpectedDataError` - raised when `strict` mode is enabled and the input data has not matching keys
+- `UnexpectedDataError` - raised when `strict` mode is enabled and the input data has not matching
+  keys
 
 ## Development
 
-First of all - if you want to submit your pull request, thank you very much! I really appreciate your support.
+First of all - if you want to submit your pull request, thank you very much! I really appreciate
+your support.
 
-Please remember that every new feature, bug fix or improvement should be tested. 100% code coverage is a must have.
+Please remember that every new feature, bug fix or improvement should be tested. 100% code coverage
+is a must have.
 
-We are using a few static code analysis tools to increase the code quality (`black`, `mypy`, `pylint`). Please make sure
-that you are not generating any errors/warnings before you submit your PR. You can find current configuration in
-`.travis.yml` file.
+We are using a few static code analysis tools to increase the code quality (`black`, `mypy`,
+`pylint`). Please make sure that you are not generating any errors/warnings before you submit your
+PR. You can find current configuration in `.travis.yml` file.
 
 Last but not least, if you want to introduce new feature, please discuss it first within an issue.
 
@@ -408,13 +417,14 @@ $ pytest
 
 ## Use case
 
-There are many cases when we receive "raw" data (Python dicts) as a input to our system. HTTP request payload is a very
-common use case. In most web frameworks we receive request data as a simple dictionary. Instead of passing this dict
-down to your "business" code, it's a good idea to create something more "robust".
+There are many cases when we receive "raw" data (Python dicts) as a input to our system. HTTP
+request payload is a very common use case. In most web frameworks we receive request data as a
+simple dictionary. Instead of passing this dict down to your "business" code, it's a good idea to
+create something more "robust".
 
-Following example is a simple `flask` app - it has single `/products` endpoint. You can use this endpoint to "create"
-product in your system. Our core `create_product` function expects data class as a parameter. Thanks to `dacite` we can
-easily build such data class from `POST` request payload.
+Following example is a simple `flask` app - it has single `/products` endpoint. You can use this
+endpoint to "create" product in your system. Our core `create_product` function expects data class
+as a parameter. Thanks to `dacite` we can easily build such data class from `POST` request payload.
 
 ```python
 from dataclasses import dataclass
@@ -456,9 +466,9 @@ def products():
 
 ```
 
-What if we want to validate our data (e.g. check if `code` has 6 characters)? Such features are out of scope of `dacite`
-but we can easily combine it with one of data validation library. Let's try with
-[marshmallow](https://marshmallow.readthedocs.io).
+What if we want to validate our data (e.g. check if `code` has 6 characters)? Such features are out
+of scope of `dacite` but we can easily combine it with one of data validation library. Let's try
+with [marshmallow](https://marshmallow.readthedocs.io).
 
 First of all we have to define our data validation schemas:
 

@@ -6,7 +6,8 @@ A CSS pseudo-element is used to style specified parts of an element.
 
 For example, it can be used to:
 
-Style the first letter, or line, of an element Insert content before, or after, the content of an element
+Style the first letter, or line, of an element Insert content before, or after, the content of an
+element
 
 > Notice the double colon notation - `::first-line` versus `:first-line`
 
@@ -51,8 +52,9 @@ p.intro::first-letter {
 
 Several pseudo-elements can also be combined.
 
-In the following example, the first letter of a paragraph will be red, in an xx-large font size. The rest of the first
-line will be blue, and in small-caps. The rest of the paragraph will be the default font size and color:
+In the following example, the first letter of a paragraph will be red, in an xx-large font size. The
+rest of the first line will be blue, and in small-caps. The rest of the paragraph will be the
+default font size and color:
 
 ```css
 p::first-letter {

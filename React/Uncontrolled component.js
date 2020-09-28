@@ -14,7 +14,7 @@ class NameForm extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <label>
           Name:
-          <input type="text" ref={input => (this.input = input)} />
+          <input type="text" ref={(input) => (this.input = input)} />
         </label>
         <input type="submit" value="Submit" />
       </form>

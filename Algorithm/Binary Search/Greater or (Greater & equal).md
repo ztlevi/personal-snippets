@@ -13,7 +13,8 @@ Consider, when we have lo = 1 and hi = 2.
 - If I used, int mi = (lo + hi) // 2; mi = 1
 - If I used, int mi = (lo + hi + 1) // 2; mi = 2
 
-Now since, lo = mi, we will keep falling back to lo = 1 and hi = 2(Hence TLE), if I used first version.
+Now since, lo = mi, we will keep falling back to lo = 1 and hi = 2(Hence TLE), if I used first
+version.
 
 General rule of thumb I use:
 

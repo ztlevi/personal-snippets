@@ -40,5 +40,5 @@
 
 **NB:** Make sure you have an **empty line** after the closing `</summary>` tag.
 
-**NB**: Make sure you have an **empty line** after the closing `</details>` tag if you have multiple collapsible
-sections.
+**NB**: Make sure you have an **empty line** after the closing `</details>` tag if you have multiple
+collapsible sections.

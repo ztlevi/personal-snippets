@@ -1,8 +1,8 @@
 # unittest.TestCase Support[¶](https://docs.pytest.org/en/latest/unittest.html#unittest-testcase-support "Permalink to this headline")
 
-`pytest` supports running Python `unittest`-based tests out of the box. It’s meant for leveraging existing
-`unittest`-based test suites to use pytest as a test runner and also allow to incrementally adapt the test suite to take
-full advantage of pytest’s features.
+`pytest` supports running Python `unittest`-based tests out of the box. It’s meant for leveraging
+existing `unittest`-based test suites to use pytest as a test runner and also allow to incrementally
+adapt the test suite to take full advantage of pytest’s features.
 
 To run an existing `unittest`-style test suite using `pytest`, type:
 
@@ -10,8 +10,8 @@ To run an existing `unittest`-style test suite using `pytest`, type:
 pytest tests
 ```
 
-pytest will automatically collect `unittest.TestCase` subclasses and their `test` methods in `test_*.py` or `\*_test.py`
-files.
+pytest will automatically collect `unittest.TestCase` subclasses and their `test` methods in
+`test_*.py` or `\*_test.py` files.
 
 Almost all `unittest` features are supported:
 
@@ -27,18 +27,23 @@ Up to this point pytest does not have support for the following features:
 
 ## Benefits out of the box[¶](https://docs.pytest.org/en/latest/unittest.html#benefits-out-of-the-box "Permalink to this headline")
 
-By running your test suite with pytest you can make use of several features, in most cases without having to modify
-existing code:
+By running your test suite with pytest you can make use of several features, in most cases without
+having to modify existing code:
 
-- Obtain [more informative tracebacks](https://docs.pytest.org/en/latest/example/reportingdemo.html#tbreportdemo);
+- Obtain
+  [more informative tracebacks](https://docs.pytest.org/en/latest/example/reportingdemo.html#tbreportdemo);
 - [stdout and stderr](https://docs.pytest.org/en/latest/capture.html#captures) capturing;
-- [Test selection options](https://docs.pytest.org/en/latest/usage.html#select-tests) using `-k` and `-m` flags;
+- [Test selection options](https://docs.pytest.org/en/latest/usage.html#select-tests) using `-k` and
+  `-m` flags;
 - [Stopping after the first (or N) failures](https://docs.pytest.org/en/latest/usage.html#maxfail);
-- [–pdb](https://docs.pytest.org/en/latest/usage.html#pdb-option) command-line option for debugging on test failures
-  (see [note](https://docs.pytest.org/en/latest/unittest.html#pdb-unittest-note) below);
-- Distribute tests to multiple CPUs using the [pytest-xdist](https://pypi.org/project/pytest-xdist/) plugin;
-- Use [plain assert-statements](https://docs.pytest.org/en/latest/assert.html#assert) instead of `self.assert*`
-  functions ([unittest2pytest](https://pypi.org/project/unittest2pytest/) is immensely helpful in this);
+- [–pdb](https://docs.pytest.org/en/latest/usage.html#pdb-option) command-line option for debugging
+  on test failures (see [note](https://docs.pytest.org/en/latest/unittest.html#pdb-unittest-note)
+  below);
+- Distribute tests to multiple CPUs using the [pytest-xdist](https://pypi.org/project/pytest-xdist/)
+  plugin;
+- Use [plain assert-statements](https://docs.pytest.org/en/latest/assert.html#assert) instead of
+  `self.assert*` functions ([unittest2pytest](https://pypi.org/project/unittest2pytest/) is
+  immensely helpful in this);
 
 ## pytest features in `unittest.TestCase` subclasses[¶](https://docs.pytest.org/en/latest/unittest.html#pytest-features-in-unittest-testcase-subclasses "Permalink to this headline")
 
@@ -50,10 +55,11 @@ The following pytest features work in `unittest.TestCase` subclasses:
   [xfail](https://docs.pytest.org/en/latest/skipping.html#xfail);
 - [Auto-use fixtures](https://docs.pytest.org/en/latest/unittest.html#mixing-fixtures);
 
-The following pytest features **do not** work, and probably never will due to different design philosophies:
+The following pytest features **do not** work, and probably never will due to different design
+philosophies:
 
-- [Fixtures](https://docs.pytest.org/en/latest/fixture.html#fixture) (except for `autouse` fixtures, see
-  [below](https://docs.pytest.org/en/latest/unittest.html#mixing-fixtures));
+- [Fixtures](https://docs.pytest.org/en/latest/fixture.html#fixture) (except for `autouse` fixtures,
+  see [below](https://docs.pytest.org/en/latest/unittest.html#mixing-fixtures));
 - [Parametrization](https://docs.pytest.org/en/latest/parametrize.html#parametrize);
 - [Custom hooks](https://docs.pytest.org/en/latest/writing_plugins.html#writing-plugins);
 
@@ -62,9 +68,10 @@ Third party plugins may or may not work well, depending on the plugin and the te
 ## Mixing pytest fixtures into `unittest.TestCase` subclasses using marks[¶](https://docs.pytest.org/en/latest/unittest.html#mixing-pytest-fixtures-into-unittest-testcase-subclasses-using-marks "Permalink to this headline")
 
 Running your unittest with `pytest` allows you to use its
-[fixture mechanism](https://docs.pytest.org/en/latest/fixture.html#fixture) with `unittest.TestCase` style tests.
-Assuming you have at least skimmed the pytest fixture features, let’s jump-start into an example that integrates a
-pytest `db_class` fixture, setting up a class-cached database object, and then reference it from a unittest-style test:
+[fixture mechanism](https://docs.pytest.org/en/latest/fixture.html#fixture) with `unittest.TestCase`
+style tests. Assuming you have at least skimmed the pytest fixture features, let’s jump-start into
+an example that integrates a pytest `db_class` fixture, setting up a class-cached database object,
+and then reference it from a unittest-style test:
 
 ```python
 # content of conftest.py
@@ -82,13 +89,14 @@ def db_class(request):
     request.cls.db = DummyDB()
 ```
 
-This defines a fixture function `db_class` which - if used - is called once for each test class and which sets the
-class-level `db` attribute to a `DummyDB` instance. The fixture function achieves this by receiving a special `request`
-object which gives access to
-[the requesting test context](https://docs.pytest.org/en/latest/fixture.html#request-context) such as the `cls`
-attribute, denoting the class from which the fixture is used. This architecture de-couples fixture writing from actual
-test code and allows re-use of the fixture by a minimal reference, the fixture name. So let’s write an actual
-`unittest.TestCase` class using our fixture definition:
+This defines a fixture function `db_class` which - if used - is called once for each test class and
+which sets the class-level `db` attribute to a `DummyDB` instance. The fixture function achieves
+this by receiving a special `request` object which gives access to
+[the requesting test context](https://docs.pytest.org/en/latest/fixture.html#request-context) such
+as the `cls` attribute, denoting the class from which the fixture is used. This architecture
+de-couples fixture writing from actual test code and allows re-use of the fixture by a minimal
+reference, the fixture name. So let’s write an actual `unittest.TestCase` class using our fixture
+definition:
 
 ```python
 # content of test_unittest_db.py
@@ -106,9 +114,9 @@ class MyTest(unittest.TestCase):
         assert 0, self.db  # fail for demo purposes
 ```
 
-The `@pytest.mark.usefixtures("db_class")` class-decorator makes sure that the pytest fixture function `db_class` is
-called once per class. Due to the deliberately failing assert statements, we can take a look at the `self.db` values in
-the traceback:
+The `@pytest.mark.usefixtures("db_class")` class-decorator makes sure that the pytest fixture
+function `db_class` is called once per class. Due to the deliberately failing assert statements, we
+can take a look at the `self.db` values in the traceback:
 
 ```python
 $ pytest test_unittest_db.py
@@ -145,20 +153,22 @@ test_unittest_db.py:13: AssertionError
 ============================ 2 failed in 0.12s =============================
 ```
 
-This default pytest traceback shows that the two test methods share the same `self.db` instance which was our intention
-when writing the class-scoped fixture function above.
+This default pytest traceback shows that the two test methods share the same `self.db` instance
+which was our intention when writing the class-scoped fixture function above.
 
 ## Using autouse fixtures and accessing other fixtures[¶](https://docs.pytest.org/en/latest/unittest.html#using-autouse-fixtures-and-accessing-other-fixtures "Permalink to this headline")
 
-Although it’s usually better to explicitly declare use of fixtures you need for a given test, you may sometimes want to
-have fixtures that are automatically used in a given context. After all, the traditional style of unittest-setup
-mandates the use of this implicit fixture writing and chances are, you are used to it or like it.
+Although it’s usually better to explicitly declare use of fixtures you need for a given test, you
+may sometimes want to have fixtures that are automatically used in a given context. After all, the
+traditional style of unittest-setup mandates the use of this implicit fixture writing and chances
+are, you are used to it or like it.
 
-You can flag fixture functions with `@pytest.fixture(autouse=True)` and define the fixture function in the context where
-you want it used. Let’s look at an `initdir` fixture which makes all test methods of a `TestCase` class execute in a
-temporary directory with a pre-initialized `samplefile.ini`. Our `initdir` fixture itself uses the pytest builtin
-[tmpdir](https://docs.pytest.org/en/latest/tmpdir.html#tmpdir) fixture to delegate the creation of a per-test temporary
-directory:
+You can flag fixture functions with `@pytest.fixture(autouse=True)` and define the fixture function
+in the context where you want it used. Let’s look at an `initdir` fixture which makes all test
+methods of a `TestCase` class execute in a temporary directory with a pre-initialized
+`samplefile.ini`. Our `initdir` fixture itself uses the pytest builtin
+[tmpdir](https://docs.pytest.org/en/latest/tmpdir.html#tmpdir) fixture to delegate the creation of a
+per-test temporary directory:
 
 ```python
 # content of test_unittest_cleandir.py
@@ -177,8 +187,9 @@ class MyTest(unittest.TestCase):
         assert "testdata" in s
 ```
 
-Due to the `autouse` flag the `initdir` fixture function will be used for all methods of the class where it is defined.
-This is a shortcut for using a `@pytest.mark.usefixtures("initdir")` marker on the class like in the previous example.
+Due to the `autouse` flag the `initdir` fixture function will be used for all methods of the class
+where it is defined. This is a shortcut for using a `@pytest.mark.usefixtures("initdir")` marker on
+the class like in the previous example.
 
 Running this test module …:
 
@@ -188,30 +199,34 @@ $ pytest -q test_unittest_cleandir.py
 1 passed in 0.01s
 ```
 
-… gives us one passed test because the `initdir` fixture function was executed ahead of the `test_method`.
+… gives us one passed test because the `initdir` fixture function was executed ahead of the
+`test_method`.
 
 > Note:
 >
-> `unittest.TestCase` methods cannot directly receive fixture arguments as implementing that is likely to inflict on the
-> ability to run general unittest.TestCase test suites.
+> `unittest.TestCase` methods cannot directly receive fixture arguments as implementing that is
+> likely to inflict on the ability to run general unittest.TestCase test suites.
 >
-> The above `usefixtures` and `autouse` examples should help to mix in pytest fixtures into unittest suites.
+> The above `usefixtures` and `autouse` examples should help to mix in pytest fixtures into unittest
+> suites.
 >
-> You can also gradually move away from subclassing from `unittest.TestCase` to _plain asserts_ and then start to
-> benefit from the full pytest feature set step by step.
+> You can also gradually move away from subclassing from `unittest.TestCase` to _plain asserts_ and
+> then start to benefit from the full pytest feature set step by step.
 
 > Note:
 >
-> Running tests from `unittest.TestCase` subclasses with `--pdb` will disable tearDown and cleanup methods for the case
-> that an Exception occurs. This allows proper post mortem debugging for all applications which have significant logic
-> in their tearDown machinery. However, supporting this feature has the following side effect: If people overwrite
-> `unittest.TestCase` `__call__` or `run`, they need to to overwrite `debug` in the same way (this is also true for
-> standard unittest).
+> Running tests from `unittest.TestCase` subclasses with `--pdb` will disable tearDown and cleanup
+> methods for the case that an Exception occurs. This allows proper post mortem debugging for all
+> applications which have significant logic in their tearDown machinery. However, supporting this
+> feature has the following side effect: If people overwrite `unittest.TestCase` `__call__` or
+> `run`, they need to to overwrite `debug` in the same way (this is also true for standard
+> unittest).
 
 > Note:
 >
-> Due to architectural differences between the two frameworks, setup and teardown for `unittest`-based tests is
-> performed during the `call` phase of testing instead of in `pytest`’s standard `setup` and `teardown` stages. This can
-> be important to understand in some situations, particularly when reasoning about errors. For example, if a
-> `unittest`-based suite exhibits errors during setup, `pytest` will report no errors during its `setup` phase and will
-> instead raise the error during `call`.
+> Due to architectural differences between the two frameworks, setup and teardown for
+> `unittest`-based tests is performed during the `call` phase of testing instead of in `pytest`’s
+> standard `setup` and `teardown` stages. This can be important to understand in some situations,
+> particularly when reasoning about errors. For example, if a `unittest`-based suite exhibits errors
+> during setup, `pytest` will report no errors during its `setup` phase and will instead raise the
+> error during `call`.

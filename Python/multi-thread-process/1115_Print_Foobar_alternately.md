@@ -20,8 +20,8 @@ class FooBar {
 }
 ```
 
-The same instance of `FooBar` will be passed to two different threads. Thread A will call `foo()` while thread B will
-call `bar()`. Modify the given program to output "foobar" _n_ times.
+The same instance of `FooBar` will be passed to two different threads. Thread A will call `foo()`
+while thread B will call `bar()`. Modify the given program to output "foobar" _n_ times.
 
 **Example 1:**
 
@@ -41,8 +41,8 @@ call `bar()`. Modify the given program to output "foobar" _n_ times.
 
 ## Semaphore Solution
 
-Use two Semaphores just as we used two locks. The `foo_gate` semaphore starts with a value of 1 because we want `foo` to
-print first. `Semaphore(int num)` num means the initial permit count.
+Use two Semaphores just as we used two locks. The `foo_gate` semaphore starts with a value of 1
+because we want `foo` to print first. `Semaphore(int num)` num means the initial permit count.
 
 ```
 Semaphore(value: int=...)
@@ -99,8 +99,8 @@ t2.start()
 
 ## Barrier Solution
 
-Raise a barrier which makes both threads wait for each other before they are allowed to continue. `foo` prints before
-reaching the barrier. `bar` prints after reaching the barrier.
+Raise a barrier which makes both threads wait for each other before they are allowed to continue.
+`foo` prints before reaching the barrier. `bar` prints after reaching the barrier.
 
 ```
 Barrier(parties: int, action: Optional[Callable[[], None]]=..., timeout: Optional[float]=...)
@@ -162,8 +162,9 @@ t3.start()
 
 ## Condition Variable Solution
 
-Count the number of times foo and bar was printed and only print foo if the number of times is equal. `bar` prints if
-foo was printed fewer times. Use Condition and `wait_for` to syncrhonize the threads.
+Count the number of times foo and bar was printed and only print foo if the number of times is
+equal. `bar` prints if foo was printed fewer times. Use Condition and `wait_for` to syncrhonize the
+threads.
 
 ```
 Condition(lock: Union[Lock, _RLock, None]=...)
@@ -233,8 +234,9 @@ class FooBar:
 
 ## Event Solution
 
-Each thread can wait on each other to set their corresponding `foo_printed` and `bar_printed` events. Each thread also
-resets the corresponding printed events with `.clear()` for the next loop iteration.
+Each thread can wait on each other to set their corresponding `foo_printed` and `bar_printed`
+events. Each thread also resets the corresponding printed events with `.clear()` for the next loop
+iteration.
 
 ```
 Event()
@@ -272,8 +274,8 @@ class FooBar:
 
 ## Lock Solution
 
-Use two locks for the threads to signal to each other when the other should run. `bar_lock` starts in a locked state
-because we always want `foo` to print first.
+Use two locks for the threads to signal to each other when the other should run. `bar_lock` starts
+in a locked state because we always want `foo` to print first.
 
 ```python
 from threading import Lock

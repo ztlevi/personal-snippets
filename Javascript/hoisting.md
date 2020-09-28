@@ -1,8 +1,9 @@
 ### Explain "hoisting".
 
-Hoisting is a term used to explain the behavior of variable declarations in your code. Variables declared or initialized
-with the `var` keyword will have their declaration "hoisted" up to the top of the current scope. However, only the
-declaration is hoisted, the assignment (if there is one), will stay where it is. Let's explain with a few examples.
+Hoisting is a term used to explain the behavior of variable declarations in your code. Variables
+declared or initialized with the `var` keyword will have their declaration "hoisted" up to the top
+of the current scope. However, only the declaration is hoisted, the assignment (if there is one),
+will stay where it is. Let's explain with a few examples.
 
 ```js
 // var declarations are hoisted.
@@ -16,8 +17,8 @@ let bar = 2;
 console.log(bar); // 2
 ```
 
-Function declarations have the body hoisted while the function expressions (written in the form of variable
-declarations) only has the variable declaration hoisted.
+Function declarations have the body hoisted while the function expressions (written in the form of
+variable declarations) only has the variable declaration hoisted.
 
 ```js
 // Function Declaration
@@ -31,7 +32,7 @@ console.log(foo); // [Function: foo]
 // Function Expression
 console.log(bar); // undefined
 bar(); // Uncaught TypeError: bar is not a function
-var bar = function() {
+var bar = function () {
   console.log("BARRRR");
 };
 console.log(bar); // [Function: bar]

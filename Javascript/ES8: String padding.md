@@ -1,6 +1,7 @@
-This section adds two functions to the String object: padStart & padEnd. As their names, the purpose of those functions
-is to pad the start or the end of the string, so that the resulting string reaches the given length. You can pad it with
-specific character or string or just pad with spaces by default. Here are the functions declarations:
+This section adds two functions to the String object: padStart & padEnd. As their names, the purpose
+of those functions is to pad the start or the end of the string, so that the resulting string
+reaches the given length. You can pad it with specific character or string or just pad with spaces
+by default. Here are the functions declarations:
 
 ```
 str.padStart(targetLength [, padString])

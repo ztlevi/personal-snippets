@@ -2,26 +2,26 @@
 
 <!-- .entry-header -->
 
-Template is simple and yet very powerful tool in C++. The simple idea is to pass data type as a parameter so that we
-don’t need to write same code for different data types.
+Template is simple and yet very powerful tool in C++. The simple idea is to pass data type as a
+parameter so that we don’t need to write same code for different data types.
 
 <!--more--> For example a software company may need sort() for different data types.  Rather than writing and maintaining the multiple codes, we can write one sort() and pass data type as a parameter.
 
-C++ adds two new keywords to support templates: _‘template’_ and _‘typename’_. The second keyword can always be replaced
-by keyword ‘class’.
+C++ adds two new keywords to support templates: _‘template’_ and _‘typename’_. The second keyword
+can always be replaced by keyword ‘class’.
 
 **How templates work?**
 
-Templates are expanded at compiler time. This is like macros. The difference is, compiler does type checking before
-template expansion. The idea is simple, source code contains only function/class, but compiled code may contain multiple
-copies of same function/class.
+Templates are expanded at compiler time. This is like macros. The difference is, compiler does type
+checking before template expansion. The idea is simple, source code contains only function/class,
+but compiled code may contain multiple copies of same function/class.
 
 [](https://www.geeksforgeeks.org/wp-content/uploads/gq/2014/06/templates-cpp.jpg)
 
 ![img](https://www.geeksforgeeks.org/wp-content/uploads/gq/2014/06/templates-cpp.jpg)
 
-**Function Templates** We write a generic function that can be used for different data types. Examples of function
-templates are sort(), max(), min(), printArray()
+**Function Templates** We write a generic function that can be used for different data types.
+Examples of function templates are sort(), max(), min(), printArray()
 
 ```c++
 #include <iostream>
@@ -89,8 +89,9 @@ Output:
 Sorted array : 10 20 30 40 50
 ```
 
-**Class Templates** Like function templates, class templates are useful when a class defines something that is
-independent of data type. Can be useful for classes like LinkedList, BinaryTre, Stack, Queue, Array, etc.
+**Class Templates** Like function templates, class templates are useful when a class defines
+something that is independent of data type. Can be useful for classes like LinkedList, BinaryTre,
+Stack, Queue, Array, etc.
 
 Following is a simple example of template Array class.
 
@@ -137,8 +138,8 @@ Output:
 
 **Can there be more than one arguments to templates?**
 
-Yes, like normal parameters, we can pass more than one data types as arguments to templates. The following example
-demonstrates the same.
+Yes, like normal parameters, we can pass more than one data types as arguments to templates. The
+following example demonstrates the same.
 
 ```c++
 #include <iostream>
@@ -168,7 +169,8 @@ Constructor Called
 
 **Can we specify default value for template arguments?**
 
-Yes, like normal parameters, we can specify default arguments to templates. The following example demonstrates the same.
+Yes, like normal parameters, we can specify default arguments to templates. The following example
+demonstrates the same.
 
 ```c++
 #include <iostream>
@@ -196,26 +198,30 @@ Constructor Called
 
 **What is the difference between function overloading and templates?**
 
-Both function overloading and templates are examples of polymorphism feature of OOP. Function overloading is used when
-multiple functions do similar operations, templates are used when multiple functions do identical operations.
+Both function overloading and templates are examples of polymorphism feature of OOP. Function
+overloading is used when multiple functions do similar operations, templates are used when multiple
+functions do identical operations.
 
 **What happens when there is static member in a template class/function?**
 
 Each instance of a template contains its own static variable. See
-[Templates and Static variables](https://www.geeksforgeeks.org/templates-and-static-variables-in-c/) for more details.
+[Templates and Static variables](https://www.geeksforgeeks.org/templates-and-static-variables-in-c/)
+for more details.
 
 **What is template specialization?**
 
 Template specialization allows us to have different code for a particular data type. See
-[Template Specialization](https://www.geeksforgeeks.org/template-specialization-c/) for more details.
+[Template Specialization](https://www.geeksforgeeks.org/template-specialization-c/) for more
+details.
 
 **Can we pass nontype parameters to templates?**
 
-We can pass non-type arguments to templates. Non-type parameters are mainly used for specifying max or min values or any
-other constant value for a particular instance of template. The important thing to note about non-type parameters is,
-they must be const. Compiler must know the value of non-type parameters at compile time. Because compiler needs to
-create functions/classes for a specified non-type value at compile time. In below program, if we replace 10000 or 25
-with a variable, we get compiler error. Please see [this](https://ide.geeksforgeeks.org/mgvysu).
+We can pass non-type arguments to templates. Non-type parameters are mainly used for specifying max
+or min values or any other constant value for a particular instance of template. The important thing
+to note about non-type parameters is, they must be const. Compiler must know the value of non-type
+parameters at compile time. Because compiler needs to create functions/classes for a specified
+non-type value at compile time. In below program, if we replace 10000 or 25 with a variable, we get
+compiler error. Please see [this](https://ide.geeksforgeeks.org/mgvysu).
 
 Below is a C++ program.
 

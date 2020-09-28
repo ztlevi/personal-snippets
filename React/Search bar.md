@@ -17,7 +17,11 @@ class ProductCategoryRow extends React.Component {
 class ProductRow extends React.Component {
   render() {
     const product = this.props.product;
-    const name = product.stocked ? product.name : <span style={{ color: "red" }}>{product.name}</span>;
+    const name = product.stocked ? (
+      product.name
+    ) : (
+      <span style={{ color: "red" }}>{product.name}</span>
+    );
 
     return (
       <tr>
@@ -36,7 +40,7 @@ class ProductTable extends React.Component {
     const rows = [];
     let lastCategory = null;
 
-    this.props.products.forEach(product => {
+    this.props.products.forEach((product) => {
       if (product.name.indexOf(filterText) === -1) {
         return;
       }
@@ -89,8 +93,12 @@ class SearchBar extends React.Component {
           onChange={this.handleFilterTextChange}
         />
         <p>
-          <input type="checkbox" checked={this.props.inStockOnly} onChange={this.handleInStockChange} /> Only show
-          products in stock
+          <input
+            type="checkbox"
+            checked={this.props.inStockOnly}
+            onChange={this.handleInStockChange}
+          />{" "}
+          Only show products in stock
         </p>
       </form>
     );
@@ -149,5 +157,8 @@ const PRODUCTS = [
   { category: "Electronics", price: "$199.99", stocked: true, name: "Nexus 7" },
 ];
 
-ReactDOM.render(<FilterableProductTable products={PRODUCTS} />, document.getElementById("container"));
+ReactDOM.render(
+  <FilterableProductTable products={PRODUCTS} />,
+  document.getElementById("container")
+);
 ```

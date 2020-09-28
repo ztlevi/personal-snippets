@@ -1,15 +1,18 @@
 - hashCode, as defined in the JavaDocs, says:
 
-> As much as is reasonably practical, the hashCode method defined by class Object does return distinct integers for
-> distinct objects. (This is typically implemented by converting the internal address of the object into an integer, but
-> this implementation technique is not required by the Java™ programming language.)
+> As much as is reasonably practical, the hashCode method defined by class Object does return
+> distinct integers for distinct objects. (This is typically implemented by converting the internal
+> address of the object into an integer, but this implementation technique is not required by the
+> Java™ programming language.)
 
-So if you are using hashCode() to find out if it is a unique object in memory that isn't a good way to do it.
+So if you are using hashCode() to find out if it is a unique object in memory that isn't a good way
+to do it.
 
 - System.identityHashCode does the following:
 
-> Returns the same hash code for the given object as would be returned by the default method hashCode(), whether or not
-> the given object's class overrides hashCode(). The hash code for the null reference is zero.
+> Returns the same hash code for the given object as would be returned by the default method
+> hashCode(), whether or not the given object's class overrides hashCode(). The hash code for the
+> null reference is zero.
 
 ```java
       String a = new String("fff");

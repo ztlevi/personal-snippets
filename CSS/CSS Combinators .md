@@ -1,4 +1,5 @@
-A CSS selector can contain more than one simple selector. Between the simple selectors, we can include a combinator.
+A CSS selector can contain more than one simple selector. Between the simple selectors, we can
+include a combinator.
 
 There are four different combinators in CSS:
 
@@ -17,7 +18,8 @@ The child selector selects all elements that are the immediate children of a spe
 
 # Adjacent Sibling Selector
 
-The adjacent sibling selector selects all elements that are the adjacent siblings of a specified element.
+The adjacent sibling selector selects all elements that are the adjacent siblings of a specified
+element.
 
 Sibling elements must have the same parent element, and "adjacent" means "immediately following".
 

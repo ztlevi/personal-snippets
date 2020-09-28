@@ -2,8 +2,9 @@
 
 ## Remarks[](https://docs.microsoft.com/en-us/cpp/cpp/mutable-data-members-cpp?view=vs-2019#remarks)
 
-For example, the following code will compile without error because `m_accessCount` has been declared to be **mutable**,
-and therefore can be modified by `GetFlag` even though `GetFlag` is a const member function.
+For example, the following code will compile without error because `m_accessCount` has been declared
+to be **mutable**, and therefore can be modified by `GetFlag` even though `GetFlag` is a const
+member function.
 
 ```cpp
 // mutable.cpp

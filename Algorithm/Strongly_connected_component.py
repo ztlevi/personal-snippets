@@ -84,3 +84,56 @@ g.addEdge(3, 4)
 print("Following are strongly connected components " + "in given graph")
 g.printSCCs()
 # This code is contributed by Neelam Yadav
+
+
+################ Shorter version ###############
+
+# User function Template for python3
+import collections
+
+
+# Graph (adj) is a default dict of type list
+# V is the number of vertices in the graph
+def countSCCs(adj, V):
+    def dfs1(i, vis, stk):
+        vis[i] = True
+        for j in adj[i]:
+            if not vis[j]:
+                dfs1(j, vis, stk)
+        stk.append(i)
+
+    def dfs2(i, vis, path):
+        vis[i] = True
+        path.append(i)
+        for j in tadj[i]:
+            if not vis[j]:
+                dfs2(j, vis, path)
+
+    tadj = collections.defaultdict(list)
+    for u, vv in adj.items():
+        for v in vv:
+            tadj[v].append(u)
+
+    stk = []
+    vis = [False] * V
+    for i in range(V):
+        if not vis[i]:
+            dfs1(i, vis, stk)
+
+    vis = [False] * V
+    res = []
+    for i in stk[::-1]:
+        path = []
+        if not vis[i]:
+            dfs2(i, vis, path)
+            res.append(path)
+    return len(res)
+
+
+adj = collections.defaultdict(list)
+a = [0, 1, 1, 2, 2, 3]
+for i in range(0, len(a), 2):
+    adj[a[i]].append(a[i + 1])
+
+res = countSCCs(adj, 4)
+print(res)

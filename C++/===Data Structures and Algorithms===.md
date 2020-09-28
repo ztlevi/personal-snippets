@@ -5,8 +5,9 @@
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 - [C++ Data Structures and Algorithms Cheat Sheet](#c-data-structures-and-algorithms-cheat-sheet) -
-  [Table of Contents](#table-of-contents) - [1.0 Data Structures](#10-data-structures) - [1.1 Overview](#11-overview) -
-  [1.2 Vector `std::vector`](#12-vector-stdvector) - [1.3 Deque `std::deque`](#13-deque-stddeque) -
+  [Table of Contents](#table-of-contents) - [1.0 Data Structures](#10-data-structures) -
+  [1.1 Overview](#11-overview) - [1.2 Vector `std::vector`](#12-vector-stdvector) -
+  [1.3 Deque `std::deque`](#13-deque-stddeque) -
   [1.4 List `std::list` and `std::forward_list`](#14-list-stdlist-and-stdforward_list) -
   [1.5 Map `std::map` and `std::unordered_map`](#15-map-stdmap-and-stdunordered_map) -
   [1.6 Set `std::set`](#16-set-stdset) - [1.7 Stack `std::stack`](#17-stack-stdstack) -
@@ -15,11 +16,13 @@
   [1.10 Heap `std::priority_queue`](#110-heap-stdpriority_queue) - [2.0 Trees](#20-trees) -
   [2.1 Binary Tree](#21-binary-tree) - [2.2 Balanced Trees](#22-balanced-trees) -
   [2.3 Binary Search](#23-binary-search) - [2.4 Depth-First Search](#24-depth-first-search) -
-  [2.5 Breadth-First Search](#25-breadth-first-search) - [3.0 NP Complete Problems](#30-np-complete-problems) -
-  [3.1 NP Complete](#31-np-complete) - [3.2 Traveling Salesman Problem](#32-traveling-salesman-problem) -
+  [2.5 Breadth-First Search](#25-breadth-first-search) -
+  [3.0 NP Complete Problems](#30-np-complete-problems) - [3.1 NP Complete](#31-np-complete) -
+  [3.2 Traveling Salesman Problem](#32-traveling-salesman-problem) -
   [3.3 Knapsack Problem](#33-knapsack-problem) - [4.0 Algorithms](#40-algorithms) -
   [4.1 Insertion Sort](#41-insertion-sort) - [4.2 Selection Sort](#42-selection-sort) -
-  [4.3 Bubble Sort](#43-bubble-sort) - [4.4 Merge Sort](#44-merge-sort) - [4.5 Quicksort](#45-quicksort)
+  [4.3 Bubble Sort](#43-bubble-sort) - [4.4 Merge Sort](#44-merge-sort) -
+  [4.5 Quicksort](#45-quicksort)
 
 <!-- /TOC -->
 
@@ -37,11 +40,11 @@
 
 ### NULL and nullptr
 
-NULL is a “manifest constant” (a `\#define` of C) that’s actually an integer that can be assigned to a pointer because
-of an implicit conversion.
+NULL is a “manifest constant” (a `\#define` of C) that’s actually an integer that can be assigned to
+a pointer because of an implicit conversion.
 
-`nullptr` is a keyword representing a value of self-defined type, that can convert into a pointer, but not into
-integers.
+`nullptr` is a keyword representing a value of self-defined type, that can convert into a pointer,
+but not into integers.
 
 ```c++
 int i = NULL; // OK
@@ -904,8 +907,10 @@ priority_queue<iPair, vector<iPair>, greater<iPair>> pq;
 **Notes**
 
 - A heap is essentially an instance of a priority queue
-- A **min** heap is structured with the root node as the smallest and each child subsequently smaller than its parent
-- A **max** heap is structured with the root node as the largest and each child subsequently larger than its parent
+- A **min** heap is structured with the root node as the smallest and each child subsequently
+  smaller than its parent
+- A **max** heap is structured with the root node as the largest and each child subsequently larger
+  than its parent
 - A min heap could be used for _Smallest Job First_ CPU Scheduling
 - A max heap could be used for _Priority_ CPU Scheduling
 
@@ -970,10 +975,10 @@ TreeNode definition:
 ```
 
 - A binary tree is a tree with at most two (2) child nodes per parent
-- Binary trees are commonly used for implementing `O(log(n))` operations for ordered maps, sets, heaps, and binary
-  search trees
-- Binary trees are **sorted** in that nodes with values greater than their parents are inserted to the **right**, while
-  nodes with values less than their parents are inserted to the **left**
+- Binary trees are commonly used for implementing `O(log(n))` operations for ordered maps, sets,
+  heaps, and binary search trees
+- Binary trees are **sorted** in that nodes with values greater than their parents are inserted to
+  the **right**, while nodes with values less than their parents are inserted to the **left**
 
 **Binary Search Tree**
 
@@ -981,8 +986,10 @@ TreeNode definition:
 
 ### 2.2 Balanced Trees
 
-- Balanced trees are a special type of tree which maintains its balance to ensure `O(log(n))` operations
-- When trees are not balanced the benefit of `log(n)` operations is lost due to the highly vertical structure
+- Balanced trees are a special type of tree which maintains its balance to ensure `O(log(n))`
+  operations
+- When trees are not balanced the benefit of `log(n)` operations is lost due to the highly vertical
+  structure
 - Examples of balanced trees:
   - AVL Trees
   - Red-Black Trees
@@ -1226,8 +1233,8 @@ TreeNode definition:
 #### Idea
 
 1. Choose a **pivot** from the array
-2. Partition: Reorder the array so that all elements with values _less_ than the pivot come before the pivot, and all
-   values _greater_ than the pivot come after
+2. Partition: Reorder the array so that all elements with values _less_ than the pivot come before
+   the pivot, and all values _greater_ than the pivot come after
 3. Recursively apply the above steps to the sub-arrays
 
 #### Details

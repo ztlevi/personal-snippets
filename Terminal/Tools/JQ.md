@@ -1,8 +1,8 @@
 # Bash for loop over json array using JQ
 
-Sometimes you just want to read a JSON config file from Bash and iterate over an array. For example, when seeding some
-credentials to a credential store. This sometimes can be tricky especially when the JSON contains multi-line strings
-(for example certificates).
+Sometimes you just want to read a JSON config file from Bash and iterate over an array. For example,
+when seeding some credentials to a credential store. This sometimes can be tricky especially when
+the JSON contains multi-line strings (for example certificates).
 
 In this blog post I will explain how this can be done with jq and a Bash for loop.
 
@@ -36,9 +36,9 @@ echo "${sample}" | jq -c '.[]'
 {"name":"bar"}
 ```
 
-We could start iterating of the above with a Bash for loop if our data does not contain spaces or newlines. But since
-certificates contain newlines we better base64 encode each line. Also, instead of -c, we now use -r to get rid of the
-extra quotes.
+We could start iterating of the above with a Bash for loop if our data does not contain spaces or
+newlines. But since certificates contain newlines we better base64 encode each line. Also, instead
+of -c, we now use -r to get rid of the extra quotes.
 
 ```
 sample='[{"name":"foo"},{"name":"bar"}]'

@@ -1,4 +1,5 @@
-HTML5 <output> Element The <output> element represents the result of a calculation (like one performed by a script).
+HTML5 <output> Element The <output> element represents the result of a calculation (like one
+performed by a script).
 
 ```html
 <form action="/action_page.php" oninput="x.value=parseInt(a.value)+parseInt(b.value)">

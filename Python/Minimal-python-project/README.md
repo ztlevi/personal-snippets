@@ -4,8 +4,8 @@ https://python-packaging.readthedocs.io/en/latest/minimal.html
 
 ## Dependencies
 
-our package depends on the `markdown` package. To note that in `setup.py`, we just add an `install_requires` keyword
-argument:
+our package depends on the `markdown` package. To note that in `setup.py`, we just add an
+`install_requires` keyword argument:
 
 ```python
 from setuptools import setup
@@ -50,13 +50,15 @@ Using /.../site-packages
 Finished processing dependencies for funniest==0.1
 ```
 
-When we publish this to PyPI, calling `pip install funniest` or similar will also install `markdown`.
+When we publish this to PyPI, calling `pip install funniest` or similar will also install
+`markdown`.
 
 ## Packages Not On PyPI[¶](https://python-packaging.readthedocs.io/en/latest/dependencies.html#packages-not-on-pypi "Permalink to this headline")
 
-Sometimes you’ll want to use packages that are properly arranged with setuptools, but aren’t published to PyPI. In those
-cases, you can specify a list of one or more `dependency_links` URLs where the package can be downloaded, along with
-some additional hints, and setuptools will find and install the package correctly.
+Sometimes you’ll want to use packages that are properly arranged with setuptools, but aren’t
+published to PyPI. In those cases, you can specify a list of one or more `dependency_links` URLs
+where the package can be downloaded, along with some additional hints, and setuptools will find and
+install the package correctly.
 
 For example, if a library is published on GitHub, you can specify it like:
 

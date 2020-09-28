@@ -10,11 +10,11 @@ The list attribute of the <input> element, must refer to the id attribute of the
 <form action="/action_page.php">
   <input list="browsers" />
   <datalist id="browsers">
-    <option value="Internet Explorer"> </option>
-    <option value="Firefox"> </option>
-    <option value="Chrome"> </option>
-    <option value="Opera"> </option>
-    <option value="Safari"> </option>
+    <option value="Internet Explorer"></option>
+    <option value="Firefox"></option>
+    <option value="Chrome"></option>
+    <option value="Opera"></option>
+    <option value="Safari"></option>
   </datalist>
 </form>
 ```

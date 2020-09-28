@@ -1,7 +1,8 @@
 # Mock system arguments
 
-The **argparse** module actually reads input variables from special variable, which is called **ARGV** (short from
-**ARG**ument **V**ector). This variable is usually accessed by reading **sys.argv** from **sys** module.
+The **argparse** module actually reads input variables from special variable, which is called
+**ARGV** (short from **ARG**ument **V**ector). This variable is usually accessed by reading
+**sys.argv** from **sys** module.
 
 This variable is a ordinary list, so you can append your command-line parameters to it like this:
 
@@ -11,16 +12,18 @@ sys.argv.extend(['-a', SOME_VALUE])
 main()
 ```
 
-However, messing with sys.argv at runtime is not a good way of testing. A much more cleaner way to replace the
-**sys.argv** for some limited scope is using **unittest.mock.patch** context manager, like this:
+However, messing with sys.argv at runtime is not a good way of testing. A much more cleaner way to
+replace the **sys.argv** for some limited scope is using **unittest.mock.patch** context manager,
+like this:
 
 ```python
 with unittest.mock.patch('sys.argv'. ['__file__', '-a', SOME_VALUE]):
     main()
 ```
 
-If you do pass `sys.argv` to `parse_args`, then the path or name of the script itself is the first item in sys.argv and
-thus becomes the value of option.filename. The hehe then becomes an unknown argument.
+If you do pass `sys.argv` to `parse_args`, then the path or name of the script itself is the first
+item in sys.argv and thus becomes the value of option.filename. The hehe then becomes an unknown
+argument.
 
 ## `mock.Mock`
 
@@ -121,4 +124,5 @@ class test_car(TestCase):
         assert(noise == "BRRRRUUUUMMMM")
 ```
 
-With `autospec=True`, this will raise missing argument `speed`, but it doesn't pop error if don't use autospec.
+With `autospec=True`, this will raise missing argument `speed`, but it doesn't pop error if don't
+use autospec.

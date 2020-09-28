@@ -1,7 +1,7 @@
-The Object.freeze() method freezes an object: that is, prevents new properties from being added to it; prevents existing
-properties from being removed; and prevents existing properties, or their enumerability, configurability, or
-writability, from being changed, it also prevents the prototype from being changed. The method returns the passed
-object.
+The Object.freeze() method freezes an object: that is, prevents new properties from being added to
+it; prevents existing properties from being removed; and prevents existing properties, or their
+enumerability, configurability, or writability, from being changed, it also prevents the prototype
+from being changed. The method returns the passed object.
 
 ```
 const object1 = {
@@ -19,8 +19,9 @@ console.log(object2.property1);
 
 # Seal
 
-The Object.seal() method seals an object, preventing new properties from being added to it and marking all existing
-properties as non-configurable. Values of present properties can still be changed as long as they are writable.
+The Object.seal() method seals an object, preventing new properties from being added to it and
+marking all existing properties as non-configurable. Values of present properties can still be
+changed as long as they are writable.
 
 ```
 const object1 = {

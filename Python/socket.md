@@ -2,10 +2,11 @@
 
 https://github.com/crazyguitar/pysheeet/blob/master/docs/notes/python-socket.rst
 
-Socket programming is inevitable for most programmers even though Python provides much high-level networking interface
-such as httplib, urllib, imaplib, telnetlib and so on. Some Unix-Like system’s interfaces were called through socket
-interface, e.g., Netlink, Kernel cryptography. To temper a pain to read long-winded documents or source code, this cheat
-sheet tries to collect some common or uncommon snippets which are related to low-level socket programming.
+Socket programming is inevitable for most programmers even though Python provides much high-level
+networking interface such as httplib, urllib, imaplib, telnetlib and so on. Some Unix-Like system’s
+interfaces were called through socket interface, e.g., Netlink, Kernel cryptography. To temper a
+pain to read long-winded documents or source code, this cheat sheet tries to collect some common or
+uncommon snippets which are related to low-level socket programming.
 
 Table of Contents
 

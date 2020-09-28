@@ -215,8 +215,9 @@ echo ${STR^^}  #=> "HELLO WORLD!" (all uppercase)
 
 ### Default values
 
-| `${FOO:-val}` | `$FOO`, or `val` if not set | | `${FOO:=val}` | Set `$FOO` to `val` if not set | | `${FOO:+val}` |
-`val` if `$FOO` is set | | `${FOO:?message}` | Show error message and exit if `$FOO` is not set |
+| `${FOO:-val}` | `$FOO`, or `val` if not set | | `${FOO:=val}` | Set `$FOO` to `val` if not set | |
+`${FOO:+val}` | `val` if `$FOO` is set | | `${FOO:?message}` | Show error message and exit if `$FOO`
+is not set |
 
 The `:` is optional (eg, `${FOO=word}` works)
 
@@ -334,7 +335,8 @@ fi
 | `$1`       | First argument                        |
 | `$_`       | Last argument of the previous command |
 
-See [Special parameters](http://wiki.bash-hackers.org/syntax/shellvars#special_parameters_and_shell_variables).
+See
+[Special parameters](http://wiki.bash-hackers.org/syntax/shellvars#special_parameters_and_shell_variables).
 
 ## Conditionals
 
@@ -342,8 +344,9 @@ See [Special parameters](http://wiki.bash-hackers.org/syntax/shellvars#special_p
 
 ### Conditions
 
-Note that `[[` is actually a command/program that returns either `0` (true) or `1` (false). Any program that obeys the
-same logic (like all base utils, such as `grep(1)` or `ping(1)`) can be used as condition, see examples.
+Note that `[[` is actually a command/program that returns either `0` (true) or `1` (false). Any
+program that obeys the same logic (like all base utils, such as `grep(1)` or `ping(1)`) can be used
+as condition, see examples.
 
 | Condition                | Description           |
 | ------------------------ | --------------------- |
@@ -369,7 +372,7 @@ same logic (like all base utils, such as `grep(1)` or `ping(1)`) can be used as 
 | ---                  | ---                      |
 | `[[ ! EXPR ]]`       | Not                      |
 | `[[ X ]] && [[ Y ]]` | And                      |
-| `[[ X ]] || [[ Y ]]` | Or                       |
+| `[[ X ]]             |                          | [[ Y ]]` | Or |
 
 ### File conditions
 
@@ -572,24 +575,26 @@ Set `GLOBIGNORE` as a colon-separated list of patterns to be removed from glob m
 
 ### Expansions
 
-| `!$` | Expand last parameter of most recent command | | `!*` | Expand all parameters of most recent command | | `!-n`
-| Expand `n`th most recent command | | `!n` | Expand `n`th command in history | | `!<command>` | Expand most recent
-invocation of command `<command>` |
+| `!$` | Expand last parameter of most recent command | | `!*` | Expand all parameters of most
+recent command | | `!-n` | Expand `n`th most recent command | | `!n` | Expand `n`th command in
+history | | `!<command>` | Expand most recent invocation of command `<command>` |
 
 ### Operations
 
 | `!!` | Execute last command again |  
-| `!!:s/<FROM>/<TO>/` | Replace first occurrence of `<FROM>` to `<TO>` in most recent command | | `!!:gs/<FROM>/<TO>/` |
-Replace all occurrences of `<FROM>` to `<TO>` in most recent command | | `!$:t` | Expand only basename from last
-parameter of most recent command | | `!$:h` | Expand only directory from last parameter of most recent command |
+| `!!:s/<FROM>/<TO>/` | Replace first occurrence of `<FROM>` to `<TO>` in most recent command | |
+`!!:gs/<FROM>/<TO>/` | Replace all occurrences of `<FROM>` to `<TO>` in most recent command | |
+`!$:t` | Expand only basename from last parameter of most recent command | | `!$:h` | Expand only
+directory from last parameter of most recent command |
 
 `!!` and `!$` can be replaced with any valid expansion.
 
 ### Slices
 
-| `!!:n` | Expand only `n`th token from most recent command (command is `0`; first argument is `1`) | | `!^` | Expand
-first argument from most recent command | | `!$` | Expand last token from most recent command | | `!!:n-m` | Expand
-range of tokens from most recent command | | `!!:n-$` | Expand `n`th token to last from most recent command |
+| `!!:n` | Expand only `n`th token from most recent command (command is `0`; first argument is `1`)
+| | `!^` | Expand first argument from most recent command | | `!$` | Expand last token from most
+recent command | | `!!:n-m` | Expand range of tokens from most recent command | | `!!:n-$` | Expand
+`n`th token to last from most recent command |
 
 `!!` can be replaced with any valid expansion i.e. `!cat`, `!-2`, `!42`, etc.
 
@@ -730,10 +735,11 @@ read -n 1 ans    # Just one character
 
 ### Special variables
 
-| `$?` | Exit status of last task | | `$!` | PID of last background task | | `$$` | PID of shell | | `$0` | Filename of
-the shell script |
+| `$?` | Exit status of last task | | `$!` | PID of last background task | | `$$` | PID of shell | |
+`$0` | Filename of the shell script |
 
-See [Special parameters](http://wiki.bash-hackers.org/syntax/shellvars#special_parameters_and_shell_variables).
+See
+[Special parameters](http://wiki.bash-hackers.org/syntax/shellvars#special_parameters_and_shell_variables).
 
 ### Go to previous directory
 

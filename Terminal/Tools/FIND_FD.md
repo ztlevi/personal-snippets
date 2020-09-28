@@ -1,6 +1,7 @@
 # FIND
 
-You can combine criteria with `-o`. Note that `-o` has lower precedence than juxtaposition, so you may need parentheses.
+You can combine criteria with `-o`. Note that `-o` has lower precedence than juxtaposition, so you
+may need parentheses.
 
 ```
 find . -name '*.jpg' -o -name '*.png'
@@ -8,9 +9,10 @@ find ./ -type f \( -iname \*.jpg -o -iname \*.png \)
 find . -mtime -7 \( '*.jpg' -o -name '*.png' \)  # all .jpg or .png images modified in the past week
 ```
 
-- On Linux, you can use `-regex` to combine extensions in a terser way. The default regexp syntax is Emacs
-  ([basic regexps](http://en.wikipedia.org/wiki/Regular_expression#POSIX_Basic_Regular_Expressions) plus a few
-  extensions such as `\|` for alternation); there's an option to switch to
+- On Linux, you can use `-regex` to combine extensions in a terser way. The default regexp syntax is
+  Emacs
+  ([basic regexps](http://en.wikipedia.org/wiki/Regular_expression#POSIX_Basic_Regular_Expressions)
+  plus a few extensions such as `\|` for alternation); there's an option to switch to
   [extended regexps](http://en.wikipedia.org/wiki/Regular_expression#POSIX_Extended_Regular_Expressions).
 
   ```
@@ -28,11 +30,12 @@ find . -mtime -7 \( '*.jpg' -o -name '*.png' \)  # all .jpg or .png images modif
 
 ## Parallel command execution
 
-If the `-x`/`--exec` option is specified alongside a command template, a job pool will be created for executing commands
-in parallel for each discovered path as the input. The syntax for generating commands is similar to that of GNU
-Parallel:
+If the `-x`/`--exec` option is specified alongside a command template, a job pool will be created
+for executing commands in parallel for each discovered path as the input. The syntax for generating
+commands is similar to that of GNU Parallel:
 
-- `{}`: A placeholder token that will be replaced with the path of the search result (`documents/images/party.jpg`).
+- `{}`: A placeholder token that will be replaced with the path of the search result
+  (`documents/images/party.jpg`).
 - `{.}`: Like `{}`, but without the file extension (`documents/images/party`).
 - `{/}`: A placeholder that will be replaced by the basename of the search result (`party.jpg`).
 - `{//}`: Uses the parent of the discovered path (`documents/images`).

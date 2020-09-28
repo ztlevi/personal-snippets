@@ -6,9 +6,10 @@
 
 `\r\n` = CR + LF // Used as a new line character in Windows
 
-Python's standard out is buffered (meaning that it collects some of the data "written" to standard out before it writes
-it to the terminal). Calling sys.stdout.flush() forces it to "flush" the buffer, meaning that it will write everything
-in the buffer to the terminal, even if normally it would wait before doing so.
+Python's standard out is buffered (meaning that it collects some of the data "written" to standard
+out before it writes it to the terminal). Calling sys.stdout.flush() forces it to "flush" the
+buffer, meaning that it will write everything in the buffer to the terminal, even if normally it
+would wait before doing so.
 
 ```python
 import sys
@@ -30,8 +31,8 @@ The syntax of format() method is:
  template.format(p0, p1, ..., k0=v0, k1=v1, ...)
  </pre>
 
-Here, <var>p0, p1,...</var> are positional arguments and, <var>k0, k1,...</var> are keyword arguments with values
-<var>v0, v1,...</var> respectively.
+Here, <var>p0, p1,...</var> are positional arguments and, <var>k0, k1,...</var> are keyword
+arguments with values <var>v0, v1,...</var> respectively.
 
 And, <var>template</var> is a mixture of format codes with placeholders for the arguments.
 
@@ -41,10 +42,10 @@ And, <var>template</var> is a mixture of format codes with placeholders for the 
 
 format() method takes any number of parameters. But, is divided into two types of parameters:
 
-- **Positional parameters** - list of parameters that can be accessed with index of parameter inside curly braces
-  {index}
-- **Keyword parameters** - list of parameters of type key=value, that can be accessed with key of parameter inside curly
-  braces {key}
+- **Positional parameters** - list of parameters that can be accessed with index of parameter inside
+  curly braces {index}
+- **Keyword parameters** - list of parameters of type key=value, that can be accessed with key of
+  parameter inside curly braces {key}
 
 ---
 
@@ -56,8 +57,8 @@ The format() method returns the formatted string.
 
 ## How String format() works?
 
-The format() reads the type of arguments passed to it and formats it according to the format codes defined in the
-string.
+The format() reads the type of arguments passed to it and formats it according to the format codes
+defined in the string.
 
 ### For positional arguments
 
@@ -67,21 +68,23 @@ Here, Argument 0 is a string "Adam" and Argument 1 is a floating number 230.2346
 
 **Note:** Argument list starts from 0 in Python.
 
-The string `"Hello {0}, your balance is {1:9.3f}"` is the template string. This contains the format codes for
-formatting.
+The string `"Hello {0}, your balance is {1:9.3f}"` is the template string. This contains the format
+codes for formatting.
 
-The curly braces are just placeholders for the arguments to be placed. In the above example, <var>{0}</var> is
-placeholder for <var>"Adam"</var> and <var>{1:9.3f}</var> is placeholder for <var>230.2346</var>.
+The curly braces are just placeholders for the arguments to be placed. In the above example,
+<var>{0}</var> is placeholder for <var>"Adam"</var> and <var>{1:9.3f}</var> is placeholder for
+<var>230.2346</var>.
 
-Since the template string references format() arguments as {0} and {1}, the arguments are positional arguments. They
-both can also be referenced without the numbers as {} and Python internally converts them to numbers.
+Since the template string references format() arguments as {0} and {1}, the arguments are positional
+arguments. They both can also be referenced without the numbers as {} and Python internally converts
+them to numbers.
 
 Internally,
 
 - Since
 
-<var>"Adam"</var> is the 0<sup>th</sup> argument, it is placed in place of {0}. Since, {0} doesn't contain any other
-format codes, it doesn't perform any other operations.
+<var>"Adam"</var> is the 0<sup>th</sup> argument, it is placed in place of {0}. Since, {0} doesn't
+contain any other format codes, it doesn't perform any other operations.
 
 - However, it is not the case for 1<sup>st</sup> argument
 
@@ -89,15 +92,16 @@ format codes, it doesn't perform any other operations.
 
 <var>230.2346</var> in its place and performs the operation 9.3f.
 
-- f specifies the format is dealing with a float number. If not correctly specified, it will give out an error.
-- The part before the "." (9) specifies the minimum width/padding the number (230.2346) can take. In this case, 230.2346
-  is allotted a minimum of 9 places including the ".".
+- f specifies the format is dealing with a float number. If not correctly specified, it will give
+  out an error.
+- The part before the "." (9) specifies the minimum width/padding the number (230.2346) can take. In
+  this case, 230.2346 is allotted a minimum of 9 places including the ".".
 
-If no alignment option is specified, it is aligned to the right of the remaining spaces. (For strings, it is aligned to
-the left.)
+If no alignment option is specified, it is aligned to the right of the remaining spaces. (For
+strings, it is aligned to the left.)
 
-- The part after the "." (3) truncates the decimal part (2346) upto the given number. In this case, 2346 is truncated
-  after 3 places.
+- The part after the "." (3) truncates the decimal part (2346) upto the given number. In this case,
+  2346 is truncated after 3 places.
 
 Remaining numbers (46) is rounded off outputting 235.
 
@@ -107,28 +111,29 @@ Remaining numbers (46) is rounded off outputting 235.
 
 ![How string format works for keyword parameters in Python?](https://cdn.programiz.com/sites/tutorial2program/files/python-format-keyword-argument.jpg "How string format works for keyword parameters in Python?")
 
-We've used the same example from above to show the difference between keyword and positional arguments.
+We've used the same example from above to show the difference between keyword and positional
+arguments.
 
-Here, instead of just the parameters, we've used a key-value for the parameters. Namely, <var>name="Adam"</var> and
-<var>blc=230.2346</var>.
+Here, instead of just the parameters, we've used a key-value for the parameters. Namely,
+<var>name="Adam"</var> and <var>blc=230.2346</var>.
 
-Since, these parameters are referenced by their keys as <var>{name}</var> and <var>{blc:9.3f}</var>, they are known as
-keyword or named arguments.
+Since, these parameters are referenced by their keys as <var>{name}</var> and <var>{blc:9.3f}</var>,
+they are known as keyword or named arguments.
 
 Internally,
 
 - The placeholder
 
-<var>{name}</var> is replaced by the value of name - "Adam". Since, it doesn't contain any other format codes, "Adam" is
-placed.
+<var>{name}</var> is replaced by the value of name - "Adam". Since, it doesn't contain any other
+format codes, "Adam" is placed.
 
 - For the argument blc=230.2346, the placeholder
 
-<var>{blc:9.3f}</var> is replaced by the value 230.2346. But before replacing it, like previous example, it performs
-9.3f operation on it.
+<var>{blc:9.3f}</var> is replaced by the value 230.2346. But before replacing it, like previous
+example, it performs 9.3f operation on it.
 
-This outputs 230.235. The decimal part is truncated after 3 places and remaining digits are rounded off. Likewise, the
-total width is assigned 9 leaving two spaces to the left.
+This outputs 230.235. The decimal part is truncated after 3 places and remaining digits are rounded
+off. Likewise, the total width is assigned 9 leaving two spaces to the left.
 
 ---
 
@@ -240,16 +245,16 @@ When you run this program, the output will be:
 
 Here,
 
-- in the first statement, `{:5d}` takes an integer argument and assigns a minimum width of 5. Since, no alignment is
-  specified, it is aligned to the right.
-- In the second statement, you can see the width (2) is less than the number (1234), so it doesn't take any space to the
-  left but also doesn't truncate the number.
-- Unlike integers, floats has both integer and decimal parts. And, the mininum width defined to the number is for both
-  parts as a whole including **"."**.
-- In the third statement, `{:8.3f}` truncates the decimal part into 3 places rounding off the last 2 digits. And, the
-  number, now 12.235, takes a width of 8 as a whole leaving 2 places to the left.
-- If you want to fill the remaining places with zero, placing a zero before the format specifier does this. It works
-  both for integers and floats: `{:05d}` and `{:08.3f}`.
+- in the first statement, `{:5d}` takes an integer argument and assigns a minimum width of 5. Since,
+  no alignment is specified, it is aligned to the right.
+- In the second statement, you can see the width (2) is less than the number (1234), so it doesn't
+  take any space to the left but also doesn't truncate the number.
+- Unlike integers, floats has both integer and decimal parts. And, the mininum width defined to the
+  number is for both parts as a whole including **"."**.
+- In the third statement, `{:8.3f}` truncates the decimal part into 3 places rounding off the last 2
+  digits. And, the number, now 12.235, takes a width of 8 as a whole leaving 2 places to the left.
+- If you want to fill the remaining places with zero, placing a zero before the format specifier
+  does this. It works both for integers and floats: `{:05d}` and `{:08.3f}`.
 
 ---
 
@@ -278,7 +283,8 @@ When you run this program, the output will be:
 
 ### Number formatting with alignment
 
-The operators `<`, `^`, `>` and `=` are used for alignment when assigned a certain width to the numbers.
+The operators `<`, `^`, `>` and `=` are used for alignment when assigned a certain width to the
+numbers.
 
 | Number formatting with alignment | Type                                               | Meaning |
 | -------------------------------- | -------------------------------------------------- | ------- |
@@ -312,8 +318,8 @@ When you run this program, the output will be:
  <i>-</i><i> </i><i>1</i><i>2</i><i>.</i><i>2</i><i>3</i><i>5</i></samp>
  </pre>
 
-**Note:** Left alignment filled with zeros for integer numbers can cause problems as the 3rd example which returns
-12000, rather than 12.
+**Note:** Left alignment filled with zeros for integer numbers can cause problems as the 3rd example
+which returns 12000, rather than 12.
 
 ---
 
@@ -381,8 +387,8 @@ When you run this program, the output will be:
 
 ## Formatting class and dictionary members using format()
 
-Python internally uses `getattr()` for class members in the form ".age". And, it uses `__getitem__()` lookup for
-dictionary members in the form "[index]".
+Python internally uses `getattr()` for class members in the form ".age". And, it uses
+`__getitem__()` lookup for dictionary members in the form "[index]".
 
 ### Example 8: Formatting class members using format()
 
@@ -404,8 +410,8 @@ When you run this program, the output will be:
 
 Here, `Person` object is passed as a keyword argument <var>p</var>.
 
-Inside the template string, Person's <var>name</var> and <var>age</var> are accessed using `.name` and `.age`
-respectively.
+Inside the template string, Person's <var>name</var> and <var>age</var> are accessed using `.name`
+and `.age` respectively.
 
 ---
 
@@ -429,8 +435,8 @@ When you run this program, the output will be:
 
 Similar to class, `person` dictionary is passed as a keyword argument <var>p</var>.
 
-Inside the template string, person's <var>name</var> and <var>age</var> are accessed using `[name]` and `[age]`
-respectively.
+Inside the template string, person's <var>name</var> and <var>age</var> are accessed using `[name]`
+and `[age]` respectively.
 
 ---
 
@@ -450,7 +456,8 @@ print("{name}'s age is: {age}".format(**person))
 
 ## Arguments as format codes using format()
 
-You can also pass format codes like precision, alignment, fill character as positional or keyword arguments dynamically.
+You can also pass format codes like precision, alignment, fill character as positional or keyword
+arguments dynamically.
 
 ### Example 10: Dynamic formatting using format()
 
@@ -479,23 +486,26 @@ When you run the program, the output will be:
 
 Here,
 
-- In the first example, 'cat' is the positional argument is to be formatted. Likewise, `fill='*'`, `align='^'` and
-  `width=5` are keyword arguments.
-- In the template string, these keyword arguments are not retrieved as normal strings to be printed but as the actual
-  format codes `fill, align and width`.
+- In the first example, 'cat' is the positional argument is to be formatted. Likewise, `fill='*'`,
+  `align='^'` and `width=5` are keyword arguments.
+- In the template string, these keyword arguments are not retrieved as normal strings to be printed
+  but as the actual format codes `fill, align and width`.
 
-The arguments replaces the corresponding named placeholders and the string 'cat' is formatted accordingly.
+The arguments replaces the corresponding named placeholders and the string 'cat' is formatted
+accordingly.
 
-- Likewise, in the second example, 123.236 is the positional argument and, align, width and precision are passed to the
-  template string as format codes.
+- Likewise, in the second example, 123.236 is the positional argument and, align, width and
+  precision are passed to the template string as format codes.
 
 ---
 
 ## Extra formatting options with format()
 
-format() also supports type-specific formatting options like datetime's and complex number formatting.
+format() also supports type-specific formatting options like datetime's and complex number
+formatting.
 
-format() internally calls `__format__()` for datetime, while format() accesses the attributes of the complex number.
+format() internally calls `__format__()` for datetime, while format() accesses the attributes of the
+complex number.
 
 You can easily override the **format**() method of any object for custom formatting.
 
@@ -539,7 +549,8 @@ Here,
 
 Current datetime is passed as a positional argument to the format() method.
 
-And, internally using **format**() method, format() accesses the year, month, day, hour, minutes and seconds.
+And, internally using **format**() method, format() accesses the year, month, day, hour, minutes and
+seconds.
 
 - **For complex numbers:**
 
@@ -549,12 +560,13 @@ Then accessing its attributes `real` and `imag`, the number is formatted.
 
 - **Overriding **format**():**
 
-Like datetime, you can override your own **format**() method for custom formatting which returns age when accessed as
-`{:age}`
+Like datetime, you can override your own **format**() method for custom formatting which returns age
+when accessed as `{:age}`
 
 ---
 
-You can also use object's `__str__()` and `__repr__()` functionality with shorthand notations using format().
+You can also use object's `__str__()` and `__repr__()` functionality with shorthand notations using
+format().
 
 Like **format**(), you can easily override object's **str**() and \__repr_() methods.
 

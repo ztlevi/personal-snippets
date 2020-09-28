@@ -22,7 +22,8 @@ https://github.com/abo-abo/swiper/pull/1559
 
 ### Purpose
 
-Enable users to interactively specify extra switches along with the search pattern when invoking counsel-ag.
+Enable users to interactively specify extra switches along with the search pattern when invoking
+counsel-ag.
 
 For example, `M-x counsel-ag`:
 
@@ -34,13 +35,13 @@ For example, `M-x counsel-ag`:
 
 Assume `counsel-ag-command` is set to `ag --nocolor --nogroup`.
 
-- It behaves the same as before when the query starts with anything but a dash: `M-x counsel-ag abc` ↵ Produces
-  `ag --nocolor --nogroup abc`
+- It behaves the same as before when the query starts with anything but a dash: `M-x counsel-ag abc`
+  ↵ Produces `ag --nocolor --nogroup abc`
 
 - Regex are escaped: `M-x counsel-ag abc[^d].` ↵ Produces `ag --nocolor --nogroup abc\[\^d\].`
 
-- Starting with `-` or `--` passes the text as switches until a `--`: `M-x counsel-ag --elisp -- abc` ↵ Produces
-  `ag --nocolor --nogroup --elisp abc`
+- Starting with `-` or `--` passes the text as switches until a `--`:
+  `M-x counsel-ag --elisp -- abc` ↵ Produces `ag --nocolor --nogroup --elisp abc`
 
 - Initial dashes need to be escaped if they are not switches: `M-x counsel-ag \-abc` ↵ Produces
   `ag --nocolor --nogroup \\-abc`
@@ -48,14 +49,16 @@ Assume `counsel-ag-command` is set to `ag --nocolor --nogroup`.
 - Switches are not escaped. Queries are: `M-x counsel-ag --elisp -- abc[^d].` ↵ Produces
   `ag --nocolor --nogroup --elisp abc\[\^d\].`
 
-- Using a prefix argument behaves the same as before: `C-u M-x counsel-ag ag --nocolor --nogroup --elisp` ↵ `abc` ↵
-  Produces `ag --nocolor --nogroup --elisp abc`
+- Using a prefix argument behaves the same as before:
+  `C-u M-x counsel-ag ag --nocolor --nogroup --elisp` ↵ `abc` ↵ Produces
+  `ag --nocolor --nogroup --elisp abc`
 
 ### File Mask
 
-- `-t` can apply builtin file masks to filter files, use `rg --type-list` to see all the builtin masks, e.g.
-  `M-x counsel-rg ↵ -t txt -- list` to search "list" in all txt files.
-- `--type-add` can help to define custom file mask, e.g. `--type-add 'foo:*.{foo,boo}' -t foo PATTERN`.
+- `-t` can apply builtin file masks to filter files, use `rg --type-list` to see all the builtin
+  masks, e.g. `M-x counsel-rg ↵ -t txt -- list` to search "list" in all txt files.
+- `--type-add` can help to define custom file mask, e.g.
+  `--type-add 'foo:*.{foo,boo}' -t foo PATTERN`.
 - Or, we can define custom search functions using the following format:
   ```
   (counsel-rg &optional INITIAL-INPUT INITIAL-DIRECTORY EXTRA-RG-ARGS RG-PROMPT)
@@ -65,10 +68,11 @@ Assume `counsel-ag-command` is set to `ag --nocolor --nogroup`.
 
 ## Swiper-avy
 
-In 2015, `swiper-avy` was [added](https://oremacs.com/2015/05/23/swiper-0.5.0/), which could also be used as a
-workaround for many candidates on a single line. Press
+In 2015, `swiper-avy` was [added](https://oremacs.com/2015/05/23/swiper-0.5.0/), which could also be
+used as a workaround for many candidates on a single line. Press
 
-<kbd>C-'</kbd> to visually select any candidate on screen using [avy](https://github.com/abo-abo/avy).
+<kbd>C-'</kbd> to visually select any candidate on screen using
+[avy](https://github.com/abo-abo/avy).
 
 # Ivy
 

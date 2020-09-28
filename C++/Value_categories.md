@@ -3,13 +3,14 @@
 https://en.cppreference.com/w/cpp/language/value_category
 
 - glvalue: (the union of lvalues and xvalues)
-  - A glvalue is an expression whose evaluation determines the identity of an object, bit-field, or function.
+  - A glvalue is an expression whose evaluation determines the identity of an object, bit-field, or
+    function.
 - rvalues: (the union of xvalues and prvalues)
-  - An xvalue is a glvalue that denotes an object or bit-field whose resources can be reused (usually because it is near
-    the end of its lifetime).
+  - An xvalue is a glvalue that denotes an object or bit-field whose resources can be reused
+    (usually because it is near the end of its lifetime).
 - prvalue:
-  - A prvalue is an expression whose evaluation initializes an object or a bit-field, or computes the value of the
-    operand of an operator, as specified by the context in which it appears.
+  - A prvalue is an expression whose evaluation initializes an object or a bit-field, or computes
+    the value of the operand of an operator, as specified by the context in which it appears.
 
 ```c++
 #include <iostream>

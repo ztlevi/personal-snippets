@@ -2,24 +2,26 @@
 
 ## Description
 
-In bash, variables can have a value (such as the number **3**). Optionally, variables can also be assigned attributes
-(such as [**integer**](https://www.computerhope.com/jargon/e/eval.htm)).
+In bash, variables can have a value (such as the number **3**). Optionally, variables can also be
+assigned attributes (such as [**integer**](https://www.computerhope.com/jargon/e/eval.htm)).
 
-For instance, a "[read-only](https://www.computerhope.com/jargon/r/readonly.htm)" variable (**declare -r**) cannot be
-unset, and its value and other attributes cannot be modified. An "indexed array" variable (**declare -a**) is an
-[array](https://www.computerhope.com/jargon/a/array.htm) of values that are indexed by number, starting at zero. An
-"associative array" variable (**declare -A**) is an array of key-value pairs whose values are indexed by a keyword. (For
-more information, see [arrays in bash](https://www.computerhope.com/unix/ubash.htm#arrays)).
+For instance, a "[read-only](https://www.computerhope.com/jargon/r/readonly.htm)" variable
+(**declare -r**) cannot be unset, and its value and other attributes cannot be modified. An "indexed
+array" variable (**declare -a**) is an [array](https://www.computerhope.com/jargon/a/array.htm) of
+values that are indexed by number, starting at zero. An "associative array" variable (**declare
+-A**) is an array of key-value pairs whose values are indexed by a keyword. (For more information,
+see [arrays in bash](https://www.computerhope.com/unix/ubash.htm#arrays)).
 
-In addition to variables, bash functions can be assigned attributes which affect their behavior. See the **-f** and
-**-F** options below for more information.
+In addition to variables, bash functions can be assigned attributes which affect their behavior. See
+the **-f** and **-F** options below for more information.
 
-> Note: The **typeset** command is an alias for **declare**. The two can be used interchangeably in bash.
+> Note: The **typeset** command is an alias for **declare**. The two can be used interchangeably in
+> bash.
 
 ## Syntax
 
-**declare** [**-a**][**-a**] [**-f**][**-f**] [**-g**][**-i**] [**-l**][**-n**] [**-r**][**-t**] [**-u**][**-x**]
-[**-p**]_name_[**=**_value_]] [_name_[**=**_value_]] ...
+**declare** [**-a**][**-a**] [**-f**][**-f**] [**-g**][**-i**] [**-l**][**-n**] [**-r**][**-t**]
+[**-u**][**-x**] [**-p**]_name_[**=**_value_]] [_name_[**=**_value_]] ...
 
 ### Options
 
@@ -32,8 +34,8 @@ The **declare** builtin command takes the following general options:
 | **-g** | When **declare** is used within a shell function, the **-g** option causes all operations on variables to take effect in [global](https://www.computerhope.com/jargon/g/global.htm) scope. If not used in a shell function, **-g** has no effect.                                                                                                                                                                                                                                                |
 | **-p** | When used with _name_ arguments, **-p** displays the options and attributes of each variable _name_, and **-f** or **-F** are ignored (functions are not described). <br> When used with options, but no names, **-p** displays the attributes and values, which match the other specified options, of all variables and functions. <br> When used with no options or names, **-p** displays the attributes and values of all variables and functions, or only functions if **-f** is specified. |
 
-The remaining options, listed below, cause **declare** to set an attribute if the option letter is preceded with a dash.
-If preceded with a plus sign, **declare** will unset the attribute instead.
+The remaining options, listed below, cause **declare** to set an attribute if the option letter is
+preceded with a dash. If preceded with a plus sign, **declare** will unset the attribute instead.
 
 | Option | Unset with | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | ------ | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -49,13 +51,13 @@ If preceded with a plus sign, **declare** will unset the attribute instead.
 
 ### Lexical scope
 
-When **declare** is used inside a shell function, all named items are declared in a local scope, unless the **-g**
-option is used. This behavior is the same as using the **local** builtin command.
+When **declare** is used inside a shell function, all named items are declared in a local scope,
+unless the **-g** option is used. This behavior is the same as using the **local** builtin command.
 
 ### Exit status
 
-The exit status of **declare** is success (zero), unless an invalid option is specified or an error occurs during
-variable assignment, in which case the status is failure (non-zero).
+The exit status of **declare** is success (zero), unless an invalid option is specified or an error
+occurs during variable assignment, in which case the status is failure (non-zero).
 
 ## Examples
 
@@ -83,8 +85,8 @@ This time, notice in the output that **myvar** is listed after all other variabl
 declare -- myvar
 ```
 
-The double dash is equivalent to "no options." This means that **myvar** is declared, and has no attributes. If it had
-an assigned value, the value would be listed here.
+The double dash is equivalent to "no options." This means that **myvar** is declared, and has no
+attributes. If it had an assigned value, the value would be listed here.
 
 ```
 myvar=33
@@ -108,8 +110,8 @@ Same as the above two commands.
 declare -- myvar="33"
 ```
 
-Same as the above three commands; this is the proper form, including the value being enclosed in double-quotes. However,
-any of the above four commands have the same effect.
+Same as the above three commands; this is the proper form, including the value being enclosed in
+double-quotes. However, any of the above four commands have the same effect.
 
 Now, list all variables again:
 
@@ -123,8 +125,8 @@ You'll see that this time, the output lists **myvar** with its value assignment:
 declare -- myvar="33"
 ```
 
-The key thing to notice here is, when you run **declare -p**, variables are listed as the complete **declare** command
-that you would need to set the variable to its current attributes and value.
+The key thing to notice here is, when you run **declare -p**, variables are listed as the complete
+**declare** command that you would need to set the variable to its current attributes and value.
 
 ### Setting and unsetting attributes
 
@@ -134,8 +136,8 @@ The next commands modify the variable's attributes:
 declare -x myvar
 ```
 
-Declare that **myvar** should be exported to any child shell processes. This is the equivalent of using the **export**
-command:
+Declare that **myvar** should be exported to any child shell processes. This is the equivalent of
+using the **export** command:
 
 ```
 export myvar
@@ -163,8 +165,9 @@ After running the above command, **myvar** will no longer be exported to subshel
 
 ### Integers, and integer evaluation
 
-Bash allows you to declare a variable to have the **integer** attribute, which guarantees that the variable will always
-hold an integer value. It also permits arithmetic evaluation when assigning a value.
+Bash allows you to declare a variable to have the **integer** attribute, which guarantees that the
+variable will always hold an integer value. It also permits arithmetic evaluation when assigning a
+value.
 
 ```
 declare -i myvar
@@ -176,8 +179,8 @@ Declare that **myvar** should be treated an integer.
 myvar="test"
 ```
 
-The string "**test**" is a non-integer value, so the value **0** (zero) is assigned instead. You can verify this if you
-[**echo**](https://www.computerhope.com/unix/uecho.htm) the value:
+The string "**test**" is a non-integer value, so the value **0** (zero) is assigned instead. You can
+verify this if you [**echo**](https://www.computerhope.com/unix/uecho.htm) the value:
 
 ```
 echo $myvar
@@ -187,8 +190,8 @@ echo $myvar
 0
 ```
 
-Any positive or negative integer value can be assigned, though. (The maximum possible value depends on your computer,
-but it's huge):
+Any positive or negative integer value can be assigned, though. (The maximum possible value depends
+on your computer, but it's huge):
 
 ```
 myvar=-33; echo $myvar
@@ -198,8 +201,8 @@ myvar=-33; echo $myvar
 -33
 ```
 
-If a string containing an arithmetic operation is assigned to an integer variable, the result of the operation is
-assigned. For example:
+If a string containing an arithmetic operation is assigned to an integer variable, the result of the
+operation is assigned. For example:
 
 ```
 myvar="2*11"; echo $myvar
@@ -211,8 +214,8 @@ myvar="2*11"; echo $myvar
 
 The above command assigns **myvar** the value of **2** times **11**.
 
-If the mathematical operation results in a number with a decimal point, the result is rounded down to the next-lowest
-integer. For instance:
+If the mathematical operation results in a number with a decimal point, the result is rounded down
+to the next-lowest integer. For instance:
 
 ```
 myvar="33/5"; echo $myvar
@@ -222,10 +225,12 @@ myvar="33/5"; echo $myvar
 6
 ```
 
-The precise result of 33 divided by 5 (**33/5**) is **6.6**, but bash rounds it down to the integer **6**.
+The precise result of 33 divided by 5 (**33/5**) is **6.6**, but bash rounds it down to the integer
+**6**.
 
-If you try to use decimal values as [operands](https://www.computerhope.com/jargon/o/operand.htm), bash will return an
-error, stating that the decimal point is an unknown [operator](https://www.computerhope.com/jargon/o/operator.htm):
+If you try to use decimal values as [operands](https://www.computerhope.com/jargon/o/operand.htm),
+bash will return an error, stating that the decimal point is an unknown
+[operator](https://www.computerhope.com/jargon/o/operator.htm):
 
 ```
 myvar="33.1/5"; echo $myvar
@@ -241,9 +246,9 @@ To unset the integer attribute, use the option **+i**:
 declare +i myvar
 ```
 
-Now, **myvar** no longer has the **integer** attribute. Strings containing mathematical operations will now be assigned
-to **myvar** [literally](https://www.computerhope.com/jargon/l/literal.htm), rather than
-[evaluated](https://www.computerhope.com/jargon/e/eval.htm). For example:
+Now, **myvar** no longer has the **integer** attribute. Strings containing mathematical operations
+will now be assigned to **myvar** [literally](https://www.computerhope.com/jargon/l/literal.htm),
+rather than [evaluated](https://www.computerhope.com/jargon/e/eval.htm). For example:
 
 ```
 myvar="33.1/5"; echo $myvar
@@ -261,7 +266,8 @@ To declare an indexed array, use **-a**:
 declare -a myvar
 ```
 
-If **myvar** already had an assigned value, this value is indexed as the first element, numbered zero:
+If **myvar** already had an assigned value, this value is indexed as the first element, numbered
+zero:
 
 ```
 echo ${myvar[0]}
@@ -291,8 +297,8 @@ echo ${myvar[2]}
 World!
 ```
 
-If you use a negative integer as the index, bash counts from the last element, rather than the first. To access the last
-element, use index **-1**:
+If you use a negative integer as the index, bash counts from the last element, rather than the
+first. To access the last element, use index **-1**:
 
 ```
 echo ${myvar[-1]}
@@ -312,8 +318,8 @@ echo ${myvar[-2]}
 Hello
 ```
 
-To display all elements in an array, you can use an asterisk ("**\***") as the index. Individual elements are separated
-with a space:
+To display all elements in an array, you can use an asterisk ("**\***") as the index. Individual
+elements are separated with a space:
 
 ```bash
 echo ${myvar[*]}
@@ -323,8 +329,8 @@ echo ${myvar[*]}
 33.1/5 Hello World!
 ```
 
-> Note: You cannot unset the array attribute with **+a**. Bash has no procedure for converting an array to another type,
-> so it will return an error, even if no values were assigned. For example:
+> Note: You cannot unset the array attribute with **+a**. Bash has no procedure for converting an
+> array to another type, so it will return an error, even if no values were assigned. For example:
 
 ```
 declare +a myvar
@@ -336,19 +342,21 @@ bash: declare: myvar: cannot destroy array variables in this way
 
 ### Check if a variable is declared
 
-If you're writing a bash script, and you need to check if a variable is declared, this is the proper way to do it:
+If you're writing a bash script, and you need to check if a variable is declared, this is the proper
+way to do it:
 
 ```bash
 if [ -z ${myvar+x} ]; then echo "not set"; else echo "set"; fi
 ```
 
 This will perform
-["Assign Alternate Value" parameter expansion](https://www.computerhope.com/unix/ubash.htm#parameter-expansion), which
-tests if **myvar** has been set, and if its value is [null](https://www.computerhope.com/jargon/n/null.htm). If
-**myvar** is unset, it will echo "**not set**". Otherwise, it will echo "**set**". Note that the letter **x** can be
-anything you'd like, but is required for the comparison to occur.
+["Assign Alternate Value" parameter expansion](https://www.computerhope.com/unix/ubash.htm#parameter-expansion),
+which tests if **myvar** has been set, and if its value is
+[null](https://www.computerhope.com/jargon/n/null.htm). If **myvar** is unset, it will echo "**not
+set**". Otherwise, it will echo "**set**". Note that the letter **x** can be anything you'd like,
+but is required for the comparison to occur.
 
 ## Related commands
 
-[**export**](https://www.computerhope.com/unix/bash/export.htm) — Mark variables and functions to be exported to child
-processes.
+[**export**](https://www.computerhope.com/unix/bash/export.htm) — Mark variables and functions to be
+exported to child processes.

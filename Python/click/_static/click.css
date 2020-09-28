@@ -5,7 +5,8 @@
 body,
 pre,
 code {
-  font-family: "Ubuntu Mono", "Consolas", "Menlo", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", monospace;
+  font-family: "Ubuntu Mono", "Consolas", "Menlo", "DejaVu Sans Mono", "Bitstream Vera Sans Mono",
+    monospace;
   font-size: 15px;
 }
 

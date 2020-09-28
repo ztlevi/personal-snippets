@@ -2,7 +2,7 @@
 var url = "http://localhost:8080/api/v1/users";
 var xhr = new XMLHttpRequest();
 xhr.open("GET", url, true);
-xhr.onload = function() {
+xhr.onload = function () {
   var users = JSON.parse(xhr.responseText);
   if (xhr.readyState == 4 && xhr.status == "200") {
     console.table(users);
@@ -16,7 +16,7 @@ xhr.send(null);
 var url = "http://localhost:8080/api/v1/users";
 var xhr = new XMLHttpRequest();
 xhr.open("GET", url + "/1", true);
-xhr.onload = function() {
+xhr.onload = function () {
   var users = JSON.parse(xhr.responseText);
   if (xhr.readyState == 4 && xhr.status == "200") {
     console.table(users);
@@ -37,7 +37,7 @@ var json = JSON.stringify(data);
 var xhr = new XMLHttpRequest();
 xhr.open("POST", url, true);
 xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
-xhr.onload = function() {
+xhr.onload = function () {
   var users = JSON.parse(xhr.responseText);
   if (xhr.readyState == 4 && xhr.status == "201") {
     console.table(users);
@@ -58,7 +58,7 @@ var json = JSON.stringify(data);
 var xhr = new XMLHttpRequest();
 xhr.open("PUT", url + "/12", true);
 xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
-xhr.onload = function() {
+xhr.onload = function () {
   var users = JSON.parse(xhr.responseText);
   if (xhr.readyState == 4 && xhr.status == "200") {
     console.table(users);
@@ -72,7 +72,7 @@ xhr.send(json);
 var url = "http://localhost:8080/api/v1/users";
 var xhr = new XMLHttpRequest();
 xhr.open("DELETE", url + "/12", true);
-xhr.onload = function() {
+xhr.onload = function () {
   var users = JSON.parse(xhr.responseText);
   if (xhr.readyState == 4 && xhr.status == "200") {
     console.table(users);

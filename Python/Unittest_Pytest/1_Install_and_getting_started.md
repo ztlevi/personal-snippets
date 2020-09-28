@@ -55,20 +55,20 @@ This test returns a failure report because `func(3)` does not return `5`.
 Note
 
 You can use the `assert` statement to verify test expectations. pytest’s
-[Advanced assertion introspection](http://docs.python.org/reference/simple_stmts.html#the-assert-statement) will
-intelligently report intermediate values of the assert expression so you can avoid the many names
-[of JUnit legacy methods](http://docs.python.org/library/unittest.html#test-cases).
+[Advanced assertion introspection](http://docs.python.org/reference/simple_stmts.html#the-assert-statement)
+will intelligently report intermediate values of the assert expression so you can avoid the many
+names [of JUnit legacy methods](http://docs.python.org/library/unittest.html#test-cases).
 
 ## Run multiple tests[¶](https://docs.pytest.org/en/latest/getting-started.html#run-multiple-tests "Permalink to this headline")
 
-`pytest` will run all files of the form test\__.py or _\_test.py in the current directory and its subdirectories. More
-generally, it follows
+`pytest` will run all files of the form test\__.py or _\_test.py in the current directory and its
+subdirectories. More generally, it follows
 [standard test discovery rules](https://docs.pytest.org/en/latest/goodpractices.html#test-discovery).
 
 ## Assert that a certain exception is raised[¶](https://docs.pytest.org/en/latest/getting-started.html#assert-that-a-certain-exception-is-raised "Permalink to this headline")
 
-Use the [raises](https://docs.pytest.org/en/latest/assert.html#assertraises) helper to assert that some code raises an
-exception:
+Use the [raises](https://docs.pytest.org/en/latest/assert.html#assertraises) helper to assert that
+some code raises an exception:
 
 ```python
 # content of test_sysexit.py
@@ -92,8 +92,8 @@ $ pytest -q test_sysexit.py
 
 ## Group multiple tests in a class[¶](https://docs.pytest.org/en/latest/getting-started.html#group-multiple-tests-in-a-class "Permalink to this headline")
 
-Once you develop multiple tests, you may want to group them into a class. pytest makes it easy to create a class
-containing more than one test:
+Once you develop multiple tests, you may want to group them into a class. pytest makes it easy to
+create a class containing more than one test:
 
 ```python
 # content of test_class.py
@@ -108,9 +108,9 @@ classTestClass:
 ```
 
 `pytest` discovers all tests following its
-[Conventions for Python test discovery](https://docs.pytest.org/en/latest/goodpractices.html#test-discovery), so it
-finds both `test_` prefixed functions. There is no need to subclass anything. We can simply run the module by passing
-its filename:
+[Conventions for Python test discovery](https://docs.pytest.org/en/latest/goodpractices.html#test-discovery),
+so it finds both `test_` prefixed functions. There is no need to subclass anything. We can simply
+run the module by passing its filename:
 
 ```sh
 $ pytest -q test_class.py
@@ -130,12 +130,13 @@ test_class.py:8: AssertionError
 1 failed, 1 passed in 0.02s
 ```
 
-The first test passed and the second failed. You can easily see the intermediate values in the assertion to help you
-understand the reason for the failure.
+The first test passed and the second failed. You can easily see the intermediate values in the
+assertion to help you understand the reason for the failure.
 
 ## Request a unique temporary directory for functional tests[¶](https://docs.pytest.org/en/latest/getting-started.html#request-a-unique-temporary-directory-for-functional-tests "Permalink to this headline")
 
-`pytest` provides [Builtin fixtures/function arguments](https://docs.pytest.org/en/latest/builtin.html) to request
+`pytest` provides
+[Builtin fixtures/function arguments](https://docs.pytest.org/en/latest/builtin.html) to request
 arbitrary resources, like a unique temporary directory:
 
 ```sh
@@ -145,9 +146,9 @@ def test_needsfiles(tmpdir):
     assert 0
 ```
 
-List the name `tmpdir` in the test function signature and `pytest` will lookup and call a fixture factory to create the
-resource before performing the test function call. Before the test runs, `pytest` creates a unique-per-test-invocation
-temporary directory:
+List the name `tmpdir` in the test function signature and `pytest` will lookup and call a fixture
+factory to create the resource before performing the test function call. Before the test runs,
+`pytest` creates a unique-per-test-invocation temporary directory:
 
 ```sh
 $ pytest -q test_tmpdir.py
@@ -171,8 +172,8 @@ PYTEST_TMPDIR/test_needsfiles0
 More info on tmpdir handling is available at
 [Temporary directories and files](https://docs.pytest.org/en/latest/tmpdir.html#tmpdir-handling).
 
-Find out what kind of builtin [pytest fixtures](https://docs.pytest.org/en/latest/fixture.html#fixtures) exist with the
-command:
+Find out what kind of builtin
+[pytest fixtures](https://docs.pytest.org/en/latest/fixture.html#fixtures) exist with the command:
 
 ```sh
 pytest --fixtures   \# shows builtin and custom fixtures

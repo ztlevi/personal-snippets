@@ -9,8 +9,8 @@ https://petewarden.com/2015/04/20/why-gemm-is-at-the-heart-of-deep-learning/
 https://fdsmlhn.github.io/2017/11/02/Understanding%20im2col%20implementation%20in%20Python(numpy%20fancy%20indexing)/
 For a `(N,W,H,C)` mat, after converted to cols, the shape becomes `(K_w*K_h*C, N*W*H)`
 
-For example, for a `(2,4,5,3)` mat, after converted to cols, the shape becomes `(3x3x3, 2x4x5)` (27, 40). Compared to
-the origional mat size, it's 9 `(K_w, K_h)` times bigger.
+For example, for a `(2,4,5,3)` mat, after converted to cols, the shape becomes `(3x3x3, 2x4x5)` (27,
+40). Compared to the origional mat size, it's 9 `(K_w, K_h)` times bigger.
 
 ### Code
 

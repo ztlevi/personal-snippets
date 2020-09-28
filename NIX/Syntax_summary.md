@@ -1,10 +1,8 @@
 ## 5.4. Syntax Summary[](https://nixos.org/nixos/manual/index.html#sec-nix-syntax-summary)
 
-Below is a summary of the most important syntactic constructs in the Nix
-expression language. It’s not complete. In particular, there are many other
-built-in functions. See the
-[Nix
-manual](https://nixos.org/nix/manual/#chap-writing-nix-expressions) for the rest.
+Below is a summary of the most important syntactic constructs in the Nix expression language. It’s
+not complete. In particular, there are many other built-in functions. See the
+[Nix manual](https://nixos.org/nix/manual/#chap-writing-nix-expressions) for the rest.
 
 | Example                                      | Description                                                                                                                                                                                                      |
 | -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

@@ -45,10 +45,11 @@ with tqdm(total=100) as pbar:
         pbar.update(10)
 ```
 
-If the optional variable `total` (or an iterable with `len()`) is provided, predictive stats are displayed.
+If the optional variable `total` (or an iterable with `len()`) is provided, predictive stats are
+displayed.
 
-`with` is also optional (you can just assign `tqdm()` to a variable, but in this case don't forget to `del` or `close()`
-at the end:
+`with` is also optional (you can just assign `tqdm()` to a variable, but in this case don't forget
+to `del` or `close()` at the end:
 
 ```python
 pbar = tqdm(total=100)
@@ -60,11 +61,12 @@ pbar.close()
 
 #### [Module](https://github.com/tqdm/tqdm#table-of-contents)
 
-Perhaps the most wonderful use of `tqdm` is in a script or on the command line. Simply inserting `tqdm` (or
-`python -m tqdm`) between pipes will pass through all `stdin` to `stdout` while printing progress to `stderr`.
+Perhaps the most wonderful use of `tqdm` is in a script or on the command line. Simply inserting
+`tqdm` (or `python -m tqdm`) between pipes will pass through all `stdin` to `stdout` while printing
+progress to `stderr`.
 
-The example below demonstrated counting the number of lines in all Python files in the current directory, with timing
-information included.
+The example below demonstrated counting the number of lines in all Python files in the current
+directory, with timing information included.
 
 ```python
 $ time find . -name '*.py' -type f -exec cat \{} \; | wc -l

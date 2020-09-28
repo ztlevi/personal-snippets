@@ -1,10 +1,13 @@
 ## Generic protocols[¶](https://mypy.readthedocs.io/en/stable/generics.html#generic-protocols "Permalink to this headline")
 
 Mypy supports generic protocols (see also
-[Protocols and structural subtyping](https://mypy.readthedocs.io/en/stable/protocols.html#protocol-types)). Several
-[predefined protocols](https://mypy.readthedocs.io/en/stable/protocols.html#predefined-protocols) are generic, such as
-[`Iterable[T]`](https://docs.python.org/3/library/typing.html#typing.Iterable "(in Python v3.8)"), and you can define
-additional generic protocols. Generic protocols mostly follow the normal rules for generic classes. Example:
+[Protocols and structural subtyping](https://mypy.readthedocs.io/en/stable/protocols.html#protocol-types)).
+Several
+[predefined protocols](https://mypy.readthedocs.io/en/stable/protocols.html#predefined-protocols)
+are generic, such as
+[`Iterable[T]`](https://docs.python.org/3/library/typing.html#typing.Iterable "(in Python v3.8)"),
+and you can define additional generic protocols. Generic protocols mostly follow the normal rules
+for generic classes. Example:
 
 ```python
 from typing import TypeVar
@@ -33,10 +36,10 @@ y: Box[int] = ...
 x = y  # Error -- Box is invariant
 ```
 
-**The main difference between generic protocols and ordinary generic classes is that mypy checks that the declared
-variances of generic type variables in a protocol match how they are used in the protocol definition.** The protocol in
-this example is rejected, since the type variable `T` is used covariantly as a return type, but the type variable is
-invariant:
+**The main difference between generic protocols and ordinary generic classes is that mypy checks
+that the declared variances of generic type variables in a protocol match how they are used in the
+protocol definition.** The protocol in this example is rejected, since the type variable `T` is used
+covariantly as a return type, but the type variable is invariant:
 
 ```python
 from typing import TypeVar
@@ -64,8 +67,9 @@ ay: ReadOnlyBox[int] = ...
 ax = ay  # OK -- ReadOnlyBox is covariant
 ```
 
-See [Variance of generic types](https://mypy.readthedocs.io/en/stable/generics.html#variance-of-generics) for more about
-variance.
+See
+[Variance of generic types](https://mypy.readthedocs.io/en/stable/generics.html#variance-of-generics)
+for more about variance.
 
 Generic protocols can also be recursive. Example:
 
@@ -114,18 +118,20 @@ def close_all(items: Iterable[SupportsClose]) -> None:
 close_all([Resource(), open('some/file')])  # Okay!
 ```
 
-`Resource` is a subtype of the `SupportsClose` protocol since it defines a compatible `close` method. Regular file
-objects returned by [`open()`](https://docs.python.org/3/library/functions.html#open "(in Python v3.8)") are similarly
+`Resource` is a subtype of the `SupportsClose` protocol since it defines a compatible `close`
+method. Regular file objects returned by
+[`open()`](https://docs.python.org/3/library/functions.html#open "(in Python v3.8)") are similarly
 compatible with the protocol, as they support `close()`.
 
 Note
 
-The `Protocol` base class is provided in the `typing_extensions` package for Python 2.7 and 3.4-3.7. Starting with
-Python 3.8, `Protocol` is included in the `typing` module.
+The `Protocol` base class is provided in the `typing_extensions` package for Python 2.7 and 3.4-3.7.
+Starting with Python 3.8, `Protocol` is included in the `typing` module.
 
 ## Defining subprotocols and subclassing protocols[¶](https://mypy.readthedocs.io/en/stable/protocols.html#defining-subprotocols-and-subclassing-protocols "Permalink to this headline")
 
-You can also define subprotocols. Existing protocols can be extended and merged using multiple inheritance. Example:
+You can also define subprotocols. Existing protocols can be extended and merged using multiple
+inheritance. Example:
 
 ```python
 # ... continuing from the previous example
@@ -148,9 +154,10 @@ resource: TaggedReadableResource
 resource = AdvancedResource('handle with care')  # OK
 ```
 
-Note that inheriting from an existing protocol does not automatically turn the subclass into a protocol – it just
-creates a regular (non-protocol) class or ABC that implements the given protocol (or protocols). The `Protocol` base
-class must always be explicitly present if you are defining a protocol:
+Note that inheriting from an existing protocol does not automatically turn the subclass into a
+protocol – it just creates a regular (non-protocol) class or ABC that implements the given protocol
+(or protocols). The `Protocol` base class must always be explicitly present if you are defining a
+protocol:
 
 ```python
 class NotAProtocol(SupportsClose):  # This is NOT a protocol
@@ -166,20 +173,21 @@ class Concrete:
 x: NotAProtocol = Concrete()  # Error!
 ```
 
-You can also include default implementations of methods in protocols. If you explicitly subclass these protocols you can
-inherit these default implementations. Explicitly including a protocol as a base class is also a way of documenting that
-your class implements a particular protocol, and it forces mypy to verify that your class implementation is actually
-compatible with the protocol.
+You can also include default implementations of methods in protocols. If you explicitly subclass
+these protocols you can inherit these default implementations. Explicitly including a protocol as a
+base class is also a way of documenting that your class implements a particular protocol, and it
+forces mypy to verify that your class implementation is actually compatible with the protocol.
 
 Note
 
-You can use Python 3.6 variable annotations ([**PEP 526**](https://www.python.org/dev/peps/pep-0526)) to declare
-protocol attributes. On Python 2.7 and earlier Python 3 versions you can use type comments and properties.
+You can use Python 3.6 variable annotations
+([**PEP 526**](https://www.python.org/dev/peps/pep-0526)) to declare protocol attributes. On Python
+2.7 and earlier Python 3 versions you can use type comments and properties.
 
 ## Recursive protocols[¶](https://mypy.readthedocs.io/en/stable/protocols.html#recursive-protocols "Permalink to this headline")
 
-Protocols can be recursive (self-referential) and mutually recursive. This is useful for declaring abstract recursive
-collections such as trees and linked lists:
+Protocols can be recursive (self-referential) and mutually recursive. This is useful for declaring
+abstract recursive collections such as trees and linked lists:
 
 ```python
 fromtyping import TypeVar, Optional
@@ -206,8 +214,9 @@ root: TreeLike = SimpleTree(0)  # OK
 ## Using isinstance() with protocols[¶](https://mypy.readthedocs.io/en/stable/protocols.html#using-isinstance-with-protocols "Permalink to this headline")
 
 You can use a protocol class with
-[`isinstance()`](https://docs.python.org/3/library/functions.html#isinstance "(in Python v3.8)") if you decorate it with
-the `@runtime_checkable` class decorator. The decorator adds support for basic runtime structural checks:
+[`isinstance()`](https://docs.python.org/3/library/functions.html#isinstance "(in Python v3.8)") if
+you decorate it with the `@runtime_checkable` class decorator. The decorator adds support for basic
+runtime structural checks:
 
 ```python
 from typing_extensions import Protocol, runtime_checkable
@@ -225,23 +234,26 @@ if isinstance(mug, Portable):
    use(mug.handles)  # Works statically and at runtime
 ```
 
-[`isinstance()`](https://docs.python.org/3/library/functions.html#isinstance "(in Python v3.8)") also works with the
+[`isinstance()`](https://docs.python.org/3/library/functions.html#isinstance "(in Python v3.8)")
+also works with the
 [predefined protocols](https://mypy.readthedocs.io/en/stable/protocols.html#predefined-protocols) in
 [`typing`](https://docs.python.org/3/library/typing.html#module-typing "(in Python v3.8)") such as
 [`Iterable`](https://docs.python.org/3/library/typing.html#typing.Iterable "(in Python v3.8)").
 
 Note
 
-[`isinstance()`](https://docs.python.org/3/library/functions.html#isinstance "(in Python v3.8)") with protocols is not
-completely safe at runtime. For example, signatures of methods are not checked. The runtime implementation only checks
-that all protocol members are defined.
+[`isinstance()`](https://docs.python.org/3/library/functions.html#isinstance "(in Python v3.8)")
+with protocols is not completely safe at runtime. For example, signatures of methods are not
+checked. The runtime implementation only checks that all protocol members are defined.
 
 ## Callback protocols[¶](https://mypy.readthedocs.io/en/stable/protocols.html#callback-protocols "Permalink to this headline")
 
-Protocols can be used to define flexible callback types that are hard (or even impossible) to express using the
-[`Callable[...]`](https://docs.python.org/3/library/typing.html#typing.Callable "(in Python v3.8)") syntax, such as
-variadic, overloaded, and complex generic callbacks. They are defined with a special
-[`__call__`](https://docs.python.org/3/reference/datamodel.html#object.__call__ "(in Python v3.8)") member:
+Protocols can be used to define flexible callback types that are hard (or even impossible) to
+express using the
+[`Callable[...]`](https://docs.python.org/3/library/typing.html#typing.Callable "(in Python v3.8)")
+syntax, such as variadic, overloaded, and complex generic callbacks. They are defined with a special
+[`__call__`](https://docs.python.org/3/reference/datamodel.html#object.__call__ "(in Python v3.8)")
+member:
 
 ```python
 from typing import Optional, Iterable, List
@@ -264,10 +276,11 @@ batch_proc([], bad_cb)   # Error! Argument 2 has incompatible type because of
                          # different name and kind in the callback
 ```
 
-Callback protocols and [`Callable`](https://docs.python.org/3/library/typing.html#typing.Callable "(in Python v3.8)")
-types can be used interchangeably. Keyword argument names in
-[`__call__`](https://docs.python.org/3/reference/datamodel.html#object.__call__ "(in Python v3.8)") methods must be
-identical, unless a double underscore prefix is used. For example:
+Callback protocols and
+[`Callable`](https://docs.python.org/3/library/typing.html#typing.Callable "(in Python v3.8)") types
+can be used interchangeably. Keyword argument names in
+[`__call__`](https://docs.python.org/3/reference/datamodel.html#object.__call__ "(in Python v3.8)")
+methods must be identical, unless a double underscore prefix is used. For example:
 
 ```python
 fromtyping import Callable, TypeVar

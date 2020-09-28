@@ -4,9 +4,9 @@ A Markdown API for Medium that deploys to AWS Lambda.
 
 ## Usage
 
-Change the domain name of a Medium post URL to `unmediumed.com` to view as Markdown. The `http` protocol and the
-`medium.com` domain will be automatically assumed for `medium.com` domain posts. For publications with custom domains
-the full URL should be provided.
+Change the domain name of a Medium post URL to `unmediumed.com` to view as Markdown. The `http`
+protocol and the `medium.com` domain will be automatically assumed for `medium.com` domain posts.
+For publications with custom domains the full URL should be provided.
 
 ```
 # with protocol and medium domain

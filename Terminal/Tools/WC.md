@@ -8,8 +8,9 @@ Word count. Its value is primarily derived from the -l flag, which will give you
 wc -l gigantic_comma.csv
 ```
 
-This tool comes in handy to confirm the output of various commands. So, if we were to convert the delimiters within a
-file and then run `wc -l` we would expect the total lines to be the same. If not, then we know something went wrong.
+This tool comes in handy to confirm the output of various commands. So, if we were to convert the
+delimiters within a file and then run `wc -l` we would expect the total lines to be the same. If
+not, then we know something went wrong.
 
 - Useful options:
 

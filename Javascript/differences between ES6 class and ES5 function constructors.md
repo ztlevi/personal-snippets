@@ -18,8 +18,9 @@ class Person {
 
 For simple constructors, they look pretty similar.
 
-The main difference in the constructor comes when using inheritance. If we want to create a `Student` class that
-subclasses `Person` and add a `studentId` field, this is what we have to do in addition to the above.
+The main difference in the constructor comes when using inheritance. If we want to create a
+`Student` class that subclasses `Person` and add a `studentId` field, this is what we have to do in
+addition to the above.
 
 ```js
 // ES5 Function Constructor
@@ -43,4 +44,5 @@ class Student extends Person {
 }
 ```
 
-It's much more verbose to use inheritance in ES5 and the ES6 version is easier to understand and remember.
+It's much more verbose to use inheritance in ES5 and the ES6 version is easier to understand and
+remember.

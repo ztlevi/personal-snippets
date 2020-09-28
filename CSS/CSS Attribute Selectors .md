@@ -24,10 +24,11 @@ a[target="_blank"] {
 
 # CSS [attribute~="value"] Selector
 
-The [attribute~="value"] selector is used to select elements with an attribute value containing a specified word.
+The [attribute~="value"] selector is used to select elements with an attribute value containing a
+specified word.
 
-The following example selects all elements with a title attribute that contains a space-separated list of words, one of
-which is "flower":
+The following example selects all elements with a title attribute that contains a space-separated
+list of words, one of which is "flower":
 
 ```css
 [title~="flower"] {
@@ -35,22 +36,23 @@ which is "flower":
 }
 ```
 
-The example above will match elements with title="flower", title="summer flower", and title="flower new", but not
-title="my-flower" or title="flowers".
+The example above will match elements with title="flower", title="summer flower", and title="flower
+new", but not title="my-flower" or title="flowers".
 
 # CSS [attribute|="value"] Selector
 
-The [attribute|="value"] selector is used to select elements with the specified attribute starting with the specified
-value.
+The [attribute|="value"] selector is used to select elements with the specified attribute starting
+with the specified value.
 
 The following example selects all elements with a class attribute value that begins with "top":
 
-Note: The value has to be a whole word, either alone, like class="top", or followed by a hyphen( - ), like
-class="top-text"!
+Note: The value has to be a whole word, either alone, like class="top", or followed by a hyphen( -
+), like class="top-text"!
 
 # CSS [attribute^="value"] Selector
 
-The [attribute^="value"] selector is used to select elements whose attribute value begins with a specified value.
+The [attribute^="value"] selector is used to select elements whose attribute value begins with a
+specified value.
 
 The following example selects all elements with a class attribute value that begins with "top":
 
@@ -58,7 +60,8 @@ Note: The value does not have to be a whole word!
 
 # CSS [attribute$="value"] Selector
 
-The [attribute$="value"] selector is used to select elements whose attribute value ends with a specified value.
+The [attribute$="value"] selector is used to select elements whose attribute value ends with a
+specified value.
 
 The following example selects all elements with a class attribute value that ends with "test":
 
@@ -66,7 +69,8 @@ Note: The value does not have to be a whole word!
 
 # CSS [attribute*="value"] Selector
 
-The [attribute*="value"] selector is used to select elements whose attribute value contains a specified value.
+The [attribute*="value"] selector is used to select elements whose attribute value contains a
+specified value.
 
 The following example selects all elements with a class attribute value that contains "te":
 

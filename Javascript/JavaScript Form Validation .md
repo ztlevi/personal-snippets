@@ -2,8 +2,8 @@
 
 HTML form validation can be done by JavaScript.
 
-If a form field (fname) is empty, this function alerts a message, and returns false, to prevent the form from being
-submitted:
+If a form field (fname) is empty, this function alerts a message, and returns false, to prevent the
+form from being submitted:
 
 ```js
 function validateForm() {

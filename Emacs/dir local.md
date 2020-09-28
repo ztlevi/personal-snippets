@@ -4,9 +4,9 @@
 
 ## Without a .dir-locals.el file
 
-You can also configure directory local variables purely in elisp (i.e. without using a .dir-local.el file). The
-following example uses TrampMode paths, and therefore requires directory variable support for remote files to have been
-enabled (see below).
+You can also configure directory local variables purely in elisp (i.e. without using a .dir-local.el
+file). The following example uses TrampMode paths, and therefore requires directory variable support
+for remote files to have been enabled (see below).
 
 ```emacs-lisp
     (dir-locals-set-class-variables
@@ -54,11 +54,12 @@ Get the detail information by execute the following function.
 (info "(emacs) Directory Variables")
 ```
 
-This constant is the name of the file where Emacs expects to find the directory-local variables. The name of the file is
-.dir-locals.el1. A file by that name in a directory causes Emacs to apply its settings to any file in that directory or
-any of its subdirectories (optionally, you can exclude subdirectories; see below). If some of the subdirectories have
-their own .dir-locals.el files, Emacs uses the settings from the deepest file it finds starting from the file's
-directory and moving up the directory tree. The file specifies local variables as a specially formatted list; see
+This constant is the name of the file where Emacs expects to find the directory-local variables. The
+name of the file is .dir-locals.el1. A file by that name in a directory causes Emacs to apply its
+settings to any file in that directory or any of its subdirectories (optionally, you can exclude
+subdirectories; see below). If some of the subdirectories have their own .dir-locals.el files, Emacs
+uses the settings from the deepest file it finds starting from the file's directory and moving up
+the directory tree. The file specifies local variables as a specially formatted list; see
 Per-directory Local Variables, for more details.
 
 Examples:

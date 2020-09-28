@@ -103,8 +103,8 @@ foo.py:15: error: Incompatible types in assignment (expression has type "int", v
 foo.py:15: error: Argument 1 to "bar" of "Foo" has incompatible type "str"; expected "int"
 ```
 
-- `TypeVar` used in a method but did not match any parameters which declare in `Generic` can be inferred to be different
-  types.
+- `TypeVar` used in a method but did not match any parameters which declare in `Generic` can be
+  inferred to be different types.
 
 ```python
 from typing importTypeVar, Generic
@@ -181,8 +181,8 @@ foo.py:11: error: Value of type variable "T" of "add" cannot be "str"
 
 ## `TypeVar` with an upper bound[¶](https://www.pythonsheets.com/notes/python-typing.html#typevar-with-an-upper-bound "Permalink to this headline")
 
-`T = TypeVar('T', bound=BaseClass)` means we create a **type variable with an upper bound**. The concept is similar to
-**polymorphism** in c++.
+`T = TypeVar('T', bound=BaseClass)` means we create a **type variable with an upper bound**. The
+concept is similar to **polymorphism** in c++.
 
 ```c++
 #include<iostream>
@@ -236,8 +236,8 @@ int main(int argc, char *argv[])
 }
 ```
 
-Like c++, create a base class and `TypeVar` which bounds to the base class. Then, static type checker will take every
-subclass as type of base class.
+Like c++, create a base class and `TypeVar` which bounds to the base class. Then, static type
+checker will take every subclass as type of base class.
 
 ```python
 from typing import TypeVar

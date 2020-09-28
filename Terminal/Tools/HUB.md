@@ -19,8 +19,8 @@ git config --global hub.protocol https
 
 ## Staying productive on the command-line
 
-hub makes it easy to _clone or create repositories_, _browse project pages_, _list known issues_, ensure your local
-branches _stay up to date_, and _share logs or code snippets via Gist_.
+hub makes it easy to _clone or create repositories_, _browse project pages_, _list known issues_,
+ensure your local branches _stay up to date_, and _share logs or code snippets via Gist_.
 
 ```sh
 # clone your own projecthub clone dotfiles
@@ -64,9 +64,9 @@ git push -u origin HEAD
 
 ## Lowering the barrier to contributing to open-source
 
-Whether you are beginner or an experienced contributor to open-source, hub makes it easier to _fork repositories_, check
-the _CI status of a branch_, and even _submit pull requests_ from the same environment where you write & commit your
-code.
+Whether you are beginner or an experienced contributor to open-source, hub makes it easier to _fork
+repositories_, check the _CI status of a branch_, and even _submit pull requests_ from the same
+environment where you write & commit your code.
 
 ```sh
 hub clone octocat/Spoon-Knife
@@ -94,8 +94,8 @@ hub pull-request
 
 ## Automating tasks for fun and profit
 
-Scripting is much easier now that you can _list or create_ issues, pull requests, and GitHub Releases in the _format of
-your choice_.
+Scripting is much easier now that you can _list or create_ issues, pull requests, and GitHub
+Releases in the _format of your choice_.
 
 ```sh
 # List issues assigned to you that are labeled "urgent"hub issue --assignee YOUR_USER --labels urgent
@@ -110,9 +110,10 @@ hub release create --copy -F release-notes.txt v2.3.0
 
 ### Drop down to the API level
 
-Even if hub doesn't support the exact feature you need, you can use [`hub api`](https://hub.github.com/hub-api.1.html)
-to manually make requests against any GitHub API—even [GraphQL](https://developer.github.com/v4/#about-graphql)—and have
-hub handle authentication, JSON encoding/decoding, and pagination for you.
+Even if hub doesn't support the exact feature you need, you can use
+[`hub api`](https://hub.github.com/hub-api.1.html) to manually make requests against any GitHub
+API—even [GraphQL](https://developer.github.com/v4/#about-graphql)—and have hub handle
+authentication, JSON encoding/decoding, and pagination for you.
 
 ```sh
 # use contents of a file to post a comment on issue #123 of the current repo
@@ -138,8 +139,8 @@ See [hub-api-utils](https://github.com/mislav/hub-api-utils) for more examples.
 
 ## Designed for open-source maintainers
 
-Maintaining a project is easier when you can easily _fetch from other forks_, _check out pull requests_, _close issues_,
-and even _cherry-pick commits by URL_.
+Maintaining a project is easier when you can easily _fetch from other forks_, _check out pull
+requests_, _close issues_, and even _cherry-pick commits by URL_.
 
 ```sh
 # fetch from multiple trusted forks, even if they don't yet exist as remotes
@@ -172,8 +173,8 @@ hub compare --url feature | pbcopy
 
 ## Using GitHub for work
 
-Save time at work by opening _pull requests for code reviews_ and pushing to _multiple remotes at once_. Even _GitHub
-Enterprise_ is supported.
+Save time at work by opening _pull requests for code reviews_ and pushing to _multiple remotes at
+once_. Even _GitHub Enterprise_ is supported.
 
 ```sh
 # have hub recognize your GitHub Enterprise hostname
@@ -191,4 +192,5 @@ hub pull-request --copy -F prepared-message.md
 hub push production,staging
 ```
 
-See the [full reference documentation](https://hub.github.com/hub.1.html#configuration) to learn more.
+See the [full reference documentation](https://hub.github.com/hub.1.html#configuration) to learn
+more.

@@ -1,10 +1,12 @@
 # Static Polymorphism:
 
-In Java, static polymorphism is achieved through method overloading. Method overloading means there are several methods
-present in a class having the same name but different types/order/number of parameters.
+In Java, static polymorphism is achieved through method overloading. Method overloading means there
+are several methods present in a class having the same name but different types/order/number of
+parameters.
 
-At compile time, Java knows which method to invoke by checking the method signatures. So, this is called compile time
-polymorphism or static binding. The concept will be clear from the following example:
+At compile time, Java knows which method to invoke by checking the method signatures. So, this is
+called compile time polymorphism or static binding. The concept will be clear from the following
+example:
 
 ```java
 class DemoOverload{
@@ -33,15 +35,17 @@ class Test{
 }
 ```
 
-In the above example, there are four versions of add methods. The first method takes two parameters while the second one
-takes three. For the third and fourth methods there is a change of order of parameters. The compiler looks at the method
-signature and decides which method to invoke for a particular method call at compile time.
+In the above example, there are four versions of add methods. The first method takes two parameters
+while the second one takes three. For the third and fourth methods there is a change of order of
+parameters. The compiler looks at the method signature and decides which method to invoke for a
+particular method call at compile time.
 
 # Dynamic Polymorphism:
 
-Suppose a sub class overrides a particular method of the super class. Let’s say, in the program we create an object of
-the subclass and assign it to the super class reference. Now, if we call the overridden method on the super class
-reference then the sub class version of the method will be called.
+Suppose a sub class overrides a particular method of the super class. Let’s say, in the program we
+create an object of the subclass and assign it to the super class reference. Now, if we call the
+overridden method on the super class reference then the sub class version of the method will be
+called.
 
 Have a look at the following example.
 
@@ -68,11 +72,11 @@ class Test{
 }
 ```
 
-It should be noted that in the first call to move(), the reference type is Vehicle and the object being referenced is
-MotorBike. So, when a call to move() is made, Java waits until runtime to determine which object is actually being
-pointed to by the reference. In this case, the object is of the class MotorBike. So, the move() method of MotorBike
-class will be called. In the second call to move(), the object is of the class Vehicle. So, the move() method of Vehicle
-will be called.
+It should be noted that in the first call to move(), the reference type is Vehicle and the object
+being referenced is MotorBike. So, when a call to move() is made, Java waits until runtime to
+determine which object is actually being pointed to by the reference. In this case, the object is of
+the class MotorBike. So, the move() method of MotorBike class will be called. In the second call to
+move(), the object is of the class Vehicle. So, the move() method of Vehicle will be called.
 
 As the method to call is determined at runtime, this is called dynamic binding or late binding.
 
