@@ -1,5 +1,8 @@
 # https://leetcode.com/problems/minimum-window-substring/discuss/26808/Here-is-a-10-line-template-that-can-solve-most-'substring'-problems
 
+- Longest Substring with At Most Two Distinct Characters
+- Longest Substring Without Repeating Characters
+
 ## Python Template
 
 ```python
