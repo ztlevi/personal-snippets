@@ -1,5 +1,7 @@
 # Combination
 
+All combination has O(2^N).
+
 ## Bitmask
 
 ```python
