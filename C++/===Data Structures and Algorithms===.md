@@ -351,6 +351,8 @@ vector<int> vect{ 10, 20, 30 };
 // 2. Specifying size and initializing all values :
 int n = 3;
 vector<int> vect(n, 10);
+vector<vector<int> > vec( n , vector<int> (m, 0));
+
 // 3. Initializing from array :
 int arr[] = { 10, 20, 30 };
 int n = sizeof(arr) / sizeof(arr[0]);

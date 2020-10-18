@@ -1,2 +1,2 @@
-/Argo
 .vscode
+!Emacs/LSP-Debug/.vscode
