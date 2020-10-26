@@ -1,6 +1,6 @@
 # MAP
 
-```
+```c++
 map<string, int>::iterator it;
 
 for ( it = symbolTable.begin(); it != symbolTable.end(); it++ )
@@ -14,7 +14,7 @@ for ( it = symbolTable.begin(); it != symbolTable.end(); it++ )
 
 With C++11 ( and onwards ),
 
-```
+```c++
 for (auto const& x : symbolTable)
 {
     std::cout << x.first  // string (key)
@@ -26,7 +26,7 @@ for (auto const& x : symbolTable)
 
 With C++17 ( and onwards ),
 
-```
+```c++
 for( auto const& [key, val] : symbolTable )
 {
     std::cout << key         // string (key)
@@ -38,7 +38,7 @@ for( auto const& [key, val] : symbolTable )
 
 Using iterator next:
 
-```
+```c++
   unordered_map<int, set<int>> x;
   for (auto i = x.begin(); i != x.end(); ++i)
     for (auto j = next(i); j != x.end(); ++j) {
@@ -46,7 +46,7 @@ Using iterator next:
 
 # Set
 
-```
+```c++
 std::set<unsigned long>::iterator it;
 for (it = SERVER_IPS.begin(); it != SERVER_IPS.end(); ++it)
 {
@@ -56,7 +56,7 @@ for (it = SERVER_IPS.begin(); it != SERVER_IPS.end(); ++it)
 
 If you have C++11 features, you can use a range-based for loop:
 
-```
+```c++
 for(auto const& f : SERVER_IPS) {
   // use f here
 }
@@ -66,7 +66,7 @@ for(auto const& f : SERVER_IPS) {
 
 Using Range C++11
 
-```
+```c++
 for(auto const& value: a) {
      /* std::cout << value; ... */
 ```
