@@ -13,6 +13,13 @@ class IntStrTupleEnumMeta(EnumMeta):
 
         return super().__call__(value, names, **kwargs)
 
+    # Override 'in' operator
+    def __contains__(cls, key: str):
+        for e in cls:
+            if e.value[1] == key:
+                return True
+        return False
+
 class IntStrTupleEnum(Enum, metaclass=IntStrTupleEnumMeta):
     pass
 
@@ -25,3 +32,9 @@ def test_conv_type_enum():
     conv_type = "C"
     assert DummyType(conv_type) == DummyType.C
     assert DummyType(1) == DummyType.B
+
+    with pytest.raises(ValueError):
+        DummyType("FF")
+
+    assert "A" in DummyType
+    assert "ff" not in DummyType
