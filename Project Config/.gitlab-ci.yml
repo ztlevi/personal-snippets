@@ -1,0 +1,38 @@
+stages:
+  - build
+  - test
+  - clean
+
+variables:
+  PIP_CACHE_DIR: '$CI_PROJECT_DIR/.cache/pip'
+  # Disable git clean and clean the build manually
+  GIT_CLEAN_FLAGS: none
+  GIT_STRATEGY: clone
+# If encounter permission issue in CI when deleting file
+# Run with `sudo rm -rf /home/gitlab-runner/builds/*` on gitlab server
+
+BUILD:
+  stage: build
+  before_script:
+    - ...
+  script:
+    - ...
+  after_script:
+    - ...
+
+TEST_1:
+  stage: test
+  script:
+    - ...
+
+TEST_2:
+  stage: test
+  only:
+    - schedules
+  script:
+    - ...
+
+CLEAN:
+  stage: clean
+  script:
+    - rm -rf build
