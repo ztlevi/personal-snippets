@@ -26,6 +26,7 @@ is equivalent to
 x = x; y = y; z = z;
 a = src-set.a; b = src-set.b; c = src-set.c;
 ...
+
 ```
 
 when used while defining local variables in a let-expression or while defining a set.
