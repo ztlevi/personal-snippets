@@ -1,4 +1,6 @@
 from functools import wraps
+
+
 def dec(*a, **kw):
     def decorator(my_func):
         @wraps(my_func)
@@ -15,6 +17,7 @@ def dec(*a, **kw):
 @dec(1,2,3, n=4, m=5)
 def my_func(a, b):
     print(a + b)
+# my_func = dec(1,2,3,n=4,m=5)(my_func)(a, b)
  
 my_func(1,2)
  
@@ -29,4 +32,3 @@ my_func(1,2)
 # 3
 # wrapper!!
 # 3
- 

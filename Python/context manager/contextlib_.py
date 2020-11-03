@@ -1,5 +1,18 @@
-from sqlite3 import connect
 from contextlib import contextmanager
+from sqlite3 import connect
+
+# Optional, since contexlib already implement a decorator to turn generator into contextmanager
+# class contextmanager:
+#   def __init__(self, gen):
+#     self.gen = gen
+#   def __call__(self, *args, **kwargs):
+#     self.args, self.kwargs = args, kwargs
+#     return self
+#   def __enter__(self):
+#     self.gen_inst = self.gen(*self.args, **self.kwargs)
+#     next(self.gen_inst)
+#   def __exit__(self, *args):
+#     next(self.gen_inst, None)
  
 @contextmanager
 def temptable(cur):
@@ -8,7 +21,8 @@ def temptable(cur):
     yield
   finally:
     cur.execute('drop table points')
-    
+# temptable = contextmanager(temptable) # use decorator instead
+
 with connect('test.db') as conn:
   cur = conn.cursor()
   with temptable(cur):

@@ -1,13 +1,10 @@
-class decorator
----
-
 # more examples https://krzysztofzuraw.com/blog/2016/python-class-decorators.html
-class decorator(object):
+class decorator:
     def __init__(self, func):
         self.func = func
  
     def __call__(self, *args):
-        print('Called {func} with args: {args}'.format(func=self.func.func_name,
+        print('Called {func} with args: {args}'.format(func=self.func.__name__,
                                                        args=args))
         return self.func(*args)
  

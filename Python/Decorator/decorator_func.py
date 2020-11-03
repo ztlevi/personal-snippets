@@ -1,7 +1,7 @@
-realpython.com/blog/python/primer-on-python-decorators
-1. basic decorator description.
-2. functools.warps
----
+# realpython.com/blog/python/primer-on-python-decorators
+# 1. basic decorator description.
+# 2. functools.warps
+# ---
 
 # functools.wraps
 def decorator1(my_func):
@@ -13,7 +13,8 @@ def decorator1(my_func):
  
  
 from functools import wraps
- 
+
+
 def decorator2(my_func):
     @wraps(my_func)
     def warpper(*args, **kwargs):
