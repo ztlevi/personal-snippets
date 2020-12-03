@@ -42,3 +42,22 @@ not complete. In particular, there are many other built-in functions. See the
 | _Built-in functions_                         |                                                                                                                                                                                                                  |
 | `import ./foo.nix`                           | Load and return Nix expression in given file                                                                                                                                                                     |
 | `map (x: x + x) [ 1 2 3 ]`                   | Apply a function to every element of a list (evaluates to `[ 2 4 6 ]`)                                                                                                                                           |
+
+# Contains attributes
+
+```nix
+let
+  attrSet = {x = "a"; y = "b"; b = {t = true; f = false;};};
+  attrSet.c = 1;
+  attrSet.d = null;
+  attrSet.e.f = "g";
+in
+rec {
+  #contains attribute
+  ex05 = attrSet ? ee;
+  ex06 = attrSet.e ? f;
+}
+
+# ex05 = false
+# ex06 = true
+```
