@@ -403,3 +403,595 @@ cache is intended to be persistent and so must be deleted manually.
 ```
 
 To permanently delete the cache, recursively remove the cache’s directory.
+
+## [FanoutCache](http://www.grantjenks.com/docs/diskcache/tutorial.html#id3)[¶](http://www.grantjenks.com/docs/diskcache/tutorial.html#fanoutcache "Permalink to this headline")
+
+Built atop
+[`Cache`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Cache "diskcache.Cache") is
+[`diskcache.FanoutCache`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.FanoutCache "diskcache.FanoutCache")
+which automatically <cite>shards</cite> the underlying database.
+[Sharding](<https://en.wikipedia.org/wiki/Shard_(database_architecture)>) is the practice of
+horizontally partitioning data. Here it is used to decrease blocking writes. While readers and
+writers do not block each other, writers block other writers. Therefore a shard for every concurrent
+writer is suggested. This will depend on your scenario. The default value is 8.
+
+Another parameter, <cite>timeout</cite>, sets a limit on how long to wait for database transactions.
+Transactions are used for every operation that writes to the database. When the timeout expires, a
+[`diskcache.Timeout`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Timeout "diskcache.Timeout")
+error is raised internally. This <cite>timeout</cite> parameter is also present on
+[`diskcache.Cache`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Cache "diskcache.Cache").
+When a
+[`Timeout`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Timeout "diskcache.Timeout")
+error occurs in
+[`Cache`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Cache "diskcache.Cache")
+methods, the exception may be raised to the caller. In contrast,
+[`FanoutCache`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.FanoutCache "diskcache.FanoutCache")
+catches all timeout errors and aborts the operation. As a result,
+[`set`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.FanoutCache.set "diskcache.FanoutCache.set")
+and
+[`delete`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.FanoutCache.delete "diskcache.FanoutCache.delete")
+methods may silently fail.
+
+Most methods that handle
+[`Timeout`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Timeout "diskcache.Timeout")
+exceptions also include a <cite>retry</cite> keyword parameter (default `False`) to automatically
+repeat attempts that timeout. The mapping interface operators:
+[`cache[key]`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.FanoutCache.__getitem__ "diskcache.FanoutCache.__getitem__"),
+[`cache[key] = value`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.FanoutCache.__setitem__ "diskcache.FanoutCache.__setitem__"),
+and
+[`del cache[key]`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.FanoutCache.__delitem__ "diskcache.FanoutCache.__delitem__")
+automatically retry operations when
+[`Timeout`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Timeout "diskcache.Timeout")
+errors occur.
+[`FanoutCache`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.FanoutCache "diskcache.FanoutCache")
+will never raise a
+[`Timeout`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Timeout "diskcache.Timeout")
+exception. The default <cite>timeout</cite> is 0.010 (10 milliseconds).
+
+```python
+>>> from diskcache import FanoutCache
+>>> cache = FanoutCache(shards=4, timeout=1)
+```
+
+The example above creates a cache in a temporary directory with four shards and a one second
+timeout. Operations will attempt to abort if they take longer than one second. The remaining API of
+[`FanoutCache`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.FanoutCache "diskcache.FanoutCache")
+matches
+[`Cache`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Cache "diskcache.Cache") as
+described above.
+
+The
+[`FanoutCache`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.FanoutCache "diskcache.FanoutCache")
+[size_limit](http://www.grantjenks.com/docs/diskcache/api.html#constants) is used as the total size
+of the cache. The size limit of individual cache shards is the total size divided by the number of
+shards. In the example above, the default total size is one gigabyte and there are four shards so
+each cache shard has a size limit of 256 megabytes. Items that are larger than the size limit are
+immediately culled.
+
+Caches have an additional feature:
+[`memoizing`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.FanoutCache.memoize "diskcache.FanoutCache.memoize")
+decorator. The decorator wraps a callable and caches arguments and return values.
+
+```python
+>>> from diskcacheimport FanoutCache
+>>> cache = FanoutCache()
+>>> @cache.memoize(typed=True, expire=1, tag='fib')
+... def fibonacci(number):
+...     if number == 0:
+...         return 0
+...     elif number == 1:
+...         return 1
+...     else:
+...         return fibonacci(number - 1) + fibonacci(number - 2)
+>>> print(sum(fibonacci(value) for value in range(100)))
+573147844013817084100
+```
+
+The arguments to memoize are like those for
+[functools.lru_cache](https://docs.python.org/3/library/functools.html#functools.lru_cache) and
+[`Cache.set`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Cache.set "diskcache.Cache.set").
+Remember to call
+[`memoize`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.FanoutCache.memoize "diskcache.FanoutCache.memoize")
+when decorating a callable. If you forget, then a TypeError will occur:
+
+```python
+>>> @cache.memoize
+... def test():
+...     pass
+Traceback (most recent call last):
+    ...
+TypeError: name cannot be callable
+```
+
+Observe the lack of parenthenses after
+[`memoize`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.FanoutCache.memoize "diskcache.FanoutCache.memoize")
+above.
+
+## [DjangoCache](http://www.grantjenks.com/docs/diskcache/tutorial.html#id4)[¶](http://www.grantjenks.com/docs/diskcache/tutorial.html#djangocache "Permalink to this headline")
+
+[`diskcache.DjangoCache`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.DjangoCache "diskcache.DjangoCache")
+uses
+[`FanoutCache`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.FanoutCache "diskcache.FanoutCache")
+to provide a Django-compatible cache interface. With
+[DiskCache](http://www.grantjenks.com/docs/diskcache/index.html) installed, you can use
+[`DjangoCache`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.DjangoCache "diskcache.DjangoCache")
+in your settings file.
+
+```python
+CACHES = {'default': {
+        'BACKEND': 'diskcache.DjangoCache',
+        'LOCATION': '/path/to/cache/directory',
+        'TIMEOUT': 300,
+        # ^-- Django setting for default timeout of each key.
+        'SHARDS': 8,
+        'DATABASE_TIMEOUT': 0.010,  # 10 milliseconds
+        # ^-- Timeout for each DjangoCache database transaction.
+        'OPTIONS': {
+            'size_limit': 2 ** 30   # 1 gigabyte
+        },
+    },
+}
+```
+
+As with
+[`FanoutCache`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.FanoutCache "diskcache.FanoutCache")
+above, these settings create a Django-compatible cache with eight shards and a 10ms timeout. You can
+pass further settings via the `OPTIONS` mapping as shown in the Django documentation. Only the
+`BACKEND` and `LOCATION` keys are necessary in the above example. The other keys simply display
+their default value.
+[`DjangoCache`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.DjangoCache "diskcache.DjangoCache")
+will never raise a
+[`Timeout`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Timeout "diskcache.Timeout")
+exception. But unlike
+[`FanoutCache`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.FanoutCache "diskcache.FanoutCache"),
+the keyword parameter <cite>retry</cite> defaults to `True` for
+[`DjangoCache`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.DjangoCache "diskcache.DjangoCache")
+methods.
+
+The API of
+[`DjangoCache`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.DjangoCache "diskcache.DjangoCache")
+is a superset of the functionality described in the
+[Django documentation on caching](https://docs.djangoproject.com/en/1.9/topics/cache/#the-low-level-cache-api)
+and includes many
+[`FanoutCache`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.FanoutCache "diskcache.FanoutCache")
+features.
+
+[`DjangoCache`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.DjangoCache "diskcache.DjangoCache")
+also works well with <cite>X-Sendfile</cite> and <cite>X-Accel-Redirect</cite> headers.
+
+```python
+fromdjango.core.cache import cache
+
+def media(request, path):
+    try:
+        with cache.read(path) as reader:
+            response = HttpResponse()
+            response['X-Accel-Redirect'] = reader.name
+            return response
+    except KeyError:
+        # Handle cache miss.
+```
+
+When values are
+[`set`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.DjangoCache.set "diskcache.DjangoCache.set")
+using `read=True` they are guaranteed to be stored in files. The full path is available on the file
+handle in the <cite>name</cite> attribute. Remember to also include the <cite>Content-Type</cite>
+header if known.
+
+## [Deque](http://www.grantjenks.com/docs/diskcache/tutorial.html#id5)[¶](http://www.grantjenks.com/docs/diskcache/tutorial.html#deque "Permalink to this headline")
+
+[`diskcache.Deque`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Deque "diskcache.Deque")
+(pronounced “deck”) uses a
+[`Cache`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Cache "diskcache.Cache") to
+provide a
+[collections.deque](https://docs.python.org/3/library/collections.html#collections.deque)-compatible
+double-ended queue. Deques are a generalization of stacks and queues with fast access and editing at
+both front and back sides.
+[`Deque`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Deque "diskcache.Deque")
+objects use the
+[`push`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Cache.push "diskcache.Cache.push"),
+[`pull`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Cache.pull "diskcache.Cache.pull"),
+and
+[`peek`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Cache.peek "diskcache.Cache.peek")
+methods of
+[`Cache`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Cache "diskcache.Cache")
+objects but never evict or expire items.
+
+```python
+>>> from diskcache importDeque
+>>> deque = Deque(range(5, 10))
+>>> deque.pop()
+9
+>>> deque.popleft()
+5
+>>> deque.appendleft('foo')
+>>> len(deque)
+4
+>>> type(deque.directory).__name__
+'str'
+>>> other = Deque(directory=deque.directory)
+>>> len(other)
+4
+>>> other.popleft()
+'foo'
+```
+
+[`Deque`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Deque "diskcache.Deque")
+objects provide an efficient and safe means of cross-thread and cross-process communication.
+[`Deque`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Deque "diskcache.Deque")
+objects are also useful in scenarios where contents should remain persistent or limitations prohibit
+holding all items in memory at the same time. The deque uses a fixed amout of memory regardless of
+the size or number of items stored inside it.
+
+## [Index](http://www.grantjenks.com/docs/diskcache/tutorial.html#id6)[¶](http://www.grantjenks.com/docs/diskcache/tutorial.html#index "Permalink to this headline")
+
+[`diskcache.Index`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Index "diskcache.Index")
+uses a
+[`Cache`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Cache "diskcache.Cache") to
+provide a
+[mutable mapping](https://docs.python.org/3/library/collections.abc.html#collections-abstract-base-classes)
+and [ordered dictionary](https://docs.python.org/3/library/collections.html#collections.OrderedDict)
+interface.
+[`Index`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Index "diskcache.Index")
+objects inherit all the benefits of
+[`Cache`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Cache "diskcache.Cache")
+objects but never evict or expire items.
+
+```python
+>>> from diskcacheimport Index
+>>> index = Index([('a', 1), ('b', 2), ('c', 3)])
+>>> 'b' in index
+True
+>>> index['c']
+3
+>>> del index['a']
+>>> len(index)
+2
+>>> other = Index(index.directory)
+>>> len(other)
+2
+>>> other.popitem(last=False)
+('b', 2)
+```
+
+[`Index`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Index "diskcache.Index")
+objects provide an efficient and safe means of cross-thread and cross-process communication.
+[`Index`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Index "diskcache.Index")
+objects are also useful in scenarios where contents should remain persistent or limitations prohibit
+holding all items in memory at the same time. The index uses a fixed amout of memory regardless of
+the size or number of items stored inside it.
+
+## [Transactions](http://www.grantjenks.com/docs/diskcache/tutorial.html#id7)[¶](http://www.grantjenks.com/docs/diskcache/tutorial.html#transactions "Permalink to this headline")
+
+Transactions are implemented by the
+[`Cache`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Cache "diskcache.Cache"),
+[`Deque`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Deque "diskcache.Deque"), and
+[`Index`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Index "diskcache.Index") data
+types and support consistency and improved performance. Use transactions to guarantee a group of
+operations occur atomically. For example, to calculate a running average, the total and count could
+be incremented together:
+
+```python
+>>> with cache.transact():
+...     total = cache.incr('total', 123.45)
+...     count = cache.incr('count')
+>>> total
+123.45
+>>> count
+1
+```
+
+And to calculate the average, the values could be retrieved together:
+
+```python
+>>> with cache.transact():
+...     total = cache.get('total')
+...     count = cache.get('count')
+>>> average = None if count == 0 else total / count
+>>> average
+123.45
+```
+
+Keep transactions as short as possible because within a transaction, no other writes may occur to
+the cache. Every write operation uses a transaction and transactions may be nested to improve
+performance. For example, a possible implementation to set many items within the cache:
+
+```python
+>>> defset_many(cache, mapping):
+...     with cache.transact():
+...         for key, value in mapping.items():
+...             cache[key] = value
+```
+
+By grouping all operations in a single transaction, performance may improve two to five times. But
+be careful, a large mapping will block other concurrent writers.
+
+Transactions are not implemented by
+[`FanoutCache`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.FanoutCache "diskcache.FanoutCache")
+and
+[`DjangoCache`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.DjangoCache "diskcache.DjangoCache")
+due to key sharding. Instead, a cache shard with transaction support may be requested.
+
+```python
+>>> fanout_cache = FanoutCache()
+>>> tutorial_cache = fanout_cache.cache('tutorial')
+>>> username_queue = fanout_cache.deque('usernames')
+>>> url_to_response = fanout_cache.index('responses')
+```
+
+The cache shard exists in a subdirectory of the fanout-cache with the given name.
+
+## [Recipes](http://www.grantjenks.com/docs/diskcache/tutorial.html#id8)[¶](http://www.grantjenks.com/docs/diskcache/tutorial.html#recipes "Permalink to this headline")
+
+[DiskCache](http://www.grantjenks.com/docs/diskcache/index.html) includes a few synchronization
+recipes for cross-thread and cross-process communication:
+
+- [`Averager`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Averager "diskcache.Averager")
+  – maintains a running average like that shown above.
+
+- [`Lock`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Lock "diskcache.Lock"),
+  [`RLock`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.RLock "diskcache.RLock"),
+  and
+  [`BoundedSemaphore`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.BoundedSemaphore "diskcache.BoundedSemaphore")
+  – recipes for synchronization around critical sections like those found in Python’s
+  [threading](https://docs.python.org/3/library/threading.html) and
+  [multiprocessing](https://docs.python.org/3/library/multiprocessing.html) modules.
+
+- [`throttle`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.throttle "diskcache.throttle")
+  – function decorator to rate-limit calls to a function.
+
+- [`barrier`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.barrier "diskcache.barrier")
+  – function decorator to synchronize calls to a function.
+
+- [`memoize_stampede`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.memoize_stampede "diskcache.memoize_stampede")
+  – memoizing function decorator with cache stampede protection. Read
+  [Case Study: Landing Page Caching](http://www.grantjenks.com/docs/diskcache/case-study-landing-page-caching.html)
+  for a comparison of memoization strategies.
+
+## [Settings](http://www.grantjenks.com/docs/diskcache/tutorial.html#id9)[¶](http://www.grantjenks.com/docs/diskcache/tutorial.html#settings "Permalink to this headline")
+
+A variety of settings are available to improve performance. These values are stored in the database
+for durability and to communicate between processes. Each value is cached in an attribute with
+matching name. Attributes are updated using
+[`reset`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Cache.reset "diskcache.Cache.reset").
+Attributes are set during initialization when passed as keyword arguments.
+
+- <cite>size_limit</cite>, default one gigabyte. The maximum on-disk size of the cache.
+
+- <cite>cull_limit</cite>, default ten. The maximum number of keys to cull when adding a new item.
+  Set to zero to disable automatic culling. Some systems may disable automatic culling in exchange
+  for a cron-like job that regularly calls
+  [`cull`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Cache.cull "diskcache.Cache.cull")
+  in a separate process.
+
+- <cite>statistics</cite>, default False, disabled. The setting to collect
+  [cache statistics](http://www.grantjenks.com/docs/diskcache/tutorial.html#tutorial-statistics).
+
+- <cite>tag_index</cite>, default False, disabled. The setting to create a database
+  [tag index](http://www.grantjenks.com/docs/diskcache/tutorial.html#tutorial-tag-index) for
+  [`evict`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Cache.evict "diskcache.Cache.evict").
+
+- <cite>eviction_policy</cite>, default “least-recently-stored”. The setting to determine
+  [eviction policy](http://www.grantjenks.com/docs/diskcache/tutorial.html#tutorial-eviction-policies).
+
+The
+[`reset`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.FanoutCache.reset "diskcache.FanoutCache.reset")
+method accepts an optional second argument that updates the corresponding value in the database. The
+return value is the latest retrieved from the database. Notice that attributes are updated lazily.
+Prefer idioms like
+[`len`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.FanoutCache.__len__ "diskcache.FanoutCache.__len__"),
+[`volume`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.FanoutCache.volume "diskcache.FanoutCache.volume"),
+and
+[`keyword arguments`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.FanoutCache.__init__ "diskcache.FanoutCache.__init__")
+rather than using
+[`reset`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.FanoutCache.reset "diskcache.FanoutCache.reset")
+directly.
+
+```python
+>>> cache= Cache(size_limit=int(4e9))
+>>> print(cache.size_limit)
+4000000000
+>>> cache.disk_min_file_size
+32768
+>>> cache.reset('cull_limit', 0)  # Disable automatic evictions.
+0
+>>> cache.set(b'key', 1.234)
+True
+>>> cache.count           # Stale attribute.
+0
+>>> cache.reset('count')  # Prefer: len(cache)
+1
+```
+
+More settings correspond to
+[Disk](http://www.grantjenks.com/docs/diskcache/tutorial.html#tutorial-disk) attributes. Each of
+these may be specified when initializing the
+[Cache](http://www.grantjenks.com/docs/diskcache/tutorial.html#tutorial-cache). Changing these
+values will update the unprefixed attribute on the
+[`Disk`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Disk "diskcache.Disk") object.
+
+- <cite>disk_min_file_size</cite>, default 32 kilobytes. The minimum size to store a value in a
+  file.
+
+- <cite>disk_pickle_protocol</cite>, default highest Pickle protocol. The Pickle protocol to use for
+  data types that are not natively supported.
+
+An additional set of attributes correspond to SQLite pragmas. Changing these values will also
+execute the appropriate `PRAGMA` statement. See the
+[SQLite pragma documentation](https://www.sqlite.org/pragma.html) for more details.
+
+- <cite>sqlite_auto_vacuum</cite>, default 1, “FULL”.
+
+- <cite>sqlite_cache_size</cite>, default 8,192 pages.
+
+- <cite>sqlite_journal_mode</cite>, default “wal”.
+
+- <cite>sqlite_mmap_size</cite>, default 64 megabytes.
+
+- <cite>sqlite_synchronous</cite>, default 1, “NORMAL”.
+
+Each of these settings can passed to
+[`DjangoCache`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.DjangoCache "diskcache.DjangoCache")
+via the `OPTIONS` key mapping. Always measure before and after changing the default values. Default
+settings are programmatically accessible at `diskcache.DEFAULT_SETTINGS`.
+
+## [Eviction Policies](http://www.grantjenks.com/docs/diskcache/tutorial.html#id10)[¶](http://www.grantjenks.com/docs/diskcache/tutorial.html#eviction-policies "Permalink to this headline")
+
+[DiskCache](http://www.grantjenks.com/docs/diskcache/index.html) supports four eviction policies
+each with different tradeoffs for accessing and storing items.
+
+- `"least-recently-stored"` is the default. Every cache item records the time it was stored in the
+  cache. This policy adds an index to that field. On access, no update is required. Keys are evicted
+  starting with the oldest stored keys. As
+  [DiskCache](http://www.grantjenks.com/docs/diskcache/index.html) was intended for large caches
+  (gigabytes) this policy usually works well enough in practice.
+
+- `"least-recently-used"` is the most commonly used policy. An index is added to the access time
+  field stored in the cache database. On every access, the field is updated. This makes every access
+  into a read and write which slows accesses.
+
+- `"least-frequently-used"` works well in some cases. An index is added to the access count field
+  stored in the cache database. On every access, the field is incremented. Every access therefore
+  requires writing the database which slows accesses.
+
+- `"none"` disables cache evictions. Caches will grow without bound. Cache items will still be
+  lazily removed if they expire. The persistent data types,
+  [`Deque`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Deque "diskcache.Deque") and
+  [`Index`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Index "diskcache.Index"),
+  use the `"none"` eviction policy. For
+  [lazy culling](http://www.grantjenks.com/docs/diskcache/tutorial.html#tutorial-culling) use the
+  [cull_limit](http://www.grantjenks.com/docs/diskcache/api.html#constants) setting instead.
+
+All clients accessing the cache are expected to use the same eviction policy. The policy can be set
+during initialization using a keyword argument.
+
+```python
+>>> cache = Cache()
+>>> print(cache.eviction_policy)
+least-recently-stored
+>>> cache = Cache(eviction_policy='least-frequently-used')
+>>> print(cache.eviction_policy)
+least-frequently-used
+>>> print(cache.reset('eviction_policy', 'least-recently-used'))
+least-recently-used
+```
+
+Though the eviction policy is changed, the previously created indexes will not be dropped. Prefer to
+always specify the eviction policy as a keyword argument to initialize the cache.
+
+## [Disk](http://www.grantjenks.com/docs/diskcache/tutorial.html#id11)[¶](http://www.grantjenks.com/docs/diskcache/tutorial.html#disk "Permalink to this headline")
+
+[`diskcache.Disk`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Disk "diskcache.Disk")
+objects are responsible for serializing and deserializing data stored in the cache. Serialization
+behavior differs between keys and values. In particular, keys are always stored in the cache
+metadata database while values are sometimes stored separately in files.
+
+To customize serialization, you may pass in a
+[`Disk`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Disk "diskcache.Disk") subclass
+to initialize the cache. All clients accessing the cache are expected to use the same serialization.
+The default implementation uses Pickle and the example below uses compressed JSON, available for
+convenience as
+[`JSONDisk`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.JSONDisk "diskcache.JSONDisk").
+
+```python
+import json, zlib
+
+class JSONDisk(diskcache.Disk):
+    def__init__(self, directory,compress_level=1, **kwargs):
+        self.compress_level = compress_level
+        super(JSONDisk, self).__init__(directory, **kwargs)
+
+    def put(self, key):
+        json_bytes = json.dumps(key).encode('utf-8')
+        data = zlib.compress(json_bytes, self.compress_level)
+        return super(JSONDisk, self).put(data)
+
+    def get(self, key, raw):
+        data = super(JSONDisk, self).get(key, raw)
+        return json.loads(zlib.decompress(data).decode('utf-8'))
+
+    def store(self, value, read):
+        if not read:
+            json_bytes = json.dumps(value).encode('utf-8')
+            value = zlib.compress(json_bytes, self.compress_level)
+        return super(JSONDisk, self).store(value, read)
+
+    def fetch(self, mode, filename, value, read):
+        data = super(JSONDisk, self).fetch(mode, filename, value, read)
+        if not read:
+            data = json.loads(zlib.decompress(data).decode('utf-8'))
+        return data
+
+with Cache(disk=JSONDisk, disk_compress_level=6) as cache:
+    pass
+```
+
+Four data types can be stored natively in the cache metadata database: integers, floats, strings,
+and bytes. Other datatypes are converted to bytes via the Pickle protocol. Beware that integers and
+floats like `1` and `1.0` will compare equal as keys just as in Python. All other equality
+comparisons will require identical types.
+
+## [Caveats](http://www.grantjenks.com/docs/diskcache/tutorial.html#id12)[¶](http://www.grantjenks.com/docs/diskcache/tutorial.html#caveats "Permalink to this headline")
+
+Though [DiskCache](http://www.grantjenks.com/docs/diskcache/index.html) has a dictionary-like
+interface, Python’s [hash protocol](https://docs.python.org/library/functions.html#hash) is not
+used. Neither the <cite>**hash**</cite> nor <cite>**eq**</cite> methods are used for lookups.
+Instead lookups depend on the serialization method defined by
+[`Disk`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Disk "diskcache.Disk") objects.
+For strings, bytes, integers, and floats, equality matches Python’s definition. But large integers
+and all other types will be converted to bytes using pickling and the bytes representation will
+define equality.
+
+SQLite is used to synchronize database access between threads and processes and as such inherits all
+SQLite caveats. Most notably SQLite is [not recommended](https://www.sqlite.org/faq.html#q5) for use
+with Network File System (NFS) mounts. For this reason,
+[DiskCache](http://www.grantjenks.com/docs/diskcache/index.html) currently
+[performs poorly](https://www.pythonanywhere.com/forums/topic/1847/) on
+[Python Anywhere](https://www.pythonanywhere.com/). Users have also reported issues running inside
+of [Parallels](https://www.parallels.com/) shared folders.
+
+When the disk or database is full, a `sqlite3.OperationalError` will be raised from any method that
+attempts to write data. Read operations will still succeed so long as they do not cause any write
+(as might occur if cache statistics are being recorded).
+
+Asynchronous support using Python’s `async` and `await` keywords and
+[asyncio](https://docs.python.org/3/library/asyncio.html) module is blocked by a lack of support in
+the underlying SQLite module. But it is possible to run
+[DiskCache](http://www.grantjenks.com/docs/diskcache/index.html) methods in a thread-pool executor
+asynchronously. For example:
+
+```python
+import asyncioasync def set_async(key, val):
+    loop = asyncio.get_running_loop()
+    future = loop.run_in_executor(None, cache.set, key, val)
+    result = await future
+    return result
+
+asyncio.run(set_async('test-key', 'test-value'))
+```
+
+The cache
+[`volume`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Cache.volume "diskcache.Cache.volume")
+is based on the size of the database that stores metadata and the size of the values stored in
+files. It does not account the size of directories themselves or other filesystem metadata. If
+directory count or size is a concern then consider implementing an alternative
+[`Disk`](http://www.grantjenks.com/docs/diskcache/api.html#diskcache.Disk "diskcache.Disk").
+
+## [Implementation](http://www.grantjenks.com/docs/diskcache/tutorial.html#id13)[¶](http://www.grantjenks.com/docs/diskcache/tutorial.html#implementation "Permalink to this headline")
+
+[DiskCache](http://www.grantjenks.com/docs/diskcache/index.html) is mostly built on SQLite and the
+filesystem. Some techniques used to improve performance:
+
+- Shard database to distribute writes.
+
+- Leverage SQLite native types: integers, floats, unicode, and bytes.
+
+- Use SQLite write-ahead-log so reads and writes don’t block each other.
+
+- Use SQLite memory-mapped pages to accelerate reads.
+
+- Store small values in SQLite database and large values in files.
+
+- Always use a SQLite index for queries.
+
+- Use SQLite triggers to maintain key count and database size.
