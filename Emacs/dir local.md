@@ -44,6 +44,13 @@ Enable the virtual environment
 ((nil (conda-project-env-name . "cs231n")))
 ```
 
+Disable modes
+
+```emacs-lisp
+((nil (eval . (appendq! +format-on-save-enabled-modes '(python-mode))))
+ (python-mode (my-enable-isort-before-save . nil)))
+```
+
 **Note**: you can easily add a directory local variable with ~SPC i v~.
 
 ## Detail
