@@ -47,8 +47,9 @@ Enable the virtual environment
 Disable modes
 
 ```emacs-lisp
-((nil (eval . (appendq! +format-on-save-enabled-modes '(python-mode))))
- (python-mode (my-enable-isort-before-save . nil)))
+((nil (+format-on-save-enabled-modes . '(python-mode)))
+ (python-mode (my-enable-isort-before-save . nil))
+)
 ```
 
 **Note**: you can easily add a directory local variable with ~SPC i v~.
