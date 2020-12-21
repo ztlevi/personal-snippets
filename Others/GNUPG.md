@@ -18,6 +18,8 @@ tar cz gnupg | openssl enc -aes-256-cbc -pbkdf2 -e > gpg.tar.gz.enc
 openssl enc -aes-256-cbc -pbkdf2 -d -in gpg.tar.gz.enc | tar xz
 ```
 
+Copy the files to `~/.gnupg` folder.
+
 ## Common operations
 
 ```
