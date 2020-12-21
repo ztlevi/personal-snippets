@@ -6,19 +6,21 @@ Or use `gnome3.seahorse` to edit gpg keys
 
 ## Backup and Sync GPG
 
+Mac's openssl location `/usr/local/Cellar/openssl@1.1/1.1.1h/bin/openssl`.
+
 - Encrypt
 
 ```
-tar cz gnupg | openssl enc -aes-256-cbc -pbkdf2 -e > gpg.tar.gz.enc
+tar cz gnupg | openssl enc -aes-256-cbc -pbkdf2 -e > gggpppggg.txt
 ```
 
 - Decrypt
 
 ```
-openssl enc -aes-256-cbc -pbkdf2 -d -in gpg.tar.gz.enc | tar xz
+openssl enc -aes-256-cbc -pbkdf2 -d -in gggpppggg.txt | tar xz
 ```
 
-Copy the files to `~/.gnupg` folder.
+Copy the files to `~/.gnupg` folder. Then `gpgconf --kill gpg-agent` to restart the agent.
 
 ## Common operations
 
