@@ -6,25 +6,48 @@ Or use `gnome3.seahorse` to edit gpg keys
 
 ## Backup and Sync GPG
 
-Mac's openssl location `/usr/local/Cellar/openssl@1.1/1.1.1h/bin/openssl`.
+### Export and import private key
 
-- Encrypt
+```sh
+# Mac openssl location
+alias openssl=/usr/local/Cellar/openssl@1.1/1.1.1i/bin/openssl
 
+# Export
+mkdir -p ~/Downloads/mygpgexport
+cd ~/Downloads/mygpgexport
+gpg -a --export >mypubkeys.asc
+gpg -a --export-secret-keys >myprivatekeys.asc
+gpg --export-ownertrust >otrust.txt
+cd ~/Downloads/
+tar cz mygpgexport | openssl enc -aes-256-cbc -pbkdf2 -e > ~/Downloads/gggpppggg.txt
+rm -rf ~/Downloads/mygpgexport
+
+# Import
+cd ~/Downloads
+openssl enc -aes-256-cbc -pbkdf2 -d -in ~/Downloads/gggpppggg.txt | tar xz
+cd mygpgexport
+gpg --import myprivatekeys.asc
+gpg --import mypubkeys.asc
+gpg -K
+gpg -k
+
+# restart agent
+gpgconf --reload gpg-agent
 ```
-tar cz gnupg | openssl enc -aes-256-cbc -pbkdf2 -e > gggpppggg.txt
+
+### (Optional) export specific key
+
+```sh
+gpg --list-secret-keys ztlevi.work@gmail.com
+gpg --export-secret-keys ztlevi.work@gmail.com > ztlevi-secret.key
+gpg --import ztlevi-secret.key
 ```
 
-- Decrypt
-
-```
-openssl enc -aes-256-cbc -pbkdf2 -d -in gggpppggg.txt | tar xz
-```
-
-Copy the files to `~/.gnupg` folder. Then `gpgconf --kill gpg-agent` to restart the agent.
+Copy the files to `~/.gnupg` folder. Then `gpgconf --reload gpg-agent` to restart the agent.
 
 ## Common operations
 
-```
+```sh
 gpg --list-keys
 gpg --full-generate-key
 
@@ -53,19 +76,19 @@ Add this gpg public key to Github->settings->SSH and GPG keys.
 
 ## Share public key
 
-### Export key
+### Export public key
 
 Option 1. Send it to public server
 
 ```
 gpg --list-keys --keyid-format LONG ztlevi.work@gmail.com
->> pub   rsa4096/AAAAAAAAAAAAAAAA 2020-12-20 [SC]
->>       BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
->> uid                 [ultimate] Ting Zhou <ztlevi.work@gmail.com>
->> sub   rsa4096/CCCCCCCCCCCCCCCC 2020-12-20 [E]
+ pub   rsa4096/AAAAAAAAAAAAAAAA 2020-12-20 [SC]
+       BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+ uid                 [ultimate] Ting Zhou <ztlevi.work@gmail.com>
+ sub   rsa4096/CCCCCCCCCCCCCCCC 2020-12-20 [E]
 
 gpg --send-keys AAAAAAAAAAAAAAAA
->>> gpg: sending key AAAAAAAAAAAAAAAA to hkps://keys.openpgp.org
+ gpg: sending key AAAAAAAAAAAAAAAA to hkps://keys.openpgp.org
 ```
 
 Option 2. Generate and output the public to a file.
@@ -74,7 +97,7 @@ Option 2. Generate and output the public to a file.
 gpg --export --armor --output ztlevi.gpg.pub ztlevi.work@gmail.com
 ```
 
-### Import key
+### Import public key
 
 ```
 gpg --import ztlevi.gpg.pub
