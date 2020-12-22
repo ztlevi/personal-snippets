@@ -10,7 +10,7 @@ Or use `gnome3.seahorse` to edit gpg keys
 
 ```sh
 # Mac openssl location
-alias openssl=/usr/local/Cellar/openssl@1.1/1.1.1i/bin/openssl
+alias openssl=/usr/local/Cellar/openssl@1.1/1.1.1h/bin/openssl
 
 # Export
 mkdir -p ~/Downloads/mygpgexport
@@ -18,14 +18,9 @@ cd ~/Downloads/mygpgexport
 gpg -a --export >mypubkeys.asc
 gpg -a --export-secret-keys >myprivatekeys.asc
 gpg --export-ownertrust >otrust.txt
-cd ~/Downloads/
-tar cz mygpgexport | openssl enc -aes-256-cbc -pbkdf2 -e > ~/Downloads/gggpppggg.txt
-rm -rf ~/Downloads/mygpgexport
 
 # Import
-cd ~/Downloads
-openssl enc -aes-256-cbc -pbkdf2 -d -in ~/Downloads/gggpppggg.txt | tar xz
-cd mygpgexport
+cd ~/Downloads/mygpgexport
 gpg --import myprivatekeys.asc
 gpg --import mypubkeys.asc
 gpg -K
