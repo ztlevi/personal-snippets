@@ -28,7 +28,7 @@ gpg -k
 gpg --import-ownertrust otrust.txt
 
 # restart agent
-gpgconf --reload gpg-agent
+gpgconf --kill gpg-agent
 ```
 
 ### (Optional) export specific key
@@ -38,8 +38,6 @@ gpg --list-secret-keys ztlevi.work@gmail.com
 gpg --export-secret-keys ztlevi.work@gmail.com > ztlevi-secret.key
 gpg --import ztlevi-secret.key
 ```
-
-Copy the files to `~/.gnupg` folder. Then `gpgconf --reload gpg-agent` to restart the agent.
 
 ## Common operations
 
