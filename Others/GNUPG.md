@@ -9,9 +9,6 @@ Or use `gnome3.seahorse` to edit gpg keys
 ### [Export and import private key](https://access.redhat.com/solutions/2115511)
 
 ```sh
-# Mac openssl location
-alias openssl=/usr/local/Cellar/openssl@1.1/1.1.1h/bin/openssl
-
 # Export
 mkdir -p ~/Downloads/mygpgexport
 cd ~/Downloads/mygpgexport
