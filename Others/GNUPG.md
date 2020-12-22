@@ -6,7 +6,7 @@ Or use `gnome3.seahorse` to edit gpg keys
 
 ## Backup and Sync GPG
 
-### Export and import private key
+### [Export and import private key](https://access.redhat.com/solutions/2115511)
 
 ```sh
 # Mac openssl location
@@ -25,6 +25,7 @@ gpg --import myprivatekeys.asc
 gpg --import mypubkeys.asc
 gpg -K
 gpg -k
+gpg --import-ownertrust otrust.txt
 
 # restart agent
 gpgconf --reload gpg-agent
