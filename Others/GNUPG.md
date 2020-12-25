@@ -69,7 +69,13 @@ Add this gpg public key to Github->settings->SSH and GPG keys.
 
 ### Export public key
 
-Option 1. Send it to public server
+Option 1: Upload to opengpg
+
+```
+gpg --export ztlevi.work@gmail.com | curl -T - https://keys.openpgp.org
+```
+
+Option 2. Send it to public server
 
 ```
 gpg --list-keys --keyid-format LONG ztlevi.work@gmail.com
@@ -82,7 +88,7 @@ gpg --send-keys AAAAAAAAAAAAAAAA
  gpg: sending key AAAAAAAAAAAAAAAA to hkps://keys.openpgp.org
 ```
 
-Option 2. Generate and output the public to a file.
+Option 3. Generate and output the public to a file.
 
 ```
 gpg --export --armor --output ztlevi.gpg.pub ztlevi.work@gmail.com
