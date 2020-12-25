@@ -69,7 +69,7 @@ Add this gpg public key to Github->settings->SSH and GPG keys.
 
 ### Export public key
 
-Option 1: Upload to opengpg
+Option 1: Upload to opengpg, https://keys.openpgp.org/about/usage
 
 ```
 gpg --export ztlevi.work@gmail.com | curl -T - https://keys.openpgp.org
