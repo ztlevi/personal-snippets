@@ -99,7 +99,3 @@ gpg --export --armor --output ztlevi.gpg.pub ztlevi.work@gmail.com
 ```
 gpg --import ztlevi.gpg.pub
 ```
-
-## TODO: GPG Forwarding
-
-https://wiki.gnupg.org/AgentForwarding
