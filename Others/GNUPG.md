@@ -28,6 +28,15 @@ gpg --import-ownertrust otrust.txt
 gpgconf --kill gpg-agent
 ```
 
+## Test GPG
+
+```sh
+cd ~/Downloads
+echo "test" | gpg --encrypt -r ztlevi.work@gmail.com
+echo "test" | gpg --encrypt -r ztlevi.work@gmail.com > output
+gpg --decrypt output
+```
+
 ### (Optional) export specific key
 
 ```sh

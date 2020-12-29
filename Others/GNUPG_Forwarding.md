@@ -33,23 +33,32 @@ system even if your secret keys are not.
 **Note:** With [GnuPG](https://wiki.gnupg.org/GnuPG) >= 2.1.13 the location of the agents socket
 changed. To find out the name of the local socket, always use:
 
+```sh
 gpgconf --list-dir agent-extra-socket
+```
 
 this is the name of the extra socket on the local box. On the server the standard socket needs to be
 configured. Find this one out with
 
+```sh
 gpgconf --list-dir agent-socket
+```
 
 #### OpenSSH >= 6.7
 
 To your /.ssh/config you can add:
 
-Host gpgtunnel HostName server.domain RemoteForward <socket_on_remote_box>
-<extra_socket_on_local_box>
+```
+Host gpgtunnel
+HostName server.domain
+RemoteForward <socket_on_remote_box> <extra_socket_on_local_box>
+```
 
 If you can modify the servers settings you should put:
 
+```
 StreamLocalBindUnlink yes
+```
 
 Into /etc/ssh/sshd_config to enable automatic removal of stale sockets when connecting to the remote
 machine. Otherwise you will first have to remove the socket on the remote machine before forwarding
