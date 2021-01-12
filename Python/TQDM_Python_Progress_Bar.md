@@ -131,8 +131,12 @@ if __name__ == "__main__":
                 pbar.update()
                 # tqdm.write(str(a))
 
+        result = []
         for i in range(pbar.total):
-            pool.apply_async(myfunc, args=(i,), kwds={}, callback=update)
+            res = pool.apply_async(myfunc, args=(i,), kwds={}, callback=update)
+            result.append(res)
+        for res in result:
+            print(res.get())
         # tqdm.write('scheduled')
         pool.close()
         pool.join()
