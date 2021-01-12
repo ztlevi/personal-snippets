@@ -106,25 +106,29 @@ $ 7z a -bd -r backup.7z docs/ | grep Compressing |
 ```python
 import random
 import time
-from multiprocessing import Lock, Pool
+from multiprocessing import Lock, Manager, Pool
 
 from tqdm import tqdm
 
 
-def myfunc(a):
-    time.sleep(random.random())
+def myfunc(a, counter, lock):
+    time.sleep(random.random() / 100)
+    with lock:
+        counter.value += 1
     return a ** 2
 
 
 if __name__ == "__main__":
 
+    manager = Manager()
+    counter = manager.Value("i", 0)
     pool = Pool(2)
     """
     for _ in tqdm(pool.imap_unordered(myfunc, range(100)), total=100):
         pass
     """
     with tqdm(total=100) as pbar:
-        lock = Lock()
+        lock = manager.Lock()
 
         def update(*args, **kwargs):
             with lock:
@@ -132,12 +136,17 @@ if __name__ == "__main__":
                 # tqdm.write(str(a))
 
         result = []
+        results = []
         for i in range(pbar.total):
-            res = pool.apply_async(myfunc, args=(i,), kwds={}, callback=update)
+            res = pool.apply_async(
+                myfunc, args=(i, counter, lock), kwds={}, callback=update
+            )
             result.append(res)
         for res in result:
-            print(res.get())
+            results.append(res.get())
+        print(results)
         # tqdm.write('scheduled')
         pool.close()
         pool.join()
+        print(counter.value)
 ```
