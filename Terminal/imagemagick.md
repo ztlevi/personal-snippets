@@ -12,4 +12,7 @@ magick mogrify -monitor -format jpg *.HEIC
 
 # Optimize
 convert input.jpg -scale 20% -size 24% -quality [0..100] output.jpg
+for f in *.jpg; do
+    convert -strip -interlace Plane -gaussian-blur 0.05 -quality 60% -adaptive-resize 60% $f compress/$f
+done
 ```
